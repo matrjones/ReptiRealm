@@ -15,35 +15,11 @@ const nextConfig = {
   assetPrefix: isDev
     ? undefined
     : process.env.ENVIRONMENT_NAME === "stage"
-    ? `https://stage-images.traveltrekker.co.uk/${version}`
-    : `https://prod-images.traveltrekker.co.uk/${version}`,
+    ? `https://stage-images.repti-realm.co.uk/${version}`
+    : `https://prod-images.repti-realm.co.uk/${version}`,
   images: {
     unoptimized: false,
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "stage-images.traveltrekker.co.uk",
-        port: "",
-        pathname: "/images/**",
-      },
-      {
-        protocol: "https",
-        hostname: "prod-images.traveltrekker.co.uk",
-        port: "",
-        pathname: "/images/**",
-      },
-      {
-        protocol: "https",
-        hostname: "traveltrekker.s3.eu-west-1.amazonaws.com",
-        port: "",
-        pathname: "/images/**",
-      },
-      {
-        protocol: "https",
-        hostname: "lh5.googleusercontent.com",
-        port: "",
-        pathname: "/**",
-      },
     ],
   },
   pageExtensions: ["js", "jsx", "ts", "tsx", "graphql"],

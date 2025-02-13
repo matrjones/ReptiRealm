@@ -1,0 +1,44 @@
+name: Deploy Web
+on:
+  push:
+    branches:
+      - staging
+
+env:
+  BUILD_VERSION: ${{github.run_number}}
+  ACCOUNT_ID: 060795902215
+  PROJECT_NAME: reptile-realm
+  ENVIRONMENT_NAME: stage
+
+jobs:
+  stage:
+    name: Deploy Stage
+    runs-on: ubuntu-latest
+
+    container: ghcr.io/matrjones/deploy-aws:latest
+
+    permissions:
+      id-token: write
+      contents: read
+      packages: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Assume Role
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::060795902215:role/pipeline-role
+          aws-region: eu-west-1
+
+      - name: Build
+        run: ./frontend/scripts/web/build.sh stage
+
+      - name: Plan
+        run: ./frontend/scripts/web/plan.sh stage
+
+      - name: Apply
+        run: ./frontend/scripts/web/apply.sh stage
+      - name: Upload Artifacts to S3
+        run: ./frontend/scripts/web/upload.sh stage

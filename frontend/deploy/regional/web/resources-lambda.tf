@@ -1,12 +1,12 @@
 data "archive_file" "function_package" {
   type        = "zip"
   source_dir  = var.lambda_package_file_path
-  output_path = "traveltrekker-web.zip"
+  output_path = "repti-realm-web.zip"
 }
 
 resource "aws_lambda_function" "this" {
   filename         = data.archive_file.function_package.output_path
-  function_name    = "${var.environment}-travel-trekker-web"
+  function_name    = "${var.environment}-repti-realm-web"
   role             = aws_iam_role.this.arn
   handler          = "run.sh"
   runtime          = "nodejs18.x"

@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "static_images" {
-  bucket = "traveltrekker-images-${var.environment}"
+  bucket = "repti-realm-images-${var.environment}"
 }
 
 resource "aws_s3_bucket_cors_configuration" "cors" {

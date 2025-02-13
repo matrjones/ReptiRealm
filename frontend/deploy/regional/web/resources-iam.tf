@@ -1,5 +1,5 @@
 resource "aws_iam_role" "this" {
-  name = "${var.environment}-traveltrekker-web-role"
+  name = "${var.environment}-repti-realm-web-role"
 
   assume_role_policy = <<EOF
 {
@@ -31,7 +31,7 @@ data "aws_iam_policy_document" "this" {
 }
 
 resource "aws_iam_policy" "this" {
-  name   = "${var.environment}-traveltrekker-web-role-policy"
+  name   = "${var.environment}-repti-realm-web-role-policy"
   path   = "/"
   policy = data.aws_iam_policy_document.this.json
 }

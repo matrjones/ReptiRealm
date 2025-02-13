@@ -1,5 +1,5 @@
 #!/bin/bash -e
-. scripts/web/set-env.sh $1
+. frontend/scripts/web/set-env.sh $1
 
 echo $PLAN_FILE_PATH
 echo $TERRAGRUNT_DIRECTORY

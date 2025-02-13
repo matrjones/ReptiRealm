@@ -1,8 +1,8 @@
 #!/bin/bash -e
 
-. ./scripts/web/set-env.sh $1
+. ./frontend/scripts/web/set-env.sh $1
 
-pushd "${PWD}/source"
+pushd "${PWD}/frontend/source"
 
 if [ "$ENVIRONMENT_NAME" == "qa" ]; then
     rm -f ./.env.production
