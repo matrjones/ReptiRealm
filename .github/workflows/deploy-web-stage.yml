@@ -34,9 +34,9 @@ jobs:
 
       - name: Set execute permissions
         run: |
-          chmod +x ./backend/scripts/api/plan.sh
-          chmod +x ./backend/scripts/api/apply.sh
-          chmod +x ./backend/scripts/api/build.sh
+          chmod +x ./frontend/scripts/api/plan.sh
+          chmod +x ./frontend/scripts/api/apply.sh
+          chmod +x ./frontend/scripts/api/build.sh
 
       - name: Build
         run: ./frontend/scripts/web/build.sh stage
