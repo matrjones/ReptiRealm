@@ -37,6 +37,7 @@ jobs:
           chmod +x ./frontend/scripts/web/plan.sh
           chmod +x ./frontend/scripts/web/apply.sh
           chmod +x ./frontend/scripts/web/build.sh
+          chmod +x ./frontend/scripts/web/upload.sh
 
       - name: Build
         run: ./frontend/scripts/web/build.sh stage
