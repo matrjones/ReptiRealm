@@ -84,3 +84,4 @@ logs/
 
 frontend/node_modules
 frontend/source/node_modules
+frontend/source/.next
