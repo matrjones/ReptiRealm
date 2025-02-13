@@ -15,8 +15,8 @@ const nextConfig = {
   assetPrefix: isDev
     ? undefined
     : process.env.ENVIRONMENT_NAME === "stage"
-    ? `https://stage-images.repti-realm.co.uk/${version}`
-    : `https://prod-images.repti-realm.co.uk/${version}`,
+    ? `https://repti-realm-images-stage.s3.eu-west-1.amazonaws.com/${version}`
+    : `https://repti-realm-images-stage.s3.eu-west-1.amazonaws.com/${version}`,
   images: {
     unoptimized: false,
     remotePatterns: [
