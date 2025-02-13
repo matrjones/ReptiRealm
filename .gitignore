@@ -2,31 +2,83 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/API/ReptiRealm/.vs/ReptiRealm
-/.vs
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/bin/Debug/net8.0
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/ref
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/refint
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/staticwebassets
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/apphost.exe
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/ReptiRealm.AssemblyInfo.cs
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/ReptiRealm.AssemblyInfoInputs.cache
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/ReptiRealm.assets.cache
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/ReptiRealm.csproj.AssemblyReference.cache
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/ReptiRealm.csproj.BuildWithSkipAnalyzers
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/ReptiRealm.csproj.CopyComplete
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/ReptiRealm.csproj.CoreCompileInputs.cache
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/ReptiRealm.csproj.FileListAbsolute.txt
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/ReptiRealm.dll
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/ReptiRealm.GeneratedMSBuildEditorConfig.editorconfig
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/ReptiRealm.genruntimeconfig.cache
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/ReptiRealm.MvcApplicationPartsAssemblyInfo.cache
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/ReptiRealm.pdb
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/ReptiRealm.sourcelink.json
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0/staticwebassets.build.json
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/project.assets.json
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/project.nuget.cache
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/ReptiRealm.csproj.nuget.dgspec.json
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/ReptiRealm.csproj.nuget.g.props
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/obj/Debug/net8.0
-/API/ReptiRealm/ReptiRealm/src/ReptiRealm/ReptiRealm.csproj.user
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build artifacts
+bin/
+obj/
+
+# .NET Core
+*.dll
+*.exe
+*.so
+*.dylib
+*.pdb
+*.db
+*.log
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+project.assets.json
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+*.iml
+
+# Others
+*.cache
+*.diff
+*.patch
+*.orig
+*.rej
+*.bak
+*.swp
+*.swo
+
+# Static files
+wwwroot/static/
+wwwroot/staticwebassets/
+
+# User-specific files
+*.apphost.exe
+*.csproj.user
+*.db-shm
+*.db-wal
+*.sln.ide
+
+# Entity Framework
+migrations/
+
+# Local development secrets
+secrets.json
+.env
+
+# Docker
+**/docker-compose.override.yml
+**/.dockerignore
+
+# Logs
+*.log
+log/
+logs/
+
+# JetBrains Rider
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+
