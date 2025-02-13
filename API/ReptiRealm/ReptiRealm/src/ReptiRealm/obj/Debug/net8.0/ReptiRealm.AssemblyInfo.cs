@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ReptiRealm")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+998f01d20354d999dd097f921e623f0b57dc4214")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d18460f528fbbcec78418f41a242827696e1d104")]
 [assembly: System.Reflection.AssemblyProductAttribute("ReptiRealm")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ReptiRealm")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

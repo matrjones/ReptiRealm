@@ -622,19 +622,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Arran\\.nuget\\packages\\": {}
+    "C:\\Users\\matty\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Arran\\source\\repos\\matrjones\\ReptiRealm\\API\\ReptiRealm\\ReptiRealm\\src\\ReptiRealm\\ReptiRealm.csproj",
+      "projectUniqueName": "C:\\Users\\matty\\source\\repos\\matrjones\\ReptiRealm\\API\\ReptiRealm\\ReptiRealm\\src\\ReptiRealm\\ReptiRealm.csproj",
       "projectName": "ReptiRealm",
-      "projectPath": "C:\\Users\\Arran\\source\\repos\\matrjones\\ReptiRealm\\API\\ReptiRealm\\ReptiRealm\\src\\ReptiRealm\\ReptiRealm.csproj",
-      "packagesPath": "C:\\Users\\Arran\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Arran\\source\\repos\\matrjones\\ReptiRealm\\API\\ReptiRealm\\ReptiRealm\\src\\ReptiRealm\\obj\\",
+      "projectPath": "C:\\Users\\matty\\source\\repos\\matrjones\\ReptiRealm\\API\\ReptiRealm\\ReptiRealm\\src\\ReptiRealm\\ReptiRealm.csproj",
+      "packagesPath": "C:\\Users\\matty\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\matty\\source\\repos\\matrjones\\ReptiRealm\\API\\ReptiRealm\\ReptiRealm\\src\\ReptiRealm\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Arran\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\matty\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -654,7 +659,13 @@
         "warnAsError": [
           "NU1605"
         ]
-      }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "all"
+      },
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -679,7 +690,7 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.NETCore.App.Crossgen2.win-x64",
-            "version": "[8.0.1, 8.0.1]"
+            "version": "[8.0.11, 8.0.11]"
           }
         ],
         "frameworkReferences": {
@@ -690,7 +701,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
