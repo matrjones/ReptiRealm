@@ -1,0 +1,49 @@
+name: Deploy API
+on:
+  push:
+    branches:
+      - api-prod
+env:
+  ENVIRONMENT_NAME: prod
+jobs:
+  prod:
+    name: Deploy API Production
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      packages: read
+    container: ghcr.io/anthony-key/deploy-aws:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Assume Role
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::060795902215:role/pipeline-role
+          aws-region: eu-west-1
+
+      - name: Set execute permissions
+        run: |
+          chmod +x ./API/scripts/api/plan.sh
+          chmod +x ./API/scripts/api/apply.sh
+          chmod +x ./API/scripts/api/build.sh
+
+      - name: Install .NET SDK (Alpine)
+        run: |
+          apk add --no-cache \
+              bash \
+              curl \
+              dotnet8-sdk
+
+          dotnet --version
+
+      - name: Build API
+        run: ./API/scripts/api/build.sh prod
+
+      - name: Plan API
+        run: ./API/scripts/api/plan.sh prod
+
+      - name: Apply API
+        run: ./API/scripts/api/apply.sh prod
