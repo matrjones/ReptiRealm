@@ -26,13 +26,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Check for --no-push in commit message
-        run: |
-          if git log -1 --pretty=%B | grep -q -- "--no-push"; then
-            echo "Skipping deployment because --no-push is present in commit message."
-            exit 0
-          fi
-
       - name: Assume Role
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -54,6 +47,5 @@ jobs:
 
       - name: Apply
         run: ./frontend/scripts/web/apply.sh stage
-
       - name: Upload Artifacts to S3
         run: ./frontend/scripts/web/upload.sh stage

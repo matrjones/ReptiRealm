@@ -17,12 +17,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Check for --no-push in commit message
-        run: |
-          if git log -1 --pretty=%B | grep -q -- "--no-deploy"; then
-            echo "Skipping deployment because --no-deploy is present in commit message."
-            exit 0
-          fi
+
       - name: Assume Role
         uses: aws-actions/configure-aws-credentials@v1
         with:
