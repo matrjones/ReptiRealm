@@ -8,3 +8,13 @@ resource "aws_rds_cluster" "default" {
   backup_retention_period = 5
   preferred_backup_window = "07:00-09:00"
 }
+
+output "rds_cluster_endpoint" {
+  value = aws_rds_cluster.default.endpoint
+}
+
+resource "aws_ssm_parameter" "rds_connection_string" {
+  name  = "/ReptiRealm/rds_connection_string"
+  type  = "String"
+  value = "Server=${aws_db_instance.my_rds_instance.endpoint};Database=reptirealm${var.environment_name};User Id=reptirealm;Password=okndwuhgf093;"
+}
