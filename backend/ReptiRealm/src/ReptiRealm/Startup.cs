@@ -89,7 +89,7 @@ namespace ReptiRealm
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbInitializer dbInitializer)
         {
-            dbInitializer.Initialize();
+            //dbInitializer.Initialize();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
