@@ -9,6 +9,22 @@ resource "aws_rds_cluster" "default" {
   skip_final_snapshot     = true
   backup_retention_period = 0
   apply_immediately       = true
+
+  serverlessv2_scaling_configuration {
+    min_capacity = 0.5
+    max_capacity = 4.0
+  }
+}
+
+resource "aws_rds_cluster_instance" "serverless" {
+  identifier         = "reptirealm-instance-${var.environment_name}"
+  cluster_identifier = aws_rds_cluster.default.id
+  instance_class     = "db.serverless"
+  engine             = aws_rds_cluster.default.engine
+  engine_version     = aws_rds_cluster.default.engine_version
+
+  publicly_accessible = false
+  apply_immediately   = true
 }
 
 output "rds_cluster_endpoint" {
