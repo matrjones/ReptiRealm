@@ -30,7 +30,7 @@ jobs:
 
       - name: Set execute permissions
         run: |
-          chmod +x ./backend/scripts/api/refresh.sh
+          chmod +x ./backend/scripts/api/destroy.sh
 
       - name: Refresh Terraform
-        run: ./backend/scripts/api/refresh.sh stage
+        run: ./backend/scripts/api/destroy.sh stage
