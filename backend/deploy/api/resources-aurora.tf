@@ -6,8 +6,10 @@ resource "aws_rds_cluster" "default" {
   master_username    = "reptirealm"
   master_password    = "okndwuhgf093"
 
-  vpc_security_group_ids = [aws_security_group.rds_sg.id]
-  db_subnet_group_name   = aws_db_subnet_group.my_db_subnet_group.name
+  vpc_security_group_ids    = [aws_security_group.rds_sg.id]
+  db_subnet_group_name      = aws_db_subnet_group.my_db_subnet_group.name
+  skip_final_snapshot       = false
+  final_snapshot_identifier = "reptirealm-${get_env("ENVIRONMENT_NAME")}-final"
 }
 
 output "rds_cluster_endpoint" {
