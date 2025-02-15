@@ -20,39 +20,39 @@ namespace ReptiRealm
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.AddDbContext<ApplicationDbContext>(options =>
-            //     options.UseLazyLoadingProxies()
-            //            .UseMySql(Configuration.GetConnectionString("DatabaseConnection"),
-            //                      new MySqlServerVersion(new Version(8, 0, 33)))
-            // );
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseLazyLoadingProxies()
+                       .UseMySql(Configuration.GetConnectionString("DatabaseConnection"),
+                                 new MySqlServerVersion(new Version(8, 0, 33)))
+            );
 
 
             // For Identity  
-            // services.AddIdentity<ApplicationUser, IdentityRole>()
-            //     .AddEntityFrameworkStores<ApplicationDbContext>()
-            //     .AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddControllers();
             services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 
-            // services.AddAuthentication(options =>
-            // {
-            //     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            // }).AddJwtBearer(options =>
-            // {
-            //     options.SaveToken = true;
-            //     options.RequireHttpsMetadata = false;
-            //     options.TokenValidationParameters = new TokenValidationParameters()
-            //     {
-            //         ValidateIssuer = true,
-            //         ValidateAudience = true,
-            //         ValidAudience = Configuration.GetValue<string>("JWT:ValidAudience"),
-            //         ValidIssuer = Configuration.GetValue<string>("JWT:ValidIssuer"),
-            //         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetValue<string>("JWT:Secret")))
-            //     };
-            // });
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = Configuration.GetValue<string>("JWT:ValidAudience"),
+                    ValidIssuer = Configuration.GetValue<string>("JWT:ValidIssuer"),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetValue<string>("JWT:Secret")))
+                };
+            });
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddSwaggerGen(c =>
@@ -89,7 +89,7 @@ namespace ReptiRealm
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbInitializer dbInitializer)
         {
-            //dbInitializer.Initialize();
+            dbInitializer.Initialize();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
