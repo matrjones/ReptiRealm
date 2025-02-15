@@ -6,9 +6,8 @@ resource "aws_rds_cluster" "default" {
   master_username    = "reptirealm"
   master_password    = "okndwuhgf093"
 
-  skip_final_snapshot     = true
-  backup_retention_period = 0
-  apply_immediately       = true
+  skip_final_snapshot = true
+  apply_immediately   = true
 
   serverlessv2_scaling_configuration {
     min_capacity = 0.5
