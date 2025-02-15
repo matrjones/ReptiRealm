@@ -22,7 +22,7 @@ resource "aws_rds_cluster_instance" "serverless" {
   engine             = aws_rds_cluster.default.engine
   engine_version     = aws_rds_cluster.default.engine_version
 
-  publicly_accessible = false
+  publicly_accessible = true
   apply_immediately   = true
 }
 
