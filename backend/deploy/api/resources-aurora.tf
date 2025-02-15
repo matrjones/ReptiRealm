@@ -16,5 +16,5 @@ output "rds_cluster_endpoint" {
 resource "aws_ssm_parameter" "rds_connection_string" {
   name  = "/ReptiRealm/rds_connection_string"
   type  = "String"
-  value = "Server=${aws_db_instance.my_rds_instance.endpoint};Database=reptirealm${var.environment_name};User Id=reptirealm;Password=okndwuhgf093;"
+  value = "Server=${aws_rds_cluster.default.endpoint};Database=reptirealm${var.environment_name};User Id=reptirealm;Password=okndwuhgf093;"
 }
