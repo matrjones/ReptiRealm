@@ -7,7 +7,8 @@ namespace ReptiRealm
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Migrate<ApplicationDbContext>().Run();
+            //CreateHostBuilder(args).Build().Migrate<ApplicationDbContext>().Run();
+            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
