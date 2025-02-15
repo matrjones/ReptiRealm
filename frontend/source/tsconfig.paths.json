@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/app/(content)/*": ["app/(content)/*"],
+      "@/app/*": ["app/*"],
+      "@/public/*": ["public/*"],
+      "@/libs/*": ["libs/*"],
+      "@/styles/*": ["styles/*"],
+      "@/actions/*": ["actions/*"],
+      "@/types/*": ["types/*"],
+      "@/graphql/*": ["graphql/*"],
+      "@/fonts/*": ["fonts/*"],
+      "@/providers/*": ["providers/*"]
+    }
+  }
+}

@@ -1,0 +1,2 @@
+dotnet restore backend/ReptiRealm/src/ReptiRealm/ReptiRealm.csproj
+dotnet publish backend/ReptiRealm/src/ReptiRealm/ReptiRealm.csproj -c Release -r linux-x64 --self-contained false -o ./backend/ReptiRealm/publish/

@@ -1,0 +1,4 @@
+# .eslintignore
+
+# Ignore the Navigation.tsx file
+/components/Navigation.tsx
