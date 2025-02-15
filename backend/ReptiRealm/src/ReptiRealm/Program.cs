@@ -1,4 +1,5 @@
-using Microsoft.AspNetCore.Hosting;
+using ReptiRealm.Data;
+using ReptiRealm.Extensions;
 
 namespace ReptiRealm
 {
@@ -6,7 +7,7 @@ namespace ReptiRealm
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder(args).Build().Migrate<ApplicationDbContext>().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
