@@ -26,6 +26,7 @@ resource "aws_lambda_function" "repti-realm-api" {
   role             = aws_iam_role.repti-realm_role.arn
   handler          = "ReptiRealm"
   source_code_hash = data.archive_file.lambda.output_base64sha256
+  timeout          = 60
   runtime          = "dotnet8"
   depends_on       = [data.archive_file.lambda]
   environment {
