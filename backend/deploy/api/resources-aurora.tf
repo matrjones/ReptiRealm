@@ -6,8 +6,6 @@ resource "aws_rds_cluster" "default" {
   master_username    = "reptirealm"
   master_password    = "okndwuhgf093"
 
-  vpc_security_group_ids  = [aws_security_group.rds_sg.id]
-  db_subnet_group_name    = aws_db_subnet_group.my_db_subnet_group.name
   skip_final_snapshot     = true
   backup_retention_period = 0
   apply_immediately       = true
@@ -21,13 +19,4 @@ resource "aws_ssm_parameter" "rds_connection_string" {
   name  = "/ReptiRealm/rds_connection_string"
   type  = "String"
   value = "Server=${aws_rds_cluster.default.endpoint};Database=reptirealm${var.environment_name};User Id=reptirealm;Password=okndwuhgf093;"
-}
-
-resource "aws_db_subnet_group" "my_db_subnet_group" {
-  name       = "reptrealm-db-subnet-group-${var.environment_name}"
-  subnet_ids = [aws_subnet.subnet_a.id, aws_subnet.subnet_b.id]
-
-  tags = {
-    Name = "Subnet group for ReptiRealm RDS ${var.environment_name}"
-  }
 }
