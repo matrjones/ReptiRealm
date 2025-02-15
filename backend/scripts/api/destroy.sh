@@ -1,5 +1,4 @@
-
-. backend/scripts/api/set-vars.sh $1 $2
+. backend/scripts/api/set-vars.sh
 
 terragrunt run-all destroy \
     -auto-approve \

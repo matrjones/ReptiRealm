@@ -1,4 +1,4 @@
-name: Refresh Terraform
+name: Destroy
 on:
   workflow_dispatch:
     inputs:
@@ -11,7 +11,7 @@ env:
   ENVIRONMENT_NAME: stage
 jobs:
   qa:
-    name: Refresh Terraform
+    name: Destroy Terraform
     runs-on: ubuntu-latest
     permissions:
       id-token: write
