@@ -12,11 +12,15 @@ export default function Register() {
     event.preventDefault();
     setIsLoading(true);
 
-    const formData = new FormData(event.currentTarget);
-    const response = (await register(formData)) as string;
+    try {
+      const formData = new FormData(event.currentTarget);
+      const response = (await register(formData)) as string;
 
-    if (response.includes("success")) {
-      window.location.href = "/login";
+      if (response.includes("success")) {
+        window.location.href = "/login";
+      }
+    } catch (error: any) {
+      setIsLoading(false);
     }
 
     setIsLoading(false);

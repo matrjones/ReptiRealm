@@ -8,21 +8,29 @@ import Cookies from "js-cookie";
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
 
     const formData = new FormData(event.currentTarget);
-    const { success, token } = await login(formData);
 
-    if (success) {
-      Cookies.set("token", token, { path: "/", secure: true });
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      window.location.href = "/dashboard";
+    try {
+      const { success, token } = await login(formData);
+
+      if (success) {
+        Cookies.set("token", token, { path: "/", secure: true });
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        window.location.href = "/dashboard";
+      } else {
+        setIsLoading(false);
+        setStatus("Incorrect username or password");
+      }
+    } catch (error: any) {
+      setIsLoading(false);
+      setStatus(error.message || "An error occurred");
     }
-
-    setIsLoading(false);
   };
 
   return (
@@ -80,6 +88,7 @@ export default function Login() {
               {isLoading ? <Spinner w={5} h={5} /> : "Sign in"}
             </button>
           </div>
+          <h2 className="text-red-500">{status.length > 0 ? status : null}</h2>
         </form>
       </div>
     </div>
