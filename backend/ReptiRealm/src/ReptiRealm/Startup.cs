@@ -55,7 +55,7 @@ namespace ReptiRealm
 services.AddCors(options =>
 {
     options.AddDefaultPolicy(
-        builder => builder.WithOrigins("http://localhost:3000", "http://localhost:3000"/, "http://127.0.0.1:5173", "https://pineappleexplorers.com")
+        builder => builder.WithOrigins("http://localhost:3000", "http://localhost:3000", "http://127.0.0.1:5173", "https://pineappleexplorers.com")
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials());
