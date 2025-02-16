@@ -8,6 +8,7 @@ using System.Text;
 
 namespace ReptiRealm.Controllers
 {
+    [Route("[Controller]")]
     public class IdentityController : Controller
     {
         private readonly ILogger<IdentityController> logger;
