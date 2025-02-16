@@ -22,8 +22,7 @@ namespace ReptiRealm
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseLazyLoadingProxies()
-                       .UseMySql(Configuration.GetConnectionString("DatabaseConnection"),
-                                 new MySqlServerVersion(new Version(8, 0, 33)))
+                       .UseNpgsql(Configuration.GetConnectionString("DatabaseConnection"))
             );
 
 
