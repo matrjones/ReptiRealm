@@ -1,8 +1,6 @@
-"use client";
-
 export default function Home() {
   return (
-    <div className="w-full h-full bg-slate-100 ml-64 p-6">
+    <div className="w-full h-full bg-slate-100 pl-64 mt-12 p-6">
       <main className="w-full h-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="bg-white p-6 rounded-lg shadow-md">
