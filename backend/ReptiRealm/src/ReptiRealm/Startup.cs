@@ -52,7 +52,14 @@ namespace ReptiRealm
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetValue<string>("JWT:Secret")))
                 };
             });
-
+services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder => builder.WithOrigins("http://localhost:3000/", "http://127.0.0.1:5173", "https://pineappleexplorers.com/")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials());
+});
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddSwaggerGen(c =>
             {
