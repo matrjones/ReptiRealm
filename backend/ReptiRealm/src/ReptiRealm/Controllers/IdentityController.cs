@@ -3,10 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using ReptiRealm.Authentication;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace ReptiRealm.Controllers
 {
@@ -24,7 +22,6 @@ namespace ReptiRealm.Controllers
 
         [HttpPost]
         [Route("Login")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await userManager.FindByEmailAsync(model.Email);
