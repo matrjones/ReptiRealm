@@ -4,6 +4,7 @@ import { login } from "@/app/actions/auth";
 import Logo from "@/public/logo.svg";
 import Image from "next/image";
 import Spinner from "@/components/global/Spinner";
+import Cookies from "js-cookie";
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,7 +14,13 @@ export default function Login() {
     setIsLoading(true);
 
     const formData = new FormData(event.currentTarget);
-    await login(formData);
+    const { success, token } = await login(formData);
+
+    if (success) {
+      Cookies.set("token", token, { path: "/", secure: true });
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      window.location.href = "/dashboard";
+    }
 
     setIsLoading(false);
   };

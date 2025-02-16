@@ -11,7 +11,7 @@ export async function login(formData: FormData) {
 
   try {
     const response = await fetch(
-      "https://api-stage.pineappleexplorers.com/login",
+      "https://api-stage.pineappleexplorers.com/identity/login",
       {
         method: "POST",
         headers: {
@@ -22,7 +22,7 @@ export async function login(formData: FormData) {
     );
 
     const data = await response.json();
-    console.log(data);
+
     if (!response.ok) {
       throw new Error(data.message || "Login failed");
     }
@@ -43,22 +43,22 @@ export async function register(formData: FormData) {
 
   try {
     const response = await axios.post(
-      "https://api-stage.pineappleexplorers.com/register",
+      "https://api-stage.pineappleexplorers.com/identity/register",
       { email, password },
       { headers: { "Content-Type": "application/json" } }
     );
 
     console.log("Response data:", response.data);
-    return response.data; // Assuming the API returns { success: true, token: "..." }
+    return response.data;
   } catch (error: any) {
-    console.error("Axios error:", error); // Log full error object
+    console.error("Axios error:", error);
 
     return {
       error:
         error.response?.data?.message ||
         error.message ||
         "An unknown error occurred",
-      status: error.response?.status || 500, // Capture status code
+      status: error.response?.status || 500,
     };
   }
 }
