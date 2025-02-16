@@ -16,6 +16,8 @@ export async function login(formData: FormData) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "x-forwarded-host": "stage.pineappleexplorers.com",
+          origin: "https://stage.pineappleexplorers.com",
         },
         body: JSON.stringify({ email, password }),
       }
@@ -45,7 +47,13 @@ export async function register(formData: FormData) {
     const response = await axios.post(
       "https://api-stage.pineappleexplorers.com/identity/register",
       { email, password },
-      { headers: { "Content-Type": "application/json" } }
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "x-forwarded-host": "stage.pineappleexplorers.com",
+          origin: "https://stage.pineappleexplorers.com",
+        },
+      }
     );
 
     console.log("Response data:", response.data);
