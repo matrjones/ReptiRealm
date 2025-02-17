@@ -31,7 +31,7 @@ resource "aws_lambda_function" "repti-realm-api" {
   depends_on       = [data.archive_file.lambda]
   environment {
     variables = {
-      ASPNETCORE_ENVIRONMENT = "Development"
+      ASPNETCORE_ENVIRONMENT = "${var.environment_name == "stage" ? "Staging" : "Production"}"
     }
   }
 }
