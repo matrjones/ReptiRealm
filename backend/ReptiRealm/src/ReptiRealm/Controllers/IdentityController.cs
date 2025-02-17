@@ -39,8 +39,6 @@ namespace ReptiRealm.Controllers
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
 
                 var token = new JwtSecurityToken(
-                    issuer: configuration["JWT:ValidIssuer"],
-                    audience: HttpContext.Connection.RemoteIpAddress == null ? "Unknown" : HttpContext.Connection.RemoteIpAddress?.ToString(),
                     expires: DateTime.Now.AddDays(1),
                     claims: authClaims,
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)

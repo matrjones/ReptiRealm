@@ -41,30 +41,30 @@ namespace ReptiRealm
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                options.SaveToken = true;
-                options.RequireHttpsMetadata = false;
-                options.TokenValidationParameters = new TokenValidationParameters()
+                options.SaveToken = false;
+                options.RequireHttpsMetadata = true;
+
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidAudience = Configuration.GetValue<string>("JWT:ValidAudience"),
-                    ValidIssuer = Configuration.GetValue<string>("JWT:ValidIssuer"),
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetValue<string>("JWT:Secret")))
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidAudiences = Configuration["JWT:ValidAudiences"].Split(';'),
+                    ValidIssuer = Configuration["JWT:ValidIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"])),
+                    ClockSkew = TimeSpan.Zero
                 };
             });
-services.AddCors(options =>
-{
-    options.AddDefaultPolicy(
-builder => builder.WithOrigins(
-    "http://localhost:3000",
-    "http://127.0.0.1:5173",
-    "https://pineappleexplorers.com",
-    "https://stage.pineappleexplorers.com"
-)
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowCredentials());
-});
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder => builder.WithOrigins(Configuration["CORS"].Split(';'))
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+            });
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddSwaggerGen(c =>
             {
