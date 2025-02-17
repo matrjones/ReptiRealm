@@ -1,0 +1,40 @@
+name: Flutter Build Pipeline
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  android-build:
+    name: Build & Upload Android APK & AAB
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.0
+          cache: true
+
+      - name: Set execute permissions for scripts
+        run: |
+          chmod +x ./app/scripts/app/*.sh
+
+      - name: Build Android APK & AAB
+        run: ./app/scripts/app/build.sh stage
+
+      - name: Upload APK as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-apk
+          path: app/build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Upload AAB as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-aab
+          path: app/build/app/outputs/bundle/release/app-release.aab
