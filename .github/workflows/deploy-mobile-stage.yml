@@ -22,7 +22,7 @@ jobs:
 
       - name: Set execute permissions for scripts
         run: |
-          chmod +x ./app/scripts/app/*.sh
+          chmod +x ./app/scripts/app/build.sh
 
       - name: Build Android APK & AAB
         run: ./app/scripts/app/build.sh stage
