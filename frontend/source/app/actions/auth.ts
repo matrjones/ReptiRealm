@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_BASE_URL } from "utils/globals";
 
 export async function login(formData: FormData) {
   const email = formData.get("email") as string;
@@ -9,16 +10,13 @@ export async function login(formData: FormData) {
   }
 
   try {
-    const response = await fetch(
-      "https://api-stage.pineappleexplorers.com/identity/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      }
-    );
+    const response = await fetch(`${API_BASE_URL}/identity/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
 
     const data = await response.json();
 
@@ -42,7 +40,7 @@ export async function register(formData: FormData) {
 
   try {
     const response = await axios.post(
-      "https://api-stage.pineappleexplorers.com/identity/register",
+      `${API_BASE_URL}/identity/register`,
       { email, password },
       { headers: { "Content-Type": "application/json" } }
     );
