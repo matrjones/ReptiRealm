@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using ReptiRealm.Authentication;
 
 namespace ReptiRealm.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Roles(UserRoles.User)]
     public class CalculatorController : ControllerBase
     {
         private readonly ILogger<CalculatorController> _logger;
