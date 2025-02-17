@@ -17,8 +17,12 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.0
+          flutter-version: 3.29.0
           cache: true
+
+      - name: Get Path
+        run: |
+          ls -a
 
       - name: Set execute permissions for scripts
         run: |
