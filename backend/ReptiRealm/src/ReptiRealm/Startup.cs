@@ -108,7 +108,7 @@ namespace ReptiRealm
             app.UseCors();
             app.UseAuthorization();
 
-            if(env.IsDevelopment())
+            if(env.IsDevelopment() || env.IsStaging())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
