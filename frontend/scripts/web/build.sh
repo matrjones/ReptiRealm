@@ -4,7 +4,7 @@
 
 pushd "${PWD}/frontend/source"
 
-if [ "$ENVIRONMENT_NAME" == "qa" ]; then
+if [ "$ENVIRONMENT_NAME" == "stage" ]; then
     rm -f ./.env.production
     mv ./.env.staging ./.env.production
 fi
