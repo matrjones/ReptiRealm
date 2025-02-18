@@ -50,9 +50,9 @@ export default function Home() {
         {showFilter && <Filter />}
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 h-[400px]">
-            <div className="bg-white animate-pulse p-6 rounded-lg shadow-md items-center justify-center flex" />
-            <div className="bg-white animate-pulse p-6 rounded-lg shadow-md items-center justify-center flex" />
-            <div className="bg-white animate-pulse p-6 rounded-lg shadow-md items-center justify-center flex" />
+            <div className="bg-gray-300 animate-pulse p-6 rounded-lg shadow-md items-center justify-center flex" />
+            <div className="bg-gray-300 animate-pulse p-6 rounded-lg shadow-md items-center justify-center flex" />
+            <div className="bg-gray-300 animate-pulse p-6 rounded-lg shadow-md items-center justify-center flex" />
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
