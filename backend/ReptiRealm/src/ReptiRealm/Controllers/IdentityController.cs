@@ -39,6 +39,8 @@ namespace ReptiRealm.Controllers
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
 
                 var token = new JwtSecurityToken(
+                    issuer: configuration["JWT:ValidIssuer"],
+                    audience: configuration["JWT:ValidAudiences"].Split(';').First(),
                     expires: DateTime.Now.AddDays(1),
                     claims: authClaims,
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
@@ -51,6 +53,7 @@ namespace ReptiRealm.Controllers
                     username = user.UserName,
                 });
             }
+
             return Unauthorized();
         }
 

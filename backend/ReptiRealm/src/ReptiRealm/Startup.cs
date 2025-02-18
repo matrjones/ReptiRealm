@@ -106,6 +106,7 @@ namespace ReptiRealm
             app.UseStaticFiles();
             app.UseRouting();
             app.UseCors();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             if(env.IsDevelopment() || env.IsStaging())
