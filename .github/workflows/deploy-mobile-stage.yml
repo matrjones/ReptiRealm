@@ -26,7 +26,7 @@ jobs:
 
       - name: Set execute permissions for scripts
         run: |
-          chmod +x ./App/scripts/app/build.sh stage
+          chmod +x ./App/scripts/app/build.sh
 
       - name: Build Android APK & AAB
         run: ./App/scripts/app/build.sh stage
