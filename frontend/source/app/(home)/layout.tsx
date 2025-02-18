@@ -4,7 +4,7 @@ import "@/styles/globals.css";
 import Navbar from "@/components/global/home/Navbar";
 
 export const metadata: Metadata = {
-  title: "ReptRealm",
+  title: "ReptiRealm",
   description: "A reptile tracking app",
 };
 
