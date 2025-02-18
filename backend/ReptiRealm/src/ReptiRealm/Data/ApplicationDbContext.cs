@@ -15,12 +15,28 @@ namespace ReptiRealm.Data
         {
         }
 
-        //public DbSet<Company> Companies { get; set; }
+        public DbSet<Defecation> Defecations { get; set; }
+        public DbSet<Feed> Feeds { get; set; }
+        public DbSet<FoodType> FoodTypes { get; set; }
+        public DbSet<Morph> Morphs { get; set; }
+        public DbSet<Regurgitation> Regurgitations { get; set; }
+        public DbSet<Reptile> Reptiles { get; set; }
+        public DbSet<Shed> Sheds { get; set; }
+        public DbSet<Species> Species { get; set; }
+        public DbSet<Weight> Weights { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.Entity<Company>().ToTable("Companies");
+            modelBuilder.Entity<Defecation>().ToTable("Defecations");
+            modelBuilder.Entity<Feed>().ToTable("Feeds");
+            modelBuilder.Entity<Morph>().ToTable("Morphs");
+            modelBuilder.Entity<FoodType>().ToTable("FoodTypes");
+            modelBuilder.Entity<Regurgitation>().ToTable("Regurgitations");
+            modelBuilder.Entity<Reptile>().ToTable("Reptiles");
+            modelBuilder.Entity<Shed>().ToTable("Sheds");
+            modelBuilder.Entity<Species>().ToTable("Species");
+            modelBuilder.Entity<Weight>().ToTable("Weight");
         }
 
         public override int SaveChanges()
