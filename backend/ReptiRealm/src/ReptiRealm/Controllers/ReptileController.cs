@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ReptiRealm.Authentication;
 using ReptiRealm.Data.DAL.WorkUnits;
 using ReptiRealm.Models;
@@ -58,7 +59,11 @@ namespace ReptiRealm.Controllers
         {
             try
             {
-                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                var user = await userManager.Users
+                    .Include(u => u.Reptiles)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+
                 if (!user.Reptiles.Any(r => r.Id == reptile.Id))
                 {
                     return Unauthorized();
