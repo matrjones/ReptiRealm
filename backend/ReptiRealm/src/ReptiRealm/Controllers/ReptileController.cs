@@ -51,5 +51,52 @@ namespace ReptiRealm.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("Update")]
+        public async Task<IActionResult> Update([FromBody] Reptile reptile)
+        {
+            try
+            {
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                if (!user.Reptiles.Contains(reptile))
+                {
+                    return Unauthorized();
+                }
+
+                workUnit.ReptileRepository.Update(reptile);
+                workUnit.Save();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("Delete")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            try
+            {
+                var reptile = workUnit.ReptileRepository.GetByID(id);
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                if(!user.Reptiles.Contains(reptile))
+                {
+                    return Unauthorized();
+                }
+
+                user.Reptiles.Remove(reptile);
+                await userManager.UpdateAsync(user);
+                workUnit.ReptileRepository.Delete(reptile);
+                workUnit.Save();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
