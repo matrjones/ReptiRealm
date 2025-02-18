@@ -58,9 +58,6 @@ wwwroot/staticwebassets/
 *.db-wal
 *.sln.ide
 
-# Entity Framework
-migrations/
-
 # Local development secrets
 secrets.json
 .env
