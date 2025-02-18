@@ -2,6 +2,7 @@
 import { getReptiles } from "@/app/actions/reptile";
 import Filter from "@/components/global/Filter";
 import Spinner from "@/components/global/Spinner";
+import ReptileCard from "@/components/reptile/ReptileCard";
 import ImageNotFound from "@/public/placeholder-image.jpg";
 import { AnimalForm } from "@/types/types";
 import { useEffect, useState } from "react";
@@ -56,32 +57,7 @@ export default function Home() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {reptiles.map((reptile, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-                <img
-                  src={ImageNotFound.src}
-                  alt={reptile.name}
-                  className="w-full h-48 object-cover rounded-md"
-                />
-                <h2 className="text-xl font-semibold mt-4">{reptile.name}</h2>
-                <p className="text-gray-500 mt-1">
-                  Tracking progress & feeding schedule
-                </p>
-                <div className="mt-4">
-                  <p className="text-sm text-gray-600 mb-1">
-                    Next Feed In: {reptile.sex}
-                  </p>
-                  <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
-                    <div
-                      className="h-full bg-green-500 transition-all duration-500"
-                      style={{ width: reptile.morphs.length }}
-                    ></div>
-                  </div>
-                </div>
-                <div className="mt-4 flex justify-between text-sm text-gray-700">
-                  <span>Temperature:</span>
-                  <span className="font-medium">{reptile.morphs[0].name}</span>
-                </div>
-              </div>
+              <ReptileCard key={index} reptile={reptile} />
             ))}
           </div>
         )}
