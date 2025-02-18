@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ReptiRealm.Authentication;
+using ReptiRealm.Data.DAL.WorkUnits;
+using ReptiRealm.Models;
 
 namespace ReptiRealm.Controllers
 {
@@ -9,17 +11,45 @@ namespace ReptiRealm.Controllers
     public class ReptileController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
-        public ReptileController(UserManager<ApplicationUser> userManager)
+        private readonly ReptileWorkUnit workUnit;
+        public ReptileController(UserManager<ApplicationUser> userManager, ReptileWorkUnit workUnit)
         {
             this.userManager = userManager;
+            this.workUnit = workUnit;
         }
 
         [HttpGet]
         [Route("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var user = await userManager.FindByNameAsync(User.Identity.Name);
-            return Ok(user.Reptiles);
+            try
+            {
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                return Ok(user.Reptiles);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("Create")]
+        public async Task<IActionResult> Create([FromBody]Reptile reptile)
+        {
+            try
+            {
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                workUnit.ReptileRepository.Insert(reptile);
+                workUnit.Save();
+                user.Reptiles.Add(reptile);
+                await userManager.UpdateAsync(user);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

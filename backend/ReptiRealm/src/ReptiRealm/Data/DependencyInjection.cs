@@ -1,4 +1,6 @@
-﻿namespace ReptiRealm.Data
+﻿using ReptiRealm.Data.DAL.WorkUnits;
+
+namespace ReptiRealm.Data
 {
     public static class DependencyInjection
     {
@@ -6,6 +8,9 @@
         {
             //Database Initialization
             services.AddScoped<IDbInitializer, DbInitializer>();
+
+            //Work Units
+            services.AddTransient<ReptileWorkUnit>();
 
             return services;
         }
