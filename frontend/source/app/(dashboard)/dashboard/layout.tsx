@@ -3,7 +3,7 @@ import "@/styles/globals.css";
 import Navbar from "@/components/global/dashboard/Navbar";
 
 export const metadata: Metadata = {
-  title: "ReptRealm",
+  title: "ReptiRealm",
   description: "A reptile tracking app",
 };
 
