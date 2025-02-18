@@ -20,10 +20,6 @@ jobs:
           flutter-version: 3.29.0
           cache: true
 
-      - name: Get Path
-        run: |
-          ls -a
-
       - name: Set execute permissions for scripts
         run: |
           chmod +x ./App/scripts/app/build.sh
