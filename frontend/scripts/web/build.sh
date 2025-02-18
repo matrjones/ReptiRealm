@@ -6,7 +6,7 @@ pushd "${PWD}/frontend/source"
 
 if [ "$ENVIRONMENT_NAME" == "qa" ]; then
     rm -f ./.env.production
-    mv ./.env.qa ./.env.production
+    mv ./.env.staging ./.env.production
 fi
 
 yarn install
