@@ -59,7 +59,7 @@ namespace ReptiRealm.Controllers
             try
             {
                 var user = await userManager.FindByNameAsync(User.Identity.Name);
-                if (!user.Reptiles.Contains(reptile))
+                if (!user.Reptiles.Any(r => r.Id == reptile.Id))
                 {
                     return Unauthorized();
                 }
