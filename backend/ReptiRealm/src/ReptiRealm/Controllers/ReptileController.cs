@@ -73,6 +73,9 @@ namespace ReptiRealm.Controllers
                     return Unauthorized();
                 }
 
+                reptile.Morphs = reptile.Morphs?.Select(m => workUnit.MorphRepository.Get(x => x.Name == m.Name).FirstOrDefault() ?? m).ToList();
+                reptile.Species = workUnit.SpeciesRepository.Get(x => x.Name == reptile.Species!.Name).FirstOrDefault() ?? reptile.Species;
+
                 workUnit.ReptileRepository.Update(reptile);
                 workUnit.Save();
                 return Ok();
