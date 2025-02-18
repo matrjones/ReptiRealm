@@ -40,11 +40,15 @@ namespace ReptiRealm.Controllers
         {
             try
             {
-                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                var user = await userManager.FindByNameAsync(User!.Identity!.Name!);
+
+                reptile.Morphs = reptile.Morphs?.Select(m => workUnit.MorphRepository.Get(x => x.Name == m.Name).FirstOrDefault() ?? m).ToList();
+                reptile.Species = workUnit.SpeciesRepository.Get(x => x.Name == reptile.Species!.Name).FirstOrDefault() ?? reptile.Species;
+
                 workUnit.ReptileRepository.Insert(reptile);
                 workUnit.Save();
-                user.Reptiles.Add(reptile);
-                await userManager.UpdateAsync(user);
+                user!.Reptiles?.Add(reptile);
+                await userManager.UpdateAsync(user!);
                 return Ok();
             }
             catch (Exception ex)
