@@ -1,3 +1,4 @@
+import { AnimalForm } from "@/types/types";
 import axios from "axios";
 import { API_BASE_URL, GET_TOKEN } from "utils/globals";
 
@@ -10,8 +11,6 @@ export async function createReptile(body: string) {
       },
     });
 
-    console.log(response.data);
-
     return { success: true };
   } catch (error: any) {
     console.error("Axios error:", error);
@@ -23,5 +22,22 @@ export async function createReptile(body: string) {
         "An unknown error occurred",
       status: error.response?.status || 500,
     };
+  }
+}
+
+export async function getReptiles(): Promise<AnimalForm[] | string> {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/reptile/getall`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${GET_TOKEN}`,
+      },
+    });
+
+    const data = response.data as AnimalForm[];
+    return data;
+  } catch (error: any) {
+    console.error("Axios error:", error);
+    return `An unknown error occurred ${error}`;
   }
 }
