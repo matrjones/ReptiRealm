@@ -11,7 +11,6 @@ flutter clean
 flutter pub get
 
 echo "Building Android APK..."
-flutter fix
 flutter build apk --release
 
 echo "Building Android App Bundle..."
