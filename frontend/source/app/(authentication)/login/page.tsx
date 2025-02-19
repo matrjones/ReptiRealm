@@ -85,7 +85,7 @@ export default function Login() {
               disabled={isLoading}
               className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-green-500 focus-visible:outline-2 focus-visible:outline-green-600 disabled:bg-green-400 disabled:cursor-not-allowed"
             >
-              {isLoading ? <Spinner w={5} h={5} /> : "Sign in"}
+              {isLoading ? <Spinner w={20} h={20} /> : "Sign in"}
             </button>
           </div>
           <h2 className="text-red-500">{status.length > 0 ? status : null}</h2>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ReptiRealm.Authentication;
 using ReptiRealm.Data.DAL.WorkUnits;
 using ReptiRealm.Models;
@@ -39,11 +40,15 @@ namespace ReptiRealm.Controllers
         {
             try
             {
-                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                var user = await userManager.FindByNameAsync(User!.Identity!.Name!);
+
+                reptile.Morphs = reptile.Morphs?.Select(m => workUnit.MorphRepository.Get(x => x.Name == m.Name).FirstOrDefault() ?? m).ToList();
+                reptile.Species = workUnit.SpeciesRepository.Get(x => x.Name == reptile.Species!.Name).FirstOrDefault() ?? reptile.Species;
+
                 workUnit.ReptileRepository.Insert(reptile);
                 workUnit.Save();
-                user.Reptiles.Add(reptile);
-                await userManager.UpdateAsync(user);
+                user!.Reptiles?.Add(reptile);
+                await userManager.UpdateAsync(user!);
                 return Ok();
             }
             catch (Exception ex)
@@ -58,11 +63,18 @@ namespace ReptiRealm.Controllers
         {
             try
             {
-                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                var user = await userManager.Users
+                    .Include(u => u.Reptiles)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+
                 if (!user.Reptiles.Any(r => r.Id == reptile.Id))
                 {
                     return Unauthorized();
                 }
+
+                reptile.Morphs = reptile.Morphs?.Select(m => workUnit.MorphRepository.Get(x => x.Name == m.Name).FirstOrDefault() ?? m).ToList();
+                reptile.Species = workUnit.SpeciesRepository.Get(x => x.Name == reptile.Species!.Name).FirstOrDefault() ?? reptile.Species;
 
                 workUnit.ReptileRepository.Update(reptile);
                 workUnit.Save();
