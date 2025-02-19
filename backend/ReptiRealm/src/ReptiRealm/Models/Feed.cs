@@ -13,5 +13,6 @@ namespace ReptiRealm.Models
         public string? Comment { get; set; }
         [Required]
         public required virtual FoodType FoodType { get; set; }
+        public virtual Regurgitation? Regurgitation { get; set; }
     }
 }

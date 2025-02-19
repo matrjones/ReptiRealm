@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:reptirealm/pages/core_pages/my_reptiles_homepage.dart';
+
 
 void main() {
   runApp(const ReptiRealmApp());
 }
+
 
 class ReptiRealmApp extends StatelessWidget {
   const ReptiRealmApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Home')),
-        body: const Center(
-          child: Text('Hello, world!'),
-        ),
-      ),
+    return const MaterialApp(
+      home: MyReptiles()
     );
   }
 }
