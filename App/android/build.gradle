@@ -1,3 +1,9 @@
+buildscript {
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.0' // Ensure AGP is at least 8.1.0
+    }
+}
+
 allprojects {
     repositories {
         google()
