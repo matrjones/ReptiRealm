@@ -27,18 +27,14 @@ jobs:
       - name: Build Android APK & AAB
         run: ./App/scripts/app/build.sh stage
 
-      - name: Set execute permissions for scripts
-        run: |
-          ls -a
-
       - name: Upload APK as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-release-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: App/build/app/outputs/flutter-apk/app-release.apk
 
       - name: Upload AAB as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-release-aab
-          path: build/app/outputs/bundle/release/app-release.aab
+          path: App/build/app/outputs/bundle/release/app-release.aab
