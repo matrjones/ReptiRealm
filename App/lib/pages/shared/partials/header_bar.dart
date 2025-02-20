@@ -16,21 +16,17 @@ class _HeaderBarState extends State<HeaderBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        AppBar(
-          title: const Text(
-            "ReptiRealm",
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              color: Colors.yellow,
-            )
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.black,
+    return AppBar(
+      title: const Text(
+        "ReptiRealm",
+        style: TextStyle(
+          fontSize: 32,
+          fontWeight: FontWeight.bold,
+          color: Colors.yellow,
         ),
-      ],
+      ),
+      centerTitle: true,
+      backgroundColor: Colors.black,
     );
   }
 }

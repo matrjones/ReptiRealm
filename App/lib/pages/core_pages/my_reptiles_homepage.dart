@@ -1,24 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:reptirealm/pages/shared/partials/header_bar.dart';
+import '../core_pages/widgets/search_bar.dart';
+import '../shared/partials/header_bar.dart';
+import '../shared/partials/navigation_bar.dart';
 
 class MyReptiles extends StatefulWidget {
-  const MyReptiles ({super.key});
+  const MyReptiles({super.key});
 
   @override
-  State<MyReptiles> createState() => _HomepageState();
+  State<MyReptiles> createState() => _MyReptilesState();
 }
 
+class _MyReptilesState extends State<MyReptiles> {
+  final TextEditingController searchController = TextEditingController();
 
-class _HomepageState extends State<MyReptiles> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        appBar: HeaderBar(),
-        body: Center(
-          child: Text('Individual reptile cards go here'),
-        ),
+    return Scaffold(
+
+      appBar: const HeaderBar(),
+
+      body: Column(
+        children: [
+          MySearchBar(
+            controller: searchController,
+            text: 'Search reptiles...',
+          ),
+          const Expanded(
+            child: Center(
+              child: Text("Page content"),
+            ),
+          ),
+        ],
       ),
+
+      bottomNavigationBar: const NavBar(),
     );
   }
 }
