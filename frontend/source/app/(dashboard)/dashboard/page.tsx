@@ -1,9 +1,7 @@
 "use client";
 import { getReptiles } from "@/app/actions/reptile";
 import Filter from "@/components/global/Filter";
-import Spinner from "@/components/global/Spinner";
 import ReptileCard from "@/components/reptile/ReptileCard";
-import ImageNotFound from "@/public/placeholder-image.jpg";
 import { AnimalForm } from "@/types/types";
 import { useEffect, useState } from "react";
 
@@ -24,7 +22,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full h-full pl-64 mt-12 p-6">
+    <div className="w-full h-full pl-64">
       <main className="w-full h-full p-5">
         <div className="mb-6">
           <div className="flex items-center justify-between justw-full rounded-xl border border-gray-200 bg-white p-6">
@@ -40,7 +38,7 @@ export default function Home() {
                 onClick={() => {
                   window.location.href = "/dashboard/add";
                 }}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition"
+                className="px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition"
               >
                 Add
               </button>
