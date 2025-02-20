@@ -1,14 +1,19 @@
 "use client";
-import { getReptiles } from "@/app/actions/reptile";
+import { deleteReptileById, getReptiles } from "@/app/actions/reptile";
 import Filter from "@/components/global/Filter";
 import ReptileCard from "@/components/reptile/ReptileCard";
 import { AnimalForm } from "@/types/types";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [showFilter, setShowFilter] = useState<boolean>(false);
   const [reptiles, setReptiles] = useState<AnimalForm[]>([]);
+  const [showFilter, setShowFilter] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const removeReptileFromList = async (id: string): Promise<void> => {
+    await deleteReptileById(id);
+    setReptiles((prevReptiles) => prevReptiles.filter((r) => r.id !== id));
+  };
 
   useEffect(() => {
     const fetchReptiles = async () => {
@@ -25,7 +30,7 @@ export default function Home() {
     <div className="w-full h-full pl-64">
       <main className="w-full h-full p-5">
         <div className="mb-6">
-          <div className="flex items-center justify-between justw-full rounded-xl border border-gray-200 bg-white p-6">
+          <div className="flex items-center justify-between justw-full rounded-lg shadow-md border border-gray-200 bg-white p-6">
             <h2 className="text-stone-700 text-xl font-bold">Dashboard</h2>
             <div className="flex gap-4">
               <button
@@ -36,7 +41,7 @@ export default function Home() {
               </button>
               <button
                 onClick={() => {
-                  window.location.href = "/dashboard/add";
+                  window.location.href = "/dashboard/reptiles/add";
                 }}
                 className="px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition"
               >
@@ -55,7 +60,11 @@ export default function Home() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {reptiles.map((reptile, index) => (
-              <ReptileCard key={index} reptile={reptile} />
+              <ReptileCard
+                key={index}
+                reptile={reptile}
+                onDelete={removeReptileFromList}
+              />
             ))}
           </div>
         )}

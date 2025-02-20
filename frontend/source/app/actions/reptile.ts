@@ -41,3 +41,41 @@ export async function getReptiles(): Promise<AnimalForm[] | string> {
     return `An unknown error occurred ${error}`;
   }
 }
+
+export async function deleteReptileById(id: string): Promise<boolean | string> {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/Reptile/Delete?id=${id}`,
+      null,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${GET_TOKEN}`,
+        },
+      }
+    );
+
+    const data = response.data;
+    return data;
+  } catch (error: any) {
+    console.error("Axios error:", error);
+    return `An unknown error occurred ${error}`;
+  }
+}
+
+export async function getReptileById(id: string): Promise<boolean | string> {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/Reptile/Get?id=${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${GET_TOKEN}`,
+      },
+    });
+
+    const data = response.data;
+    return data;
+  } catch (error: any) {
+    console.error("Axios error:", error);
+    return `An unknown error occurred ${error}`;
+  }
+}
