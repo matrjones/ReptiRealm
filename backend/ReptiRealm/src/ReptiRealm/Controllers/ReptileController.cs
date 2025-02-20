@@ -24,6 +24,21 @@ namespace ReptiRealm.Controllers
         }
 
         [HttpGet]
+        [Route("Get")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            try
+            {
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                return Ok(user.Reptiles.First(r => r.Id == id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
         [Route("GetAll")]
         public async Task<IActionResult> GetAll()
         {
