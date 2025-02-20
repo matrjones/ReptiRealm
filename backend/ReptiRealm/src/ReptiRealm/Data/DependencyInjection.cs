@@ -1,4 +1,5 @@
 ﻿using ReptiRealm.Data.DAL.WorkUnits;
+using ReptiRealm.Services;
 
 namespace ReptiRealm.Data
 {
@@ -8,6 +9,7 @@ namespace ReptiRealm.Data
         {
             //Database Initialization
             services.AddScoped<IDbInitializer, DbInitializer>();
+            services.AddScoped<IHangfireService, HangfireService>();
 
             //Work Units
             services.AddTransient<ReptileWorkUnit>();

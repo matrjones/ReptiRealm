@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ReptiRealm.Authentication;
 using ReptiRealm.Data.DAL.WorkUnits;
 using ReptiRealm.Models;
+using ReptiRealm.Services;
 
 namespace ReptiRealm.Controllers
 {
@@ -13,10 +14,13 @@ namespace ReptiRealm.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ReptileWorkUnit workUnit;
-        public ReptileController(UserManager<ApplicationUser> userManager, ReptileWorkUnit workUnit)
+        private readonly IHangfireService hangfireService;
+
+        public ReptileController(UserManager<ApplicationUser> userManager, ReptileWorkUnit workUnit, IHangfireService hangfireService)
         {
             this.userManager = userManager;
             this.workUnit = workUnit;
+            this.hangfireService = hangfireService;
         }
 
         [HttpGet]

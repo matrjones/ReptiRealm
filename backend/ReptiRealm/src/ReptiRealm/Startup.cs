@@ -6,6 +6,9 @@ using ReptiRealm.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Hangfire;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Hangfire.PostgreSql;
 
 namespace ReptiRealm
 {
@@ -65,6 +68,11 @@ namespace ReptiRealm
                 .AllowCredentials());
             });
 
+            services.AddHangfire(config =>
+                config.UsePostgreSqlStorage(Configuration.GetConnectionString("DatabaseConnection"))
+            );
+            services.AddHangfireServer();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddSwaggerGen(c =>
             {
@@ -113,6 +121,10 @@ namespace ReptiRealm
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.UseHangfireDashboard("/hangfire", new DashboardOptions
+                {
+                    Authorization = new[] { new MyAuthorizationFilter() }
+                });
             }
 
             app.UseEndpoints(endpoints =>
