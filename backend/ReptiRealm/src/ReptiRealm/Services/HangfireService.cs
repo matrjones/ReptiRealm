@@ -4,8 +4,8 @@ namespace ReptiRealm.Services
 {
     public class HangfireService : IHangfireService
     {
-        private ILogger logger;
-        public HangfireService(ILogger logger) 
+        private ILogger<HangfireService> logger;
+        public HangfireService(ILogger<HangfireService> logger) 
         { 
             this.logger = logger;
         }
