@@ -1,42 +1,48 @@
 import 'package:flutter/material.dart';
 
-class NavBar extends StatefulWidget {
-  const NavBar({super.key});
 
-  @override
-  State<NavBar> createState() => _NavBarState();
-}
+class NavBar extends StatelessWidget {
+  final int currentIndex;
+  final Function(int) onItemTapped;
 
-class _NavBarState extends State<NavBar> {
-
-  int _selectedIndex = 0;
-
-  // Function to handle navigation between tabs
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  const NavBar({
+    super.key,
+    required this.currentIndex,
+    required this.onItemTapped,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      currentIndex: _selectedIndex,
-      onTap: _onItemTapped,
-      items: const[
+      currentIndex: currentIndex,
+      type: BottomNavigationBarType.fixed,
+      onTap: onItemTapped,
+      items: const [
+
+        // MY REPTILES BUTTON
         BottomNavigationBarItem(
           icon: Icon(Icons.pets),
           label: 'My Reptiles',
         ),
+
+        // PAGE 2 BUTTON
         BottomNavigationBarItem(
           icon: Icon(Icons.notifications),
-          label: 'Notifications',
+          label: 'Page 2',
         ),
+
+        // PAGE 3 BUTTON
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Page 3',
+        ),
+
+        // SETTINGS BUTTON
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
           label: 'Settings',
         ),
-      ]
+      ],
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reptirealm/pages/core_pages/my_reptiles_homepage.dart';
+import 'package:reptirealm/pages/core_pages/home_page.dart';
 
 
 void main() {
@@ -13,7 +13,7 @@ class ReptiRealmApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: MyReptiles()
+      home: HomePage(),
     );
   }
 }

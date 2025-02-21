@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:reptirealm/pages/core_pages/widgets/add_new_reptile_card.dart';
 import 'package:reptirealm/pages/core_pages/widgets/reptile_card.dart';
 import '../../models/reptile.dart';
 import '../core_pages/widgets/search_bar.dart';
-import '../shared/partials/header_bar.dart';
 
 
 class MyReptiles extends StatefulWidget {
@@ -11,6 +11,7 @@ class MyReptiles extends StatefulWidget {
   @override
   State<MyReptiles> createState() => _MyReptilesState();
 }
+
 
 class _MyReptilesState extends State<MyReptiles> {
   final TextEditingController searchController = TextEditingController();
@@ -25,20 +26,26 @@ class _MyReptilesState extends State<MyReptiles> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      appBar: const HeaderBar(),
-
       body: Column(
         children: [
+
+          // SEARCH BAR
           MySearchBar(
             controller: searchController,
             text: 'Search reptiles...',
           ),
+
+          // INDIVIDUAL REPTILE BUTTONS
           Expanded(
             child: ListView.builder(
-              itemCount: reptiles.length,
+              itemCount: reptiles.length + 1,
               itemBuilder: (context, index) {
-                return ReptileCard(reptile: reptiles[index]);
+                if(index < reptiles.length) {
+                  return ReptileCard(reptile: reptiles[index]);
+                }
+                else {
+                  return const AddNewReptileCard();
+                }
               }
             ),
           ),

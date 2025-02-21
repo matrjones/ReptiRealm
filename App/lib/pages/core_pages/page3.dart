@@ -8,6 +8,7 @@ class Page3 extends StatefulWidget {
   State<Page3> createState() => _Page3State();
 }
 
+
 class _Page3State extends State<Page3> {
   final TextEditingController searchController = TextEditingController();
 
@@ -16,7 +17,7 @@ class _Page3State extends State<Page3> {
     return const Scaffold(
       body: Center(
         child: Text(
-          "Page 2 content",
+          "Page 3 content",
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
