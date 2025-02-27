@@ -78,30 +78,17 @@ namespace ReptiRealm.Controllers
 
         [HttpPost]
         [Route("Update")]
-        public async Task<IActionResult> Update([FromBody] Reptile reptile)
+        public async Task<IActionResult> Update(Reptile reptile)
         {
             try
             {
-                var user = await userManager.Users
-                    .Include(u => u.Reptiles)
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
-
-                if (!user.Reptiles.Any(r => r.Id == reptile.Id))
-                {
-                    return Unauthorized();
-                }
-
-                reptile.Morphs = reptile.Morphs?.Select(m => workUnit.MorphRepository.Get(x => x.Name == m.Name).FirstOrDefault() ?? m).ToList();
-                reptile.Species = workUnit.SpeciesRepository.Get(x => x.Name == reptile.Species!.Name).FirstOrDefault() ?? reptile.Species;
-
                 workUnit.ReptileRepository.Update(reptile);
                 workUnit.Save();
                 return Ok();
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex);
             }
         }
 
