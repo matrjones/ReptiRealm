@@ -33,29 +33,32 @@ export async function login(formData: FormData) {
 export async function register(formData: FormData) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
+  const name = formData.get("name") as string;
+  const confirmPassword = formData.get("confirmPassword") as string;
 
-  if (!email || !password) {
-    return { error: "Email and password are required" };
+  if (!email || !password || !name || !confirmPassword) {
+    return "All fields are required";
   }
 
   try {
     const response = await axios.post(
       `${API_BASE_URL}/identity/register`,
-      { email, password },
+      {
+        email,
+        password,
+        name,
+        confirmPassword,
+      },
       { headers: { "Content-Type": "application/json" } }
     );
 
-    console.log("Response data:", response.data);
-    return response.data;
+    return "success";
   } catch (error: any) {
-    console.error("Axios error:", error);
-
-    return {
-      error:
-        error.response?.data?.message ||
-        error.message ||
-        "An unknown error occurred",
-      status: error.response?.status || 500,
-    };
+    console.error("Registration error:", error.response?.data || error.message);
+    return (
+      error.response?.data ||
+      error.message ||
+      "An error occurred during registration"
+    );
   }
 }

@@ -5,6 +5,7 @@ namespace ReptiRealm.Authentication
 {
     public class ApplicationUser : IdentityUser
     {
+        public string Name { get; set; }
         public virtual ICollection<Reptile>? Reptiles { get; set; }
     }
 }

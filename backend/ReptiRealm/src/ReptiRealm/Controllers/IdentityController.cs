@@ -72,14 +72,14 @@ namespace ReptiRealm.Controllers
                 ApplicationUser user = new ApplicationUser()
                 {
                     Email = model.Email,
-                    SecurityStamp = Guid.NewGuid().ToString(),
                     UserName = model.Email,
+                    Name = model.Name,
+                    SecurityStamp = Guid.NewGuid().ToString(),
                 };
 
                 var result = await userManager.CreateAsync(user, model.Password);
                 var newUser = await userManager.FindByEmailAsync(model.Email);
                 var roleResult = await userManager.AddToRoleAsync(newUser, UserRoles.User);
-
 
                 if (!result.Succeeded || !roleResult.Succeeded)
                 {
