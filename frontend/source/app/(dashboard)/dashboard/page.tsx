@@ -4,6 +4,10 @@ import Filter from "@/components/global/Filter";
 import ReptileCard from "@/components/reptile/ReptileCard";
 import { AnimalForm } from "@/types/types";
 import { useEffect, useState } from "react";
+import { Plus, Filter as FilterIcon } from "lucide-react";
+import { Button } from "@/components/components/ui/button";
+import { Card, CardHeader, CardTitle } from "@/components/components/ui/card";
+import { Skeleton } from "@/components/components/ui/skeleton";
 
 export default function Home() {
   const [reptiles, setReptiles] = useState<AnimalForm[]>([]);
@@ -29,33 +33,38 @@ export default function Home() {
   return (
     <div className="w-full h-full pl-64">
       <main className="w-full h-full p-5">
-        <div className="mb-6">
-          <div className="flex items-center justify-between justw-full rounded-lg shadow-md border border-gray-200 bg-white p-6">
-            <h2 className="text-stone-700 text-xl font-bold">Dashboard</h2>
-            <div className="flex gap-4">
-              <button
-                onClick={() => setShowFilter(!showFilter)}
-                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg shadow-md hover:bg-gray-300 transition"
-              >
-                Filter
-              </button>
-              <button
-                onClick={() => {
-                  window.location.href = "/dashboard/reptiles/add";
-                }}
-                className="px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition"
-              >
-                Add
-              </button>
+        <Card className="mb-6">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle>Your Reptiles</CardTitle>
+              <div className="flex gap-4">
+                <Button
+                  variant="outline"
+                  onClick={() => setShowFilter(!showFilter)}
+                  className="flex items-center gap-2"
+                >
+                  <FilterIcon size={18} />
+                  Filter
+                </Button>
+                <Button
+                  onClick={() => {
+                    window.location.href = "/dashboard/reptiles/add";
+                  }}
+                  className="flex items-center gap-2"
+                >
+                  <Plus size={18} />
+                  Add Reptile
+                </Button>
+              </div>
             </div>
-          </div>
-        </div>
+          </CardHeader>
+        </Card>
         {showFilter && <Filter />}
         {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 h-[400px]">
-            <div className="bg-gray-300 animate-pulse p-6 rounded-lg shadow-md items-center justify-center flex" />
-            <div className="bg-gray-300 animate-pulse p-6 rounded-lg shadow-md items-center justify-center flex" />
-            <div className="bg-gray-300 animate-pulse p-6 rounded-lg shadow-md items-center justify-center flex" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Skeleton className="h-[400px] rounded-lg" />
+            <Skeleton className="h-[400px] rounded-lg" />
+            <Skeleton className="h-[400px] rounded-lg" />
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

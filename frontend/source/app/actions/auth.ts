@@ -62,3 +62,14 @@ export async function register(formData: FormData) {
     );
   }
 }
+
+export async function signOut() {
+  try {
+    // Clear any stored tokens or user data
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+    return { success: true };
+  } catch (error: any) {
+    return { error: error.message || "An error occurred during sign out" };
+  }
+}
