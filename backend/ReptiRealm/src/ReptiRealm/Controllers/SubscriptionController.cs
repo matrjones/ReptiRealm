@@ -2,12 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using ReptiRealm.Services;
 using ReptiRealm.Models;
 using System.Security.Claims;
+using ReptiRealm.Authentication;
 
 namespace ReptiRealm.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class SubscriptionController : ControllerBase
+    [Route("[Controller]")]
+    [Roles(UserRoles.User)]
+    public class SubscriptionController : Controller
     {
         private readonly ISubscriptionService _subscriptionService;
 

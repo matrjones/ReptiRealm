@@ -7,6 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 });
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+const backendUrl = process.env.NEXT_PUBLIC_API_URL!;
 
 export async function POST(req: Request) {
   const body = await req.text();
@@ -29,17 +30,93 @@ export async function POST(req: Request) {
     switch (event.type) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
-        // Update user's subscription status in your database
-        // You'll need to implement this based on your database setup
-        console.log("Checkout session completed:", session);
+        const userId = session.metadata?.userId;
+
+        if (!userId) {
+          console.error("No userId found in session metadata");
+          return NextResponse.json(
+            { error: "No userId found" },
+            { status: 400 }
+          );
+        }
+
+        // Get the subscription details
+        const subscription = await stripe.subscriptions.retrieve(
+          session.subscription as string
+        );
+        const subscriptionData = subscription as unknown as {
+          current_period_end: number;
+        };
+
+        // Create subscription in .NET API
+        const response = await fetch(`${backendUrl}/api/subscription`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            stripeCustomerId: session.customer,
+            stripeSubscriptionId: subscription.id,
+            plan: subscription.items.data[0].price.nickname || "pro",
+            status: subscription.status,
+            currentPeriodEnd: new Date(
+              subscriptionData.current_period_end * 1000
+            ).toISOString(),
+            cancelAtPeriodEnd: subscription.cancel_at_period_end,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(
+            `Failed to create subscription: ${response.statusText}`
+          );
+        }
+
+        console.log("Subscription created successfully");
         break;
       }
+
       case "customer.subscription.updated":
       case "customer.subscription.deleted": {
         const subscription = event.data.object as Stripe.Subscription;
-        // Update user's subscription status in your database
-        // You'll need to implement this based on your database setup
-        console.log("Subscription updated/deleted:", subscription);
+        const subscriptionData = subscription as unknown as {
+          current_period_end: number;
+        };
+        const userId = subscription.metadata?.userId;
+
+        if (!userId) {
+          console.error("No userId found in subscription metadata");
+          return NextResponse.json(
+            { error: "No userId found" },
+            { status: 400 }
+          );
+        }
+
+        // Update subscription in .NET API
+        const response = await fetch(`${backendUrl}/api/subscription`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            stripeCustomerId: subscription.customer,
+            stripeSubscriptionId: subscription.id,
+            plan: subscription.items.data[0].price.nickname || "pro",
+            status: subscription.status,
+            currentPeriodEnd: new Date(
+              subscriptionData.current_period_end * 1000
+            ).toISOString(),
+            cancelAtPeriodEnd: subscription.cancel_at_period_end,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(
+            `Failed to update subscription: ${response.statusText}`
+          );
+        }
+
+        console.log("Subscription updated successfully");
         break;
       }
     }
