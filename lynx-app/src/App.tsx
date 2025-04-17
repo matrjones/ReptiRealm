@@ -3,17 +3,29 @@ import './App.css'
 
 export function App() {
   const [activeTab, setActiveTab] = useState('dashboard')
-  const [reptiles, setReptiles] = useState<string[]>([
-    'Ra',
-    'Kaiba',
-    'Lucifer',
-    'Anubis',
-    'Iris'
-  ])
+  const [reptiles, setReptiles] = useState<string[]>([])
   const [searchQuery, setSearchQuery] = useState('')
 
-  const filteredReptiles = reptiles.filter(reptile =>
-    reptile.toLowerCase().startsWith(searchQuery.toLowerCase())
+  useEffect(() => {
+    const fetchReptiles = async () => {
+      try {
+        const response = await fetch('https://api-stage.pineappleexplorers.com/Reptile/GetAll', {
+          headers: {
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXJyYW40NTY3QGdtYWlsLmNvbSIsImp0aSI6ImYwYjY2MmM5LWI4NTEtNDI3NC05N2ZiLWM0NWJmZWEwYjVkMyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE3NDQ5OTI1OTksImlzcyI6Imh0dHBzOi8vYXBpLXN0YWdlLnBpbmVhcHBsZWV4cGxvcmVycy5jb20vIiwiYXVkIjoiaHR0cHM6Ly9hcGktc3RhZ2UucGluZWFwcGxlZXhwbG9yZXJzLmNvbS8ifQ.MFr93VMz7Yf4rwlGCH3Cj8OFYLDzkEVV2l-Qw3VG7fQ'
+          }
+        })
+        const data = await response.json()
+        setReptiles(data.map((reptile: any) => reptile.name))
+      } catch (error) {
+        throw error
+      }
+    }
+
+    fetchReptiles()
+  }, [])
+
+  const filteredReptiles = reptiles.filter(reptile => 
+    reptile.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
   const handleSearchChange = (e: any) => {
