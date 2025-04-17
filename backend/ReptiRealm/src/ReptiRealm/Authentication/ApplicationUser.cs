@@ -7,5 +7,6 @@ namespace ReptiRealm.Authentication
     {
         public string Name { get; set; }
         public virtual ICollection<Reptile>? Reptiles { get; set; }
+        public virtual Subscription? Subscription { get; set; }
     }
 }

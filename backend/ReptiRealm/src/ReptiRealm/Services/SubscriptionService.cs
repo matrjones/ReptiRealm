@@ -1,26 +1,28 @@
 using ReptiRealm.Models;
 using ReptiRealm.Data;
 using Microsoft.EntityFrameworkCore;
+using ReptiRealm.Data.DAL.Repository;
+using ReptiRealm.Authentication;
+using ReptiRealm.Data.DAL.WorkUnits;
 
 namespace ReptiRealm.Services
 {
     public class SubscriptionService : ISubscriptionService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly SubscriptionWorkUnit workUnit;
 
-        public SubscriptionService(ApplicationDbContext context)
-        {
-            _context = context;
+        public SubscriptionService(SubscriptionWorkUnit workUnit)
+        { 
+            this.workUnit = workUnit;
         }
 
-        public async Task<Subscription> GetSubscriptionByUserIdAsync(string userId)
+        public async Task<Subscription> GetSubscriptionByUserIdAsync(ApplicationUser user)
         {
-            return await _context.Subscriptions
-                .FirstOrDefaultAsync(s => s.UserId == userId);
+            return user.Subscription;
         }
 
         public async Task<Subscription> CreateSubscriptionAsync(
-            string userId,
+            ApplicationUser user,
             string stripeCustomerId,
             string stripeSubscriptionId,
             string plan,
@@ -30,7 +32,6 @@ namespace ReptiRealm.Services
         {
             var subscription = new Subscription
             {
-                UserId = userId,
                 StripeCustomerId = stripeCustomerId,
                 StripeSubscriptionId = stripeSubscriptionId,
                 Plan = plan,
@@ -39,45 +40,42 @@ namespace ReptiRealm.Services
                 CancelAtPeriodEnd = cancelAtPeriodEnd
             };
 
-            _context.Subscriptions.Add(subscription);
-            await _context.SaveChangesAsync();
+            workUnit.SubscriptionRepository.Insert(subscription);
+            user.Subscription = subscription;
+            workUnit.Save();
 
             return subscription;
         }
 
         public async Task<Subscription> UpdateSubscriptionAsync(
-            string userId,
+            ApplicationUser user,
             string status,
             DateTime currentPeriodEnd,
             bool cancelAtPeriodEnd)
         {
-            var subscription = await _context.Subscriptions
-                .FirstOrDefaultAsync(s => s.UserId == userId);
+            var subscription = user.Subscription;
 
             if (subscription == null)
             {
-                throw new KeyNotFoundException($"Subscription not found for user {userId}");
+                throw new KeyNotFoundException($"Subscription not found for user {user.Name}");
             }
 
             subscription.Status = status;
             subscription.CurrentPeriodEnd = currentPeriodEnd;
             subscription.CancelAtPeriodEnd = cancelAtPeriodEnd;
 
-            await _context.SaveChangesAsync();
+            workUnit.SubscriptionRepository.Update(subscription);
+            workUnit.Save();
 
             return subscription;
         }
 
-        public async Task DeleteSubscriptionAsync(string userId)
+        public async Task DeleteSubscriptionAsync(ApplicationUser user)
         {
-            var subscription = await _context.Subscriptions
-                .FirstOrDefaultAsync(s => s.UserId == userId);
-
-            if (subscription != null)
-            {
-                _context.Subscriptions.Remove(subscription);
-                await _context.SaveChangesAsync();
-            }
+            var subscription = user.Subscription;
+            user.Subscription = null;
+            workUnit.SubscriptionRepository.Delete(subscription);
+            workUnit.Save();
         }
     }
 } 

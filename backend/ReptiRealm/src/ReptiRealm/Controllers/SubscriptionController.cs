@@ -3,6 +3,7 @@ using ReptiRealm.Services;
 using ReptiRealm.Models;
 using System.Security.Claims;
 using ReptiRealm.Authentication;
+using Microsoft.AspNetCore.Identity;
 
 namespace ReptiRealm.Controllers
 {
@@ -11,82 +12,96 @@ namespace ReptiRealm.Controllers
     public class SubscriptionController : Controller
     {
         private readonly ISubscriptionService _subscriptionService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public SubscriptionController(ISubscriptionService subscriptionService)
+        public SubscriptionController(ISubscriptionService subscriptionService, UserManager<ApplicationUser> userManager)
         {
+            this.userManager = userManager;
             _subscriptionService = subscriptionService;
         }
 
         [HttpGet]
         public async Task<ActionResult<Subscription>> GetSubscription()
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userId == null)
+            try
             {
-                return Unauthorized();
-            }
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
 
-            var subscription = await _subscriptionService.GetSubscriptionByUserIdAsync(userId);
-            if (subscription == null)
+                var subscription = await _subscriptionService.GetSubscriptionByUserIdAsync(user);
+                if (subscription == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(subscription);
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+                return BadRequest(ex.Message);
             }
-
-            return Ok(subscription);
         }
 
         [HttpPost]
         public async Task<ActionResult<Subscription>> CreateSubscription([FromBody] CreateSubscriptionRequest request)
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userId == null)
+            try
             {
-                return Unauthorized();
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
+
+                var subscription = await _subscriptionService.CreateSubscriptionAsync(
+                    user,
+                    request.StripeCustomerId,
+                    request.StripeSubscriptionId,
+                    request.Plan,
+                    request.Status,
+                    request.CurrentPeriodEnd,
+                    request.CancelAtPeriodEnd
+                );
+
+                return CreatedAtAction(nameof(GetSubscription), new { id = subscription.Id }, subscription);
             }
-
-            var subscription = await _subscriptionService.CreateSubscriptionAsync(
-                userId,
-                request.StripeCustomerId,
-                request.StripeSubscriptionId,
-                request.Plan,
-                request.Status,
-                request.CurrentPeriodEnd,
-                request.CancelAtPeriodEnd
-            );
-
-            return CreatedAtAction(nameof(GetSubscription), new { id = subscription.Id }, subscription);
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         [HttpPut]
         public async Task<ActionResult<Subscription>> UpdateSubscription([FromBody] UpdateSubscriptionRequest request)
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userId == null)
+            try
             {
-                return Unauthorized();
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
+
+                var subscription = await _subscriptionService.UpdateSubscriptionAsync(
+                    user,
+                    request.Status,
+                    request.CurrentPeriodEnd,
+                    request.CancelAtPeriodEnd
+                );
+
+                return Ok(subscription);
             }
-
-            var subscription = await _subscriptionService.UpdateSubscriptionAsync(
-                userId,
-                request.Status,
-                request.CurrentPeriodEnd,
-                request.CancelAtPeriodEnd
-            );
-
-            return Ok(subscription);
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteSubscription()
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userId == null)
+            try
             {
-                return Unauthorized();
-            }
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
 
-            await _subscriptionService.DeleteSubscriptionAsync(userId);
-            return NoContent();
+                await _subscriptionService.DeleteSubscriptionAsync(user);
+                return NoContent();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
     }
 

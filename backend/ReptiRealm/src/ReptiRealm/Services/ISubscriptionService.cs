@@ -1,12 +1,13 @@
+using ReptiRealm.Authentication;
 using ReptiRealm.Models;
 
 namespace ReptiRealm.Services
 {
     public interface ISubscriptionService
     {
-        Task<Subscription> GetSubscriptionByUserIdAsync(string userId);
-        Task<Subscription> CreateSubscriptionAsync(string userId, string stripeCustomerId, string stripeSubscriptionId, string plan, string status, DateTime currentPeriodEnd, bool cancelAtPeriodEnd);
-        Task<Subscription> UpdateSubscriptionAsync(string userId, string status, DateTime currentPeriodEnd, bool cancelAtPeriodEnd);
-        Task DeleteSubscriptionAsync(string userId);
+        Task<Subscription> GetSubscriptionByUserIdAsync(ApplicationUser user);
+        Task<Subscription> CreateSubscriptionAsync(ApplicationUser user, string stripeCustomerId, string stripeSubscriptionId, string plan, string status, DateTime currentPeriodEnd, bool cancelAtPeriodEnd);
+        Task<Subscription> UpdateSubscriptionAsync(ApplicationUser user, string status, DateTime currentPeriodEnd, bool cancelAtPeriodEnd);
+        Task DeleteSubscriptionAsync(ApplicationUser user);
     }
 } 

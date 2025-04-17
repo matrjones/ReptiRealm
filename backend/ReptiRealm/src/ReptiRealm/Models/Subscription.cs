@@ -5,9 +5,6 @@ namespace ReptiRealm.Models
     public class Subscription : BaseEntity
     {
         [Required]
-        public string UserId { get; set; }
-
-        [Required]
         public string StripeCustomerId { get; set; }
 
         [Required]

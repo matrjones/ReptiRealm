@@ -14,6 +14,7 @@ namespace ReptiRealm.Data
 
             //Work Units
             services.AddTransient<ReptileWorkUnit>();
+            services.AddTransient<SubscriptionWorkUnit>();
 
             return services;
         }
