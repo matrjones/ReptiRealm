@@ -63,3 +63,12 @@ export type AnimalForm = {
   feeds?: Feed[];
   morphs: Morph[];
 };
+
+export type Subscription = {
+  id: string;
+  modifiedDate: string;
+  plan: "free" | "pro";
+  status: "active" | "inactive" | "cancelled";
+  currentPeriodEnd: string;
+  cancelAtPeriodEnd: boolean;
+};

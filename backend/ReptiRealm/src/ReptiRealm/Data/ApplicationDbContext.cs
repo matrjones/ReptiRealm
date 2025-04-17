@@ -24,6 +24,7 @@ namespace ReptiRealm.Data
         public DbSet<Shed> Sheds { get; set; }
         public DbSet<Species> Species { get; set; }
         public DbSet<Weight> Weights { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,6 +38,7 @@ namespace ReptiRealm.Data
             modelBuilder.Entity<Shed>().ToTable("Sheds");
             modelBuilder.Entity<Species>().ToTable("Species");
             modelBuilder.Entity<Weight>().ToTable("Weight");
+            modelBuilder.Entity<Subscription>().ToTable("Subscriptions");
         }
 
         public override int SaveChanges()
