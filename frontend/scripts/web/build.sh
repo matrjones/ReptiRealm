@@ -9,8 +9,8 @@ if [ "$ENVIRONMENT_NAME" == "stage" ]; then
     mv ./.env.staging ./.env.production
 fi
 
-pnpm install
-pnpm build
+yarn install
+yarn build
 
 
 # Copy artifacts for deployment
