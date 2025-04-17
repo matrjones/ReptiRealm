@@ -20,6 +20,7 @@ namespace ReptiRealm.Controllers
             _subscriptionService = subscriptionService;
         }
 
+        [Route("Get")]
         [HttpGet]
         public async Task<ActionResult<Subscription>> GetSubscription()
         {
@@ -41,6 +42,7 @@ namespace ReptiRealm.Controllers
             }
         }
 
+        [Route("Create")]
         [HttpPost]
         public async Task<ActionResult<Subscription>> CreateSubscription([FromBody] CreateSubscriptionRequest request)
         {
@@ -66,6 +68,7 @@ namespace ReptiRealm.Controllers
             }
         }
 
+        [Route("Update")]
         [HttpPut]
         public async Task<ActionResult<Subscription>> UpdateSubscription([FromBody] UpdateSubscriptionRequest request)
         {
@@ -88,6 +91,7 @@ namespace ReptiRealm.Controllers
             }
         }
 
+        [Route("Delete")]
         [HttpDelete]
         public async Task<IActionResult> DeleteSubscription()
         {
