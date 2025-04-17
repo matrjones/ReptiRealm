@@ -1,44 +1,69 @@
 import { useCallback, useEffect, useState } from '@lynx-js/react'
-
 import './App.css'
-import arrow from './assets/arrow.png'
-import lynxLogo from './assets/lynx-logo.png'
-import reactLynxLogo from './assets/react-logo.png'
 
 export function App() {
-  const [alterLogo, setAlterLogo] = useState(false)
+  const [activeTab, setActiveTab] = useState('dashboard')
+  const [reptiles, setReptiles] = useState<string[]>([
+    'Ra',
+    'Kaiba',
+    'Lucifer',
+    'Anubis',
+    'Iris'
+  ])
+  const [searchQuery, setSearchQuery] = useState('')
 
-  useEffect(() => {
-    console.info('Hello, ReactLynx')
-  }, [])
+  const filteredReptiles = reptiles.filter(reptile =>
+    reptile.toLowerCase().startsWith(searchQuery.toLowerCase())
+  )
 
-  const onTap = useCallback(() => {
-    'background only'
-    setAlterLogo(!alterLogo)
-  }, [alterLogo])
+  const handleSearchChange = (e: any) => {
+    setSearchQuery(e.detail?.value)
+  }
+
+  const handleAddReptile = () => {
+    throw new Error('Not implemented')
+  }
 
   return (
-    <view>
-      <view className='Background' />
-      <view className='App'>
-        <view className='Banner'>
-          <view className='Logo' bindtap={onTap}>
-            {alterLogo
-              ? <image src={reactLynxLogo} className='Logo--react' />
-              : <image src={lynxLogo} className='Logo--lynx' />}
-          </view>
-          <text className='Title'>React</text>
-          <text className='Subtitle'>on Lynx</text>
+    <view className="app-container">
+      <view className="banner">
+        <text className="banner-text">ReptiRealm</text>
+      </view>
+
+      <view className="main-content">
+        <view className="search-container">
+          <input
+            className="search-bar"
+            value={searchQuery}
+            bindinput={handleSearchChange}
+            placeholder="Search reptiles..."
+          />
         </view>
-        <view className='Content'>
-          <image src={arrow} className='Arrow' />
-          <text className='Description'>Tap the logo and have fun!</text>
-          <text className='Hint'>
-            Edit<text style={{ fontStyle: 'italic' }}>{' src/App.tsx '}</text>
-            to see updates!
-          </text>
+
+        <view className="reptiles-list">
+          {filteredReptiles.map((reptile, index) => (
+            <view key={index} className="reptile-button">
+              <text className="reptile-name">{reptile}</text>
+            </view>
+          ))}
+          {!searchQuery && (
+            <view className="reptile-button add-button" bindtap={handleAddReptile}>
+              <text className="add-text">+</text>
+            </view>
+          )}
         </view>
-        <view style={{ flex: 1 }}></view>
+      </view>
+
+      <view className="navigation">
+        <view className="nav-item" bindtap={() => setActiveTab('dashboard')}>
+          <text className="nav-text">Dashboard</text>
+        </view>
+        <view className="nav-item" bindtap={() => setActiveTab('reptiles')}>
+          <text className="nav-text">My Reptiles</text>
+        </view>
+        <view className="nav-item" bindtap={() => setActiveTab('settings')}>
+          <text className="nav-text">Settings</text>
+        </view>
       </view>
     </view>
   )
