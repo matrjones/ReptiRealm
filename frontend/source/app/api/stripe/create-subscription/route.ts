@@ -29,6 +29,9 @@ export async function POST(req: NextRequest) {
         headers: {
           authorization: authHeader,
         },
+        httpsAgent: new (require("https").Agent)({
+          rejectUnauthorized: false,
+        }),
       }
     );
 
@@ -41,7 +44,7 @@ export async function POST(req: NextRequest) {
     }
 
     const user = userResponse.data;
-
+    console.log(user.email);
     const customers = await stripe.customers.list({
       email: user.email,
       limit: 1,
@@ -72,20 +75,25 @@ export async function POST(req: NextRequest) {
       ? "Premium Monthly"
       : "Premium Yearly";
     const interval = priceId.includes("monthly") ? "month" : "year";
+    const json = {
+      email: user.email,
+      status: "active",
+      interval: interval,
+      planName: planName,
+    };
 
+    console.log(JSON.stringify(json));
     await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/Subscription/Create`,
-      {
-        email: user.email,
-        status: "active",
-        interval: interval,
-        planName: planName,
-      },
+      JSON.stringify(json),
       {
         headers: {
           "Content-Type": "application/json",
           Authorization: authHeader,
         },
+        httpsAgent: new (require("https").Agent)({
+          rejectUnauthorized: false,
+        }),
       }
     );
 
