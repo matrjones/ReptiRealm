@@ -1,12 +1,12 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { login } from "@/app/actions/auth";
 import Logo from "@/public/logo.svg";
 import Image from "next/image";
 import Spinner from "@/components/global/Spinner";
 import { useSearchParams, useRouter } from "next/navigation";
 
-export default function Login() {
+function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState("");
   const searchParams = useSearchParams();
@@ -106,5 +106,19 @@ export default function Login() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function Login() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-full flex-1 flex-col justify-center items-center px-6 py-12 lg:px-8">
+          <Spinner w={40} h={40} />
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   );
 }
