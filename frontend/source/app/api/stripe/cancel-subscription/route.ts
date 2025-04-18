@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 
     // Get customer email from your backend
     const userResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/User/GetCurrent`,
+      `${process.env.NEXT_PUBLIC_API_URL}/Identity/Get`,
       {
         headers: {
           Authorization: authHeader,

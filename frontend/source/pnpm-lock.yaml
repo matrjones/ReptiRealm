@@ -40,7 +40,7 @@ importers:
         specifier: ^3.0.6
         version: 3.0.6
       axios:
-        specifier: ^1.7.9
+        specifier: ^1.8.4
         version: 1.8.4
       babel-plugin-react-compiler:
         specifier: ^19.0.0-beta-714736e-20250131

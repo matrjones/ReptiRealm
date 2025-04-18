@@ -2,34 +2,45 @@ import { NextResponse } from "next/server";
 import { stripe } from "@/libs/stripe";
 import { NextRequest } from "next/server";
 import Stripe from "stripe";
+import axios from "axios";
 
 export async function POST(req: NextRequest) {
   try {
-    const authHeader = req.headers.get("authorization");
+    if (!stripe) {
+      return new NextResponse("Stripe is not configured", { status: 500 });
+    }
+    const authHeader = req.headers.get("Authorization");
+
+    console.log(authHeader);
 
     if (!authHeader) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-
     const { priceId } = await req.json();
 
     // Get customer email from your backend
-    const userResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/User/GetCurrent`,
+    console.log(authHeader);
+    console.log(process.env.NEXT_PUBLIC_API_URL);
+    console.log(process.env.NEXT_PUBLIC_API_URL + "/Identity/Get");
+
+    const userResponse = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/Identity/Get`,
       {
         headers: {
-          Authorization: authHeader,
+          authorization: authHeader,
         },
       }
     );
 
-    if (!userResponse.ok) {
+    console.log(userResponse);
+
+    if (userResponse.status !== 200) {
       return new NextResponse("Failed to get user information", {
         status: 401,
       });
     }
 
-    const user = await userResponse.json();
+    const user = userResponse.data;
 
     const customers = await stripe.customers.list({
       email: user.email,
@@ -62,19 +73,21 @@ export async function POST(req: NextRequest) {
       : "Premium Yearly";
     const interval = priceId.includes("monthly") ? "month" : "year";
 
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/Subscription/Create`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: authHeader,
-      },
-      body: JSON.stringify({
+    await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/Subscription/Create`,
+      {
         email: user.email,
         status: "active",
         interval: interval,
         planName: planName,
-      }),
-    });
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: authHeader,
+        },
+      }
+    );
 
     return NextResponse.json({
       subscriptionId: subscription.id,

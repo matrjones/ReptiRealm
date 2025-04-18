@@ -93,5 +93,24 @@ namespace ReptiRealm.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("Get")]
+        public async Task<IActionResult> GetUser()
+        {
+            try
+            {
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                return Ok(new {
+                    email = user.Email,
+                    name = user.Name,
+                    username = user.UserName,
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

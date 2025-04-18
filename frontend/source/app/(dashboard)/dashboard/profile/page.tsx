@@ -16,6 +16,7 @@ import { Settings, CreditCard, User, Check } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Badge } from "@/components/components/ui/badge";
 import { subscriptionPlans } from "@/libs/stripe";
+import Cookies from "js-cookie";
 
 interface Subscription {
   status: string;
@@ -33,9 +34,17 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchSubscription = async () => {
       try {
+        const token = Cookies.get("token");
+        console.log("Token from cookies:", token); // Debug log
+
+        if (!token) {
+          console.error("No token found in cookies");
+          return;
+        }
+
         const response = await fetch("/api/stripe/subscription", {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           },
         });
 
@@ -61,7 +70,7 @@ export default function ProfilePage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${Cookies.get("token")}`,
         },
         body: JSON.stringify({ priceId }),
       });
