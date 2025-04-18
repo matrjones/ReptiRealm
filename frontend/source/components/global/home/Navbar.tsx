@@ -29,8 +29,26 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const token = Cookies.get("token");
-    setIsAuthenticated(!!token);
+    const checkAuth = () => {
+      const token = Cookies.get("token");
+      if (!token) {
+        setIsAuthenticated(false);
+        return;
+      }
+
+      try {
+        // Parse the token to check expiration
+        const tokenData = JSON.parse(atob(token.split(".")[1]));
+        const expirationTime = tokenData.exp * 1000; // Convert to milliseconds
+        const currentTime = Date.now();
+
+        setIsAuthenticated(currentTime < expirationTime);
+      } catch (error) {
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkAuth();
 
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);

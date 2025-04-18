@@ -1,5 +1,35 @@
 import axios from "axios";
 import { API_BASE_URL } from "utils/globals";
+import Cookies from "js-cookie";
+
+// Helper function to get token from cookies
+export function getToken() {
+  return Cookies.get("token");
+}
+
+// Helper function to set token in cookies
+export function setToken(token: string, expiration: string) {
+  Cookies.set("token", token, {
+    path: "/",
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    expires: new Date(expiration),
+  });
+}
+
+// Helper function to remove token from cookies
+export function removeToken() {
+  Cookies.remove("token", { path: "/" });
+}
+
+// Helper function to get auth headers
+export function getAuthHeaders() {
+  const token = getToken();
+  return {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
+}
 
 export async function login(formData: FormData) {
   const email = formData.get("email") as string;
@@ -24,8 +54,12 @@ export async function login(formData: FormData) {
       throw new Error(data.message || "Login failed");
     }
 
-    return { success: true, token: data.token };
+    // Set the token in cookies with proper options
+    setToken(data.token, data.expiration);
+
+    return { success: true };
   } catch (error: any) {
+    console.error("Login error:", error);
     return { error: error.message || "An error occurred" };
   }
 }
@@ -65,11 +99,10 @@ export async function register(formData: FormData) {
 
 export async function signOut() {
   try {
-    // Clear any stored tokens or user data
-    localStorage.removeItem("token");
-    localStorage.removeItem("userName");
+    removeToken();
     return { success: true };
   } catch (error: any) {
+    console.error("Sign out error:", error);
     return { error: error.message || "An error occurred during sign out" };
   }
 }
