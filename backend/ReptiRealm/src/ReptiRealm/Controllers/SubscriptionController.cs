@@ -52,12 +52,10 @@ namespace ReptiRealm.Controllers
 
                 var subscription = await _subscriptionService.CreateSubscriptionAsync(
                     user,
-                    request.StripeCustomerId,
-                    request.StripeSubscriptionId,
-                    request.Plan,
+                    request.Email,
                     request.Status,
-                    request.CurrentPeriodEnd,
-                    request.CancelAtPeriodEnd
+                    request.Interval,
+                    request.PlanName
                 );
 
                 return CreatedAtAction(nameof(GetSubscription), new { id = subscription.Id }, subscription);
@@ -79,8 +77,8 @@ namespace ReptiRealm.Controllers
                 var subscription = await _subscriptionService.UpdateSubscriptionAsync(
                     user,
                     request.Status,
-                    request.CurrentPeriodEnd,
-                    request.CancelAtPeriodEnd
+                    request.Interval,
+                    request.PlanName
                 );
 
                 return Ok(subscription);
@@ -111,18 +109,16 @@ namespace ReptiRealm.Controllers
 
     public class CreateSubscriptionRequest
     {
-        public string StripeCustomerId { get; set; }
-        public string StripeSubscriptionId { get; set; }
-        public string Plan { get; set; }
+        public string Email { get; set; }
         public string Status { get; set; }
-        public DateTime CurrentPeriodEnd { get; set; }
-        public bool CancelAtPeriodEnd { get; set; }
+        public string Interval { get; set; }
+        public string PlanName { get; set; }
     }
 
     public class UpdateSubscriptionRequest
     {
         public string Status { get; set; }
-        public DateTime CurrentPeriodEnd { get; set; }
-        public bool CancelAtPeriodEnd { get; set; }
+        public string Interval { get; set; }
+        public string PlanName { get; set; }
     }
 } 

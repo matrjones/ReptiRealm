@@ -13,50 +13,38 @@ import {
   TabsTrigger,
 } from "@/components/components/ui/tabs";
 import { Settings, CreditCard, User, Check } from "lucide-react";
-import { createCheckoutSession, getSubscriptionStatus } from "@/libs/stripe";
 import { useEffect, useState } from "react";
 import { Badge } from "@/components/components/ui/badge";
+import { subscriptionPlans } from "@/libs/stripe";
 
-interface SubscriptionStatus {
+interface Subscription {
   status: string;
-  plan: string;
+  plan: {
+    name: string;
+    interval: string;
+  };
   currentPeriodEnd: string;
 }
 
-const PLANS = [
-  {
-    name: "Free",
-    price: "£0",
-    period: "7 days",
-    features: ["Basic reptile tracking", "Up to 3 reptiles", "Basic analytics"],
-    priceId: "free",
-  },
-  {
-    name: "Pro",
-    price: "£4.99",
-    period: "month",
-    features: [
-      "Unlimited reptile tracking",
-      "Unlimited reptiles",
-      "Advanced analytics",
-      "Custom reminders",
-      "Priority support",
-    ],
-    priceId: "price_1REocM4DeWuqPh7puK3n78pG", // Replace with your actual Stripe price ID
-  },
-];
-
 export default function ProfilePage() {
-  const [subscription, setSubscription] = useState<SubscriptionStatus | null>(
-    null
-  );
+  const [subscription, setSubscription] = useState<Subscription | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSubscription = async () => {
       try {
-        const status = await getSubscriptionStatus();
-        setSubscription(status);
+        const response = await fetch("/api/stripe/subscription", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch subscription");
+        }
+
+        const data = await response.json();
+        setSubscription(data.subscription);
       } catch (error) {
         console.error("Error fetching subscription:", error);
       } finally {
@@ -69,7 +57,21 @@ export default function ProfilePage() {
 
   const handleUpgrade = async (priceId: string) => {
     try {
-      await createCheckoutSession(priceId);
+      const response = await fetch("/api/stripe/create-subscription", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ priceId }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create subscription");
+      }
+
+      const { clientSecret } = await response.json();
+      // Handle Stripe checkout here
     } catch (error) {
       console.error("Error creating checkout session:", error);
     }
@@ -122,7 +124,7 @@ export default function ProfilePage() {
                           <div className="flex items-center justify-between">
                             <div>
                               <h3 className="text-lg font-medium">
-                                {subscription?.plan || "Free"}
+                                {subscription?.plan.name || "Free"}
                               </h3>
                               <p className="text-sm text-muted-foreground">
                                 {subscription?.status === "active"
@@ -150,11 +152,11 @@ export default function ProfilePage() {
                   </Card>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {PLANS.map((plan) => (
+                    {Object.values(subscriptionPlans).map((plan) => (
                       <Card
                         key={plan.name}
                         className={`${
-                          subscription?.plan === plan.name.toLowerCase()
+                          subscription?.plan.name === plan.name.toLowerCase()
                             ? "border-primary"
                             : ""
                         }`}
@@ -166,14 +168,19 @@ export default function ProfilePage() {
                           <div className="space-y-4">
                             <div className="flex items-baseline gap-1">
                               <span className="text-3xl font-bold">
-                                {plan.price}
+                                ${plan.price}
                               </span>
                               <span className="text-muted-foreground">
-                                /{plan.period}
+                                /{plan.interval}
                               </span>
                             </div>
                             <ul className="space-y-2">
-                              {plan.features.map((feature) => (
+                              {[
+                                "Unlimited reptiles",
+                                "Advanced analytics",
+                                "Priority support",
+                                "Custom themes",
+                              ].map((feature) => (
                                 <li
                                   key={feature}
                                   className="flex items-center gap-2"
@@ -186,19 +193,21 @@ export default function ProfilePage() {
                             <Button
                               className="w-full"
                               variant={
-                                subscription?.plan === plan.name.toLowerCase()
+                                subscription?.plan.name ===
+                                plan.name.toLowerCase()
                                   ? "outline"
                                   : "default"
                               }
                               disabled={
-                                subscription?.plan ===
+                                subscription?.plan.name ===
                                   plan.name.toLowerCase() ||
                                 (subscription?.status === "active" &&
                                   plan.name === "Free")
                               }
-                              onClick={() => handleUpgrade(plan.priceId)}
+                              onClick={() => handleUpgrade(plan.priceId!)}
                             >
-                              {subscription?.plan === plan.name.toLowerCase()
+                              {subscription?.plan.name ===
+                              plan.name.toLowerCase()
                                 ? "Current Plan"
                                 : subscription?.status === "active"
                                 ? "Switch Plan"

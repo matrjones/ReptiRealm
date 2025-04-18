@@ -1,132 +1,133 @@
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
+import { stripe } from "@/libs/stripe";
 import { headers } from "next/headers";
+import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-03-31.basil",
-});
-
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
-const backendUrl = process.env.NEXT_PUBLIC_API_URL!;
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 export async function POST(req: Request) {
-  const body = await req.text();
-  const headersList = await headers();
-  const signature = headersList.get("stripe-signature")!;
-
-  let event: Stripe.Event;
-
   try {
-    event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
-  } catch (err) {
-    console.error(`Webhook signature verification failed:`, err);
-    return NextResponse.json(
-      { error: "Webhook signature verification failed" },
-      { status: 400 }
-    );
-  }
+    const body = await req.text();
+    const headersList = await headers();
+    const signature = headersList.get("stripe-signature");
 
-  try {
+    if (!signature || !endpointSecret) {
+      console.error("Webhook signature or secret missing");
+      return new NextResponse("Webhook signature or secret missing", {
+        status: 400,
+      });
+    }
+
+    let event;
+
+    try {
+      event = stripe.webhooks.constructEvent(body, signature, endpointSecret);
+    } catch (err) {
+      console.error("Webhook signature verification failed:", err);
+      return new NextResponse("Webhook signature verification failed", {
+        status: 400,
+      });
+    }
+
+    // Handle the event
     switch (event.type) {
-      case "checkout.session.completed": {
-        const session = event.data.object as Stripe.Checkout.Session;
-        const userId = session.metadata?.userId;
+      case "customer.subscription.created":
+      case "customer.subscription.updated": {
+        const subscription = event.data.object as Stripe.Subscription;
+        const customer = (await stripe.customers.retrieve(
+          subscription.customer as string
+        )) as Stripe.Customer;
 
-        if (!userId) {
-          console.error("No userId found in session metadata");
-          return NextResponse.json(
-            { error: "No userId found" },
-            { status: 400 }
+        if (subscription.status === "active") {
+          // Get user's JWT token from your backend using customer email
+          const userResponse = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/User/GetByEmail`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: customer.email,
+              }),
+            }
+          );
+
+          if (!userResponse.ok) {
+            throw new Error("Failed to get user token");
+          }
+
+          const { token } = await userResponse.json();
+
+          await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/Subscription/Create`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                email: customer.email,
+                status: "active",
+                interval:
+                  subscription.items.data[0].price.recurring?.interval ||
+                  "month",
+                planName: subscription.items.data[0].price.nickname || "Basic",
+              }),
+            }
           );
         }
-
-        // Get the subscription details
-        const subscription = await stripe.subscriptions.retrieve(
-          session.subscription as string
-        );
-        const subscriptionData = subscription as unknown as {
-          current_period_end: number;
-        };
-
-        // Create subscription in .NET API
-        const response = await fetch(`${backendUrl}/api/subscription`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            stripeCustomerId: session.customer,
-            stripeSubscriptionId: subscription.id,
-            plan: subscription.items.data[0].price.nickname || "pro",
-            status: subscription.status,
-            currentPeriodEnd: new Date(
-              subscriptionData.current_period_end * 1000
-            ).toISOString(),
-            cancelAtPeriodEnd: subscription.cancel_at_period_end,
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error(
-            `Failed to create subscription: ${response.statusText}`
-          );
-        }
-
-        console.log("Subscription created successfully");
         break;
       }
-
-      case "customer.subscription.updated":
       case "customer.subscription.deleted": {
         const subscription = event.data.object as Stripe.Subscription;
-        const subscriptionData = subscription as unknown as {
-          current_period_end: number;
-        };
-        const userId = subscription.metadata?.userId;
+        const customer = (await stripe.customers.retrieve(
+          subscription.customer as string
+        )) as Stripe.Customer;
 
-        if (!userId) {
-          console.error("No userId found in subscription metadata");
-          return NextResponse.json(
-            { error: "No userId found" },
-            { status: 400 }
-          );
+        // Get user's JWT token from your backend using customer email
+        const userResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/User/GetByEmail`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: customer.email,
+            }),
+          }
+        );
+
+        if (!userResponse.ok) {
+          throw new Error("Failed to get user token");
         }
 
-        // Update subscription in .NET API
-        const response = await fetch(`${backendUrl}/api/subscription`, {
+        const { token } = await userResponse.json();
+
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/Subscription/Update`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            stripeCustomerId: subscription.customer,
-            stripeSubscriptionId: subscription.id,
-            plan: subscription.items.data[0].price.nickname || "pro",
-            status: subscription.status,
-            currentPeriodEnd: new Date(
-              subscriptionData.current_period_end * 1000
-            ).toISOString(),
-            cancelAtPeriodEnd: subscription.cancel_at_period_end,
+            status: "cancelled",
+            interval:
+              subscription.items.data[0].price.recurring?.interval || "month",
+            planName: subscription.items.data[0].price.nickname || "Basic",
           }),
         });
-
-        if (!response.ok) {
-          throw new Error(
-            `Failed to update subscription: ${response.statusText}`
-          );
-        }
-
-        console.log("Subscription updated successfully");
         break;
       }
+      default:
+        console.log(`Unhandled event type ${event.type}`);
     }
 
-    return NextResponse.json({ received: true });
+    return new NextResponse(null, { status: 200 });
   } catch (error) {
-    console.error("Error processing webhook:", error);
-    return NextResponse.json(
-      { error: "Error processing webhook" },
-      { status: 500 }
-    );
+    console.error("Webhook error:", error);
+    return new NextResponse("Webhook error", { status: 500 });
   }
 }

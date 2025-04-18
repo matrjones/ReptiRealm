@@ -5,21 +5,17 @@ namespace ReptiRealm.Models
     public class Subscription : BaseEntity
     {
         [Required]
-        public string StripeCustomerId { get; set; }
+        public string UserId { get; set; }
 
         [Required]
-        public string StripeSubscriptionId { get; set; }
-
-        [Required]
-        public string Plan { get; set; }
+        public string Email { get; set; }
 
         [Required]
         public string Status { get; set; }
 
         [Required]
-        public DateTime CurrentPeriodEnd { get; set; }
-
+        public string Interval { get; set; }
         [Required]
-        public bool CancelAtPeriodEnd { get; set; }
+        public string PlanName { get; set; }
     }
 } 

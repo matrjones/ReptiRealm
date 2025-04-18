@@ -23,21 +23,18 @@ namespace ReptiRealm.Services
 
         public async Task<Subscription> CreateSubscriptionAsync(
             ApplicationUser user,
-            string stripeCustomerId,
-            string stripeSubscriptionId,
-            string plan,
+            string email,
             string status,
-            DateTime currentPeriodEnd,
-            bool cancelAtPeriodEnd)
+            string interval,
+            string planName)
         {
             var subscription = new Subscription
             {
-                StripeCustomerId = stripeCustomerId,
-                StripeSubscriptionId = stripeSubscriptionId,
-                Plan = plan,
+                UserId = user.Id,
+                Email = email,
                 Status = status,
-                CurrentPeriodEnd = currentPeriodEnd,
-                CancelAtPeriodEnd = cancelAtPeriodEnd
+                Interval = interval,
+                PlanName = planName
             };
 
             workUnit.SubscriptionRepository.Insert(subscription);
@@ -50,8 +47,8 @@ namespace ReptiRealm.Services
         public async Task<Subscription> UpdateSubscriptionAsync(
             ApplicationUser user,
             string status,
-            DateTime currentPeriodEnd,
-            bool cancelAtPeriodEnd)
+            string interval,
+            string planName)
         {
             var subscription = user.Subscription;
 
@@ -61,8 +58,8 @@ namespace ReptiRealm.Services
             }
 
             subscription.Status = status;
-            subscription.CurrentPeriodEnd = currentPeriodEnd;
-            subscription.CancelAtPeriodEnd = cancelAtPeriodEnd;
+            subscription.Interval = interval;
+            subscription.PlanName = planName;
 
             workUnit.SubscriptionRepository.Update(subscription);
             workUnit.Save();
