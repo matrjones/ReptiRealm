@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from '@lynx-js/react'
+import { createContext, useContext, useState, useEffect } from '@lynx-js/react'
 
 interface AuthContextType {
   token: string | null
@@ -15,6 +15,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [expiration, setExpiration] = useState<string | null>(null)
   const [username, setUsername] = useState<string | null>(null)
 
+  // Check if token has expired
+  const isTokenExpired = (expirationDate: string) => {
+    return new Date(expirationDate) < new Date()
+  }
+
+  // Check token expiration periodically
+  useEffect(() => {
+    if (!token || !expiration) return
+
+    const checkExpiration = () => {
+      if (isTokenExpired(expiration)) {
+        logout()
+      }
+    }
+
+    // Check immediately
+    checkExpiration()
+
+    // Set up interval to check every minute
+    const interval = setInterval(checkExpiration, 60000)
+
+    return () => clearInterval(interval)
+  }, [token, expiration])
+
   const login = async (email: string, password: string) => {
     try {
       const response = await fetch('https://api-stage.pineappleexplorers.com/Identity/Login', {
@@ -27,6 +51,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const data = await response.json()
       
       if (response.ok) {
+        // Check if token is already expired before setting it
+        if (data.expiration && isTokenExpired(data.expiration)) {
+          throw new Error('Token is expired')
+        }
+        
         setToken(data.token)
         setExpiration(data.expiration)
         setUsername(data.username)
