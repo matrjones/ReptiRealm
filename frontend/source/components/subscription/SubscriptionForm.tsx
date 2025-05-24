@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { subscriptionPlans } from "@/libs/stripe";
 import { loadStripe } from "@stripe/stripe-js";
 import {
@@ -10,6 +9,8 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { Button } from "@/components/components/ui/button";
+import { GET_TOKEN } from "utils/globals";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
@@ -24,24 +25,35 @@ function CheckoutForm({
   const elements = useElements();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { data: session } = useSession();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    if (!stripe || !elements || !session) {
-      return;
-    }
 
     setLoading(true);
     setError(null);
 
     try {
+      // Get user email from API
+      const userResponse = await fetch("/api/user", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${GET_TOKEN}`,
+        },
+      });
+
+      if (!userResponse.ok) {
+        throw new Error("Failed to get user information");
+      }
+
+      const { email } = await userResponse.json();
+
       // Create the subscription
       const response = await fetch("/api/create-subscription", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${GET_TOKEN}`,
         },
         body: JSON.stringify({ priceId: plan.priceId }),
       });
@@ -53,22 +65,21 @@ function CheckoutForm({
       const { clientSecret } = await response.json();
 
       // Confirm the payment
-      const { error: stripeError, paymentIntent } =
-        await stripe.confirmCardPayment(clientSecret, {
-          payment_method: {
-            card: elements.getElement(CardElement)!,
-            billing_details: {
-              email: session.user?.email,
-            },
+      const result = await stripe?.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements?.getElement(CardElement)!,
+          billing_details: {
+            email: email,
           },
-        });
+        },
+      });
 
-      if (stripeError) {
-        setError(stripeError.message || "An error occurred");
+      if (result?.error) {
+        setError(result.error.message || "An error occurred");
         return;
       }
 
-      if (paymentIntent?.status === "succeeded") {
+      if (result?.paymentIntent?.status === "succeeded") {
         window.location.href = "/payment-success";
       }
     } catch (error) {

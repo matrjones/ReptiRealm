@@ -29,6 +29,9 @@ jobs:
           chmod +x ./backend/scripts/api/plan.sh
           chmod +x ./backend/scripts/api/apply.sh
           chmod +x ./backend/scripts/api/build.sh
+          chmod +x ./alexapi/scripts/api/plan.sh
+          chmod +x ./alexapi/scripts/api/apply.sh
+          chmod +x ./alexapi/scripts/api/build.sh
 
       - name: Install .NET SDK (Alpine)
         run: |
@@ -47,3 +50,12 @@ jobs:
 
       - name: Apply API
         run: ./backend/scripts/api/apply.sh stage
+
+      - name: Build API
+        run: ./alexapi/scripts/api/build.sh stage
+
+      - name: Plan API
+        run: ./alexapi/scripts/api/plan.sh stage
+
+      - name: Apply API
+        run: ./alexapi/scripts/api/apply.sh stage

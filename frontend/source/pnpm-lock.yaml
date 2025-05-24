@@ -33,6 +33,9 @@ importers:
       '@radix-ui/react-tabs':
         specifier: ^1.1.4
         version: 1.1.4(@types/react-dom@19.1.2(@types/react@19.1.1))(@types/react@19.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@stripe/react-stripe-js':
+        specifier: ^3.6.0
+        version: 3.6.0(@stripe/stripe-js@7.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@stripe/stripe-js':
         specifier: ^7.1.0
         version: 7.1.0
@@ -740,6 +743,13 @@ packages:
 
   '@rushstack/eslint-patch@1.11.0':
     resolution: {integrity: sha512-zxnHvoMQVqewTJr/W4pKjF0bMGiKJv1WX7bSrkl46Hg0QjESbzBROWK0Wg4RphzSOS5Jiy7eFimmM3UgMrMZbQ==}
+
+  '@stripe/react-stripe-js@3.6.0':
+    resolution: {integrity: sha512-zEnaUmTOsu7zhl3RWbZ0l1dRiad+QIbcAYzQfF+yYelURJowhAwesRHKWH+qGAIBEpkO6/VCLFHhVLH9DtPlnw==}
+    peerDependencies:
+      '@stripe/stripe-js': '>=1.44.1 <8.0.0'
+      react: '>=16.8.0 <20.0.0'
+      react-dom: '>=16.8.0 <20.0.0'
 
   '@stripe/stripe-js@7.1.0':
     resolution: {integrity: sha512-dORq+9fb+STvq9Woi7eupUJV2UcW3tP33yQvREI0NIPDKv6KOCg/tV6h/DH1zQn2clIH/WR7HHBpbNQzWAo+Kg==}
@@ -3003,6 +3013,13 @@ snapshots:
   '@rtsao/scc@1.1.0': {}
 
   '@rushstack/eslint-patch@1.11.0': {}
+
+  '@stripe/react-stripe-js@3.6.0(@stripe/stripe-js@7.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@stripe/stripe-js': 7.1.0
+      prop-types: 15.8.1
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
   '@stripe/stripe-js@7.1.0': {}
 

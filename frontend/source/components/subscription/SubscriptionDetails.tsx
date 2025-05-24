@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/components/ui/button";
 
 interface Subscription {
   status: string;
@@ -13,12 +13,17 @@ interface SubscriptionDetailsProps {
   onCancel: () => Promise<void>;
 }
 
-export function SubscriptionDetails({ subscription, onCancel }: SubscriptionDetailsProps) {
+export function SubscriptionDetails({
+  subscription,
+  onCancel,
+}: SubscriptionDetailsProps) {
   return (
     <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-8 border border-gray-200 dark:border-gray-800">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{subscription.plan.name}</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            {subscription.plan.name}
+          </h2>
           <p className="text-gray-600 dark:text-gray-400">
             Billed {subscription.plan.interval}ly
           </p>
@@ -37,4 +42,4 @@ export function SubscriptionDetails({ subscription, onCancel }: SubscriptionDeta
       </div>
     </div>
   );
-} 
+}
