@@ -1,2 +1,2 @@
-dotnet restore alexapi/ReptiRealm/src/ReptiRealm/ReptiRealm.csproj
-dotnet publish alexapi/ReptiRealm/src/ReptiRealm/ReptiRealm.csproj -c Release -r linux-x64 --self-contained false -o ./alexapi/ReptiRealm/publish/
+dotnet restore alexapi/ReptiRealm/src/ReptiRealm/AlexAPI.csproj
+dotnet publish alexapi/ReptiRealm/src/ReptiRealm/AlexAPI.csproj -c Release -r linux-x64 --self-contained false -o ./alexapi/ReptiRealm/publish/
