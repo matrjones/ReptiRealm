@@ -1,4 +1,4 @@
-. backend/scripts/api/set-vars.sh $1 $2
+. alexapi/scripts/api/set-vars.sh $1 $2
 
 terragrunt plan -input=false \
     -out=$PLAN_FILE_PATH \
