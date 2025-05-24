@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_log_group" "aws-lambda-net-api_logs" {
-  name              = "/aws/lambda/repti-realm"
+  name              = "/aws/lambda/alex-api"
   retention_in_days = 7
 }
 
@@ -22,6 +22,6 @@ resource "aws_iam_policy" "log_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "log_policy_attachment" {
-  role       = aws_iam_role.repti-realm_role.name
+  role       = aws_iam_role.alex-api_role.name
   policy_arn = aws_iam_policy.log_policy.arn
 }

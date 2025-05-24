@@ -1,7 +1,7 @@
 data "archive_file" "lambda" {
   type        = "zip"
   source_dir  = "${var.lambda_package_file_path}/"
-  output_path = "./ReptiRealm.zip"
+  output_path = "./AlexAPI.zip"
 }
 
 data "aws_iam_policy_document" "assume_role" {
@@ -15,16 +15,16 @@ data "aws_iam_policy_document" "assume_role" {
   }
 }
 
-resource "aws_iam_role" "repti-realm_role" {
-  name               = "repti-realm-api"
+resource "aws_iam_role" "alex-api_role" {
+  name               = "alex-api"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
-resource "aws_lambda_function" "repti-realm-api" {
-  filename         = "ReptiRealm.zip"
-  function_name    = "repti-realm-api"
-  role             = aws_iam_role.repti-realm_role.arn
-  handler          = "ReptiRealm"
+resource "aws_lambda_function" "alex-api" {
+  filename         = "AlexAPI.zip"
+  function_name    = "alex-api"
+  role             = aws_iam_role.alex-api_role.arn
+  handler          = "AlexAPI"
   source_code_hash = data.archive_file.lambda.output_base64sha256
   timeout          = 60
   runtime          = "dotnet8"
@@ -36,6 +36,6 @@ resource "aws_lambda_function" "repti-realm-api" {
   }
 }
 resource "aws_lambda_function_url" "aws-lambda-net-api" {
-  function_name      = aws_lambda_function.repti-realm-api.function_name
+  function_name      = aws_lambda_function.alex-api.function_name
   authorization_type = "NONE"
 }
