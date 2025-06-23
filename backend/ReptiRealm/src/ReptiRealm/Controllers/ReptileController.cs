@@ -76,7 +76,7 @@ namespace ReptiRealm.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("Update")]
         public async Task<IActionResult> Update([FromBody] Reptile reptile)
         {
@@ -105,7 +105,7 @@ namespace ReptiRealm.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("Delete")]
         public async Task<IActionResult> Delete(Guid id)
         {

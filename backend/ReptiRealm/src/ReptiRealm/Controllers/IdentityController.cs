@@ -72,14 +72,14 @@ namespace ReptiRealm.Controllers
                 ApplicationUser user = new ApplicationUser()
                 {
                     Email = model.Email,
-                    SecurityStamp = Guid.NewGuid().ToString(),
                     UserName = model.Email,
+                    Name = model.Name,
+                    SecurityStamp = Guid.NewGuid().ToString(),
                 };
 
                 var result = await userManager.CreateAsync(user, model.Password);
                 var newUser = await userManager.FindByEmailAsync(model.Email);
                 var roleResult = await userManager.AddToRoleAsync(newUser, UserRoles.User);
-
 
                 if (!result.Succeeded || !roleResult.Succeeded)
                 {
@@ -87,6 +87,25 @@ namespace ReptiRealm.Controllers
                 }
 
                 return Ok("User created successfully!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("Get")]
+        public async Task<IActionResult> GetUser()
+        {
+            try
+            {
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                return Ok(new {
+                    email = user.Email,
+                    name = user.Name,
+                    username = user.UserName,
+                });
             }
             catch (Exception ex)
             {

@@ -1,35 +1,45 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { login } from "@/app/actions/auth";
 import Logo from "@/public/logo.svg";
 import Image from "next/image";
 import Spinner from "@/components/global/Spinner";
-import Cookies from "js-cookie";
+import { useSearchParams, useRouter } from "next/navigation";
 
-export default function Login() {
+function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState("");
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const redirect = searchParams.get("redirect");
+  const expired = searchParams.get("expired");
+
+  useEffect(() => {
+    if (expired === "true") {
+      setStatus("Your session has expired. Please log in again.");
+    }
+  }, [expired]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
+    setStatus("");
 
     const formData = new FormData(event.currentTarget);
 
     try {
-      const { success, token } = await login(formData);
+      const { success, error } = await login(formData);
 
       if (success) {
-        Cookies.set("token", token, { path: "/", secure: true });
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        window.location.href = "/dashboard";
+        // Use router.push for client-side navigation
+        router.push(redirect || "/dashboard");
       } else {
-        setIsLoading(false);
-        setStatus("Incorrect username or password");
+        setStatus(error || "Incorrect username or password");
       }
     } catch (error: any) {
-      setIsLoading(false);
       setStatus(error.message || "An error occurred");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -88,9 +98,27 @@ export default function Login() {
               {isLoading ? <Spinner w={20} h={20} /> : "Sign in"}
             </button>
           </div>
-          <h2 className="text-red-500">{status.length > 0 ? status : null}</h2>
+          {status && (
+            <div className="text-center">
+              <p className="text-sm text-red-600">{status}</p>
+            </div>
+          )}
         </form>
       </div>
     </div>
+  );
+}
+
+export default function Login() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-full flex-1 flex-col justify-center items-center px-6 py-12 lg:px-8">
+          <Spinner w={40} h={40} />
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   );
 }

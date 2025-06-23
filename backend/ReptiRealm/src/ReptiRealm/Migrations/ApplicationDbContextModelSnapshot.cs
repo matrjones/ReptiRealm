@@ -197,6 +197,10 @@ namespace ReptiRealm.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -217,6 +221,9 @@ namespace ReptiRealm.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
+                    b.Property<Guid?>("SubscriptionId")
+                        .HasColumnType("uuid");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
@@ -232,6 +239,8 @@ namespace ReptiRealm.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
+
+                    b.HasIndex("SubscriptionId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -465,6 +474,43 @@ namespace ReptiRealm.Migrations
                     b.ToTable("Species", (string)null);
                 });
 
+            modelBuilder.Entity("ReptiRealm.Models.Subscription", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Interval")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("PlanName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subscriptions", (string)null);
+                });
+
             modelBuilder.Entity("ReptiRealm.Models.Weight", b =>
                 {
                     b.Property<Guid>("Id")
@@ -564,6 +610,15 @@ namespace ReptiRealm.Migrations
                         .HasForeignKey("ReptilesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ReptiRealm.Authentication.ApplicationUser", b =>
+                {
+                    b.HasOne("ReptiRealm.Models.Subscription", "Subscription")
+                        .WithMany()
+                        .HasForeignKey("SubscriptionId");
+
+                    b.Navigation("Subscription");
                 });
 
             modelBuilder.Entity("ReptiRealm.Models.Defecation", b =>

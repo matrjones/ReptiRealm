@@ -10,9 +10,11 @@ namespace ReptiRealm.Data
             //Database Initialization
             services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddScoped<IHangfireService, HangfireService>();
+            services.AddScoped<ISubscriptionService, SubscriptionService>();
 
             //Work Units
             services.AddTransient<ReptileWorkUnit>();
+            services.AddTransient<SubscriptionWorkUnit>();
 
             return services;
         }
