@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/matrjones/ReptiRealm/backend/Go/internal/model"
 	"github.com/matrjones/ReptiRealm/backend/Go/internal/service"
 )
 

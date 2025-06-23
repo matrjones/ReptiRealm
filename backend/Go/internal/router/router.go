@@ -13,19 +13,10 @@ func SetupRouter() *gin.Engine {
 	//r.Use(middleware.AuthMiddleware())
 
 	// API routes
-	reptile := router.Group("/reptiles")
+	reptile := r.Group("/reptiles")
 	{
-		reptile.GET("", reptileController.GetReptiles)
-		reptile.GET("/:id", reptileController.GetReptileById)
+		reptile.GET("", handler.GetReptiles)
 		//reptile.POST("", reptileController.PostReptile)
-	}
-
-    //User Endpoints
-	user := router.Group("/users")
-	{
-		user.GET("", userController.GetUsers)
-		user.GET("/:id", userController.GetUserById)
-		user.POST("", userController.PostUser)
 	}
 
 	return r

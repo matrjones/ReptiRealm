@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-	"os"
+	
 	"github.com/matrjones/ReptiRealm/backend/Go/config"
 	"github.com/matrjones/ReptiRealm/backend/Go/internal/db"
 	"github.com/matrjones/ReptiRealm/backend/Go/internal/router"
