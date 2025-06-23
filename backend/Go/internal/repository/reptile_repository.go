@@ -8,7 +8,7 @@ import (
     "go.mongodb.org/mongo-driver/bson/primitive"
 	
 	"github.com/matrjones/ReptiRealm/backend/Go/internal/db"
-	"github.com/matrjones/ReptiRealm/backend/Go/internal/models"
+	"github.com/matrjones/ReptiRealm/backend/Go/internal/model"
 )
 
 func (r *reptileRepository) GetReptiles(ctx context.Context) ([]models.Reptile, error){
