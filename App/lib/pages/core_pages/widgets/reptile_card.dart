@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../models/reptile.dart';
+import 'package:reptirealm/models/reptile.dart';
+import 'package:reptirealm/pages/core_pages/functions_page.dart';
 
 
 class ReptileCard extends StatelessWidget {
@@ -8,19 +9,35 @@ class ReptileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
+
+    // NAVIGATION TO ADD NEW REPTILE PAGE
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => const ReptileFunctions(),
+            transitionDuration: Duration.zero,
+            reverseTransitionDuration: Duration.zero,
+          ),
+        );
+      },
+
+      child: Card(
+        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8), // tighter spacing
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(12.0), // you can reduce or increase this
+            child: Text(
               reptile.name,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 24, // adjust size as needed
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ],
+          ),
         ),
       ),
     );

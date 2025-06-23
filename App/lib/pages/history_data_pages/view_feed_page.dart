@@ -38,23 +38,7 @@ class _AddFeedState extends State<AddFeed> {
             // Aligns text to the LEFT
             children: [
               Text(
-                "Date:",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "Food Type:",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "Add Food:",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "*Did not feed button*",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "*Fed button*",
+                "Page displays feeds on Calendar only",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ],

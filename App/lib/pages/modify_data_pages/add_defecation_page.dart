@@ -1,9 +1,7 @@
 /*TODO
 * date needs to auto-populate with today's date and have the ability to change
-* food type needs dropdown with auto-populate for specific default food set in settings - can manually input food type
-* number of food items defaulted to 1 (change with left/right buttons)
-* ability to add another food type with number eaten
-* Yes / No selection button
+* type needs a dropdown
+* comment box needs implementing
 * confirm entry message - confirm returns to MyReptiles, cancel goes back a step
 */
 
@@ -12,15 +10,15 @@ import 'package:reptirealm/pages/shared/partials/header_bar.dart';
 import 'package:reptirealm/pages/shared/partials/navigation_bar.dart';
 
 
-class AddFeed extends StatefulWidget {
-  const AddFeed({super.key});
+class AddDefecation extends StatefulWidget {
+  const AddDefecation({super.key});
 
   @override
-  State<AddFeed> createState() => _AddFeedState();
+  State<AddDefecation> createState() => _AddDefecationState();
 }
 
 
-class _AddFeedState extends State<AddFeed> {
+class _AddDefecationState extends State<AddDefecation> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
@@ -42,19 +40,11 @@ class _AddFeedState extends State<AddFeed> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Text(
-                "Food Type:",
+                "Type:",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Text(
-                "Add Food:",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "*Did not feed button*",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "*Fed button*",
+                  "Comment Box:",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ],

@@ -12,10 +12,13 @@ class ViewFeedCard extends StatelessWidget {
       child: const Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min, // Keeps the column size to its children
+          mainAxisAlignment: MainAxisAlignment.center, // Centers vertically
+          crossAxisAlignment: CrossAxisAlignment.center, // Centers horizontally
           children: [
             Text(
               'View\nFeed',
+              textAlign: TextAlign.center, // Ensures text is centered
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ],

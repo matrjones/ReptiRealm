@@ -1,9 +1,6 @@
 /*TODO
-* date needs to auto-populate with today's date and have the ability to change
-* food type needs dropdown with auto-populate for specific default food set in settings - can manually input food type
-* number of food items defaulted to 1 (change with left/right buttons)
-* ability to add another food type with number eaten
-* Yes / No selection button
+* dates need to auto-populate with today's date and have the ability to change
+* rating buttons default to green
 * confirm entry message - confirm returns to MyReptiles, cancel goes back a step
 */
 

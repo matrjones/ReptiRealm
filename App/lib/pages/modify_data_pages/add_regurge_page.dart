@@ -12,15 +12,15 @@ import 'package:reptirealm/pages/shared/partials/header_bar.dart';
 import 'package:reptirealm/pages/shared/partials/navigation_bar.dart';
 
 
-class AddFeed extends StatefulWidget {
-  const AddFeed({super.key});
+class AddRegurge extends StatefulWidget {
+  const AddRegurge({super.key});
 
   @override
-  State<AddFeed> createState() => _AddFeedState();
+  State<AddRegurge> createState() => _AddRegurgeState();
 }
 
 
-class _AddFeedState extends State<AddFeed> {
+class _AddRegurgeState extends State<AddRegurge> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
@@ -42,19 +42,11 @@ class _AddFeedState extends State<AddFeed> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Text(
-                "Food Type:",
+                "Select feed:",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Text(
-                "Add Food:",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "*Did not feed button*",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "*Fed button*",
+                "Comment box:",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ],

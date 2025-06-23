@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:reptirealm/pages/modify_data_pages/add_shed_page.dart';
 
 
 class AddShedCard extends StatelessWidget {
@@ -6,19 +8,37 @@ class AddShedCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: const Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Add\nFeed',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+
+    // NAVIGATION TO ADD NEW REPTILE PAGE
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) => const AddShed(),
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
             ),
-          ],
+          );
+        },
+
+      child: Card(
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: const Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min, // Keeps the column size to its children
+            mainAxisAlignment: MainAxisAlignment.center, // Centers vertically
+            crossAxisAlignment: CrossAxisAlignment.center, // Centers horizontally
+            children: [
+              Text(
+                'Add\nShed',
+                textAlign: TextAlign.center, // Ensures text is centered
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
         ),
       ),
     );
