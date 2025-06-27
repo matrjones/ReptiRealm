@@ -16,6 +16,8 @@ func SetupRouter() *gin.Engine {
 	reptile := r.Group("/reptiles")
 	{
 		reptile.GET("", handler.GetReptiles)
+		reptile.GET("/:id", handler.GetReptileById)
+		reptile.GET("/getByName/:name", handler.GetReptilesByName)
 		//reptile.POST("", reptileController.PostReptile)
 	}
 

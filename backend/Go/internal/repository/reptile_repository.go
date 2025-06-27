@@ -40,3 +40,33 @@ func GetReptileById(id primitive.ObjectID) (*model.Reptile, error) {
 	}
 	return &reptile, nil
 }
+
+func GetReptilesByName(name string) ([]model.Reptile, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	cursor, err := db.MongoDatabase.Collection("Reptiles").Find(ctx, bson.M{"name": name})
+	if err != nil {
+        return nil, err
+	}
+	defer cursor.Close(ctx)
+
+	var reptiles []model.Reptile
+	if err := cursor.All(ctx, &reptiles); err != nil {
+		return nil, err
+	}
+	
+	return reptiles, nil
+}
+
+func PostReptile(c *gin.Context) {
+	var newReptile models.Reptile
+
+	if err := c.BindJSON(&newReptile); err != nil {
+		return
+	}
+
+	newReptile.ID = uuid.New().String()
+	reptiles = append(reptiles, newReptile)
+	c.IndentedJSON(http.StatusCreated, newReptile)
+}
