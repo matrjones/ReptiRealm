@@ -59,14 +59,17 @@ func GetReptilesByName(name string) ([]model.Reptile, error) {
 	return reptiles, nil
 }
 
-func PostReptile(c *gin.Context) {
-	var newReptile models.Reptile
+func PostReptile(newReptile *model.Reptile) (*model.Reptile, error) {
+	
+	newReptile.ID = primitive.NewObjectID()
 
-	if err := c.BindJSON(&newReptile); err != nil {
-		return
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	_, err := db.MongoDatabase.Collection("Reptiles").InsertOne(ctx, newReptile)
+	if err != nil {
+		return nil, err
 	}
 
-	newReptile.ID = uuid.New().String()
-	reptiles = append(reptiles, newReptile)
-	c.IndentedJSON(http.StatusCreated, newReptile)
+	return newReptile, nil
 }

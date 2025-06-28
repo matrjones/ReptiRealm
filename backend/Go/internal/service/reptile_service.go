@@ -17,3 +17,7 @@ func GetReptileById(id primitive.ObjectID) (*model.Reptile, error) {
 func GetReptilesByName(name string) ([]model.Reptile, error) {
 	return repository.GetReptilesByName(name)
 }
+
+func PostReptile(reptile *model.Reptile) (*model.Reptile, error) {
+	return repository.PostReptile(reptile)
+}

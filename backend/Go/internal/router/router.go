@@ -18,8 +18,9 @@ func SetupRouter() *gin.Engine {
 		reptile.GET("", handler.GetReptiles)
 		reptile.GET("/:id", handler.GetReptileById)
 		reptile.GET("/getByName/:name", handler.GetReptilesByName)
-		//reptile.POST("", reptileController.PostReptile)
+		reptile.POST("", handler.PostReptile)
 	}
 
 	return r
 }
+
