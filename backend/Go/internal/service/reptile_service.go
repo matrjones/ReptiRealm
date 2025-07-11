@@ -21,3 +21,11 @@ func GetReptilesByName(name string) ([]model.Reptile, error) {
 func PostReptile(reptile *model.Reptile) (*model.Reptile, error) {
 	return repository.PostReptile(reptile)
 }
+
+func UpdateReptile(reptile *model.Reptile) (*model.Reptile, error) {
+	return repository.UpdateReptile(reptile)
+}
+
+func AddActivityToReptile(reptile *model.Reptile, activity *model.Activity) (*model.Reptile, error) {
+	return repository.AddActivityToReptile(reptile, activity)
+}

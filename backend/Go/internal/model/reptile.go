@@ -10,8 +10,8 @@ type Reptile struct {
     Name            string                  `json:"name"`
     Sex             string                  `json:"sex"`
     Species         *string                 `json:"species"`
-    Morphs          *[]string               `json:"morphs"`
+    Morphs          []string                `json:"morphs"`
     DateOfBirth     *DateOnly               `json:"dateOfBirth"`
     DateObtained    *DateOnly               `json:"dateObtained"`
-    Activities      *[]Activity             `json:"activities"`
+    Activities      []Activity              `json:"activities"`
 }

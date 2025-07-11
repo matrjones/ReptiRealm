@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -62,4 +63,44 @@ func PostReptile(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, reptile)
+}
+
+func UpdateReptile(c *gin.Context) {
+	var reptile model.Reptile
+	if err := c.BindJSON(&reptile); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid reptile data"})
+		return
+	}
+	updatedReptile, err := service.UpdateReptile(&reptile)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "unable to update reptile"})
+		return
+	}
+	c.JSON(http.StatusOK, updatedReptile)
+}
+
+func AddActivityToReptile(c *gin.Context) {
+	id := c.Param("id")
+	reptileID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid reptile id"})
+		return
+	}
+	reptile, err := service.GetReptileById(reptileID)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "reptile not found"})
+		return
+	}
+	var activity model.Activity
+	if err := c.BindJSON(&activity); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid activity data"})
+		return
+	}
+	updatedReptile, err := service.AddActivityToReptile(reptile, &activity)
+	if err != nil {
+		fmt.Println(err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "unable to add activity"})
+		return
+	}
+	c.JSON(http.StatusOK, updatedReptile)
 }
