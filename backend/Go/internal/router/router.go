@@ -18,8 +18,8 @@ func SetupRouter() *gin.Engine {
 		reptile.GET("", handler.GetReptiles)
 		reptile.GET("/:id", handler.GetReptileById)
 		reptile.GET("/getByName/:name", handler.GetReptilesByName)
-		reptile.POST("", handler.PostReptile)
 		reptile.PUT("/:id", handler.UpdateReptile)
+		reptile.POST("", handler.PostReptile)
 		reptile.POST("/:id/activities", handler.AddActivityToReptile)
 		reptile.DELETE("/:id", handler.DeleteReptile)
 	}
