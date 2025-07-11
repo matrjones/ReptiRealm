@@ -29,3 +29,7 @@ func UpdateReptile(reptile *model.Reptile) (*model.Reptile, error) {
 func AddActivityToReptile(reptile *model.Reptile, activity *model.Activity) (*model.Reptile, error) {
 	return repository.AddActivityToReptile(reptile, activity)
 }
+
+func DeleteReptile(id primitive.ObjectID) (error) {
+	return repository.DeleteReptile(id)
+}

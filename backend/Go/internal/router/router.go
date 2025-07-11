@@ -21,6 +21,7 @@ func SetupRouter() *gin.Engine {
 		reptile.POST("", handler.PostReptile)
 		reptile.PUT("/:id", handler.UpdateReptile)
 		reptile.POST("/:id/activities", handler.AddActivityToReptile)
+		reptile.DELETE("/:id", handler.DeleteReptile)
 	}
 
 	return r

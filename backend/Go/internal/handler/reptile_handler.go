@@ -104,3 +104,17 @@ func AddActivityToReptile(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, updatedReptile)
 }
+
+func DeleteReptile(c *gin.Context) {
+	id := c.Param("id")
+	reptileID, err1 := primitive.ObjectIDFromHex(id)
+	if err1 != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid reptile id"})
+		return
+	}
+	err2 := service.DeleteReptile(reptileID)
+	if err2 != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Reptile could not be deleted"})
+		return
+	}
+}
