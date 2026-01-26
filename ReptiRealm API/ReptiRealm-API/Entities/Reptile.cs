@@ -13,12 +13,14 @@ namespace ReptiRealm_API.Entities
         public Guid SpeciesId { get; set; }
         public Guid MorphId { get; set; }
         public Guid FeedId { get; set; }
+        public Guid ShedId { get; set; }
         #endregion
 
         #region Navigation Properties
         public virtual Species Species { get; set; } = null!;
         public virtual Morph Morph { get; set; } = null!;
         public virtual Feed Feed { get; set; } = null!;
+        public virtual Shed Shed { get; set; } = null!;
         #endregion
     }
 }
