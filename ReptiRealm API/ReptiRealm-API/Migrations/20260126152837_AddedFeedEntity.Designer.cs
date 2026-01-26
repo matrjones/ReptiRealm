@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ReptiRealm_API.Data;
 
@@ -11,9 +12,11 @@ using ReptiRealm_API.Data;
 namespace ReptiRealm_API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260126152837_AddedFeedEntity")]
+    partial class AddedFeedEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,9 +40,6 @@ namespace ReptiRealm_API.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("FoodTypeId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<bool>("IsEaten")
                         .HasColumnType("bit");
 
@@ -59,36 +59,7 @@ namespace ReptiRealm_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FoodTypeId");
-
                     b.ToTable("Feed");
-                });
-
-            modelBuilder.Entity("ReptiRealm_API.Entities.FoodType", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FoodType");
                 });
 
             modelBuilder.Entity("ReptiRealm_API.Entities.Morph", b =>
@@ -197,17 +168,6 @@ namespace ReptiRealm_API.Migrations
                     b.ToTable("Species");
                 });
 
-            modelBuilder.Entity("ReptiRealm_API.Entities.Feed", b =>
-                {
-                    b.HasOne("ReptiRealm_API.Entities.FoodType", "FoodType")
-                        .WithMany("Feeds")
-                        .HasForeignKey("FoodTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("FoodType");
-                });
-
             modelBuilder.Entity("ReptiRealm_API.Entities.Reptile", b =>
                 {
                     b.HasOne("ReptiRealm_API.Entities.Feed", "Feed")
@@ -238,11 +198,6 @@ namespace ReptiRealm_API.Migrations
             modelBuilder.Entity("ReptiRealm_API.Entities.Feed", b =>
                 {
                     b.Navigation("Reptiles");
-                });
-
-            modelBuilder.Entity("ReptiRealm_API.Entities.FoodType", b =>
-                {
-                    b.Navigation("Feeds");
                 });
 
             modelBuilder.Entity("ReptiRealm_API.Entities.Morph", b =>

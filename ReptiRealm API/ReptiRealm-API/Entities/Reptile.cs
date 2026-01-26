@@ -1,5 +1,4 @@
 ﻿using ReptiRealm_API.Entities.Common;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReptiRealm_API.Entities
 {
@@ -13,11 +12,13 @@ namespace ReptiRealm_API.Entities
         #region Foreign Keys
         public Guid SpeciesId { get; set; }
         public Guid MorphId { get; set; }
+        public Guid FeedId { get; set; }
         #endregion
 
         #region Navigation Properties
         public virtual Species Species { get; set; } = null!;
         public virtual Morph Morph { get; set; } = null!;
+        public virtual Feed Feed { get; set; } = null!;
         #endregion
     }
 }
