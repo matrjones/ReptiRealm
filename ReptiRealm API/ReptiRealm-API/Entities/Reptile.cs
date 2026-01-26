@@ -15,6 +15,7 @@ namespace ReptiRealm_API.Entities
         public Guid FeedId { get; set; }
         public Guid ShedId { get; set; }
         public Guid WeightId { get; set; }
+        public Guid DefecationId { get; set; }
         #endregion
 
         #region Navigation Properties
@@ -23,6 +24,7 @@ namespace ReptiRealm_API.Entities
         public virtual Feed Feed { get; set; } = null!;
         public virtual Shed Shed { get; set; } = null!;
         public virtual Weight Weight { get; set; } = null!;
+        public virtual Defecation Defecation { get; set; } = null!;
         #endregion
     }
 }

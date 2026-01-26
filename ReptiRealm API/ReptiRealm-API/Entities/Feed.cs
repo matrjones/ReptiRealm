@@ -11,11 +11,13 @@ namespace ReptiRealm_API.Entities
 
         #region Foreign Keys
         public Guid FoodTypeId { get; set; }
+        public Guid RegurgitationId { get; set; }
         #endregion
 
         #region Navigation Properties
         public virtual ICollection<Reptile> Reptiles { get; set; } = new List<Reptile>();
         public virtual FoodType FoodType { get; set; } = null!;
+        public virtual Regurgitation Regurgitation { get; set; } = null!;
         #endregion
     }
 }
