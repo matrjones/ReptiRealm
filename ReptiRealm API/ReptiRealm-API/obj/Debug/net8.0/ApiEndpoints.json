@@ -30,5 +30,15 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.ReptileController",
+    "Method": "GetSecretReptiles",
+    "RelativePath": "api/Reptile",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   }
 ]

@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "ReptiRealm-API",
-    "version": "1.0"
+    "title": "ReptiRealm API",
+    "version": "v1"
   },
   "paths": {
     "/api/Auth/register": {
@@ -66,6 +66,18 @@
           }
         }
       }
+    },
+    "/api/Reptile": {
+      "get": {
+        "tags": [
+          "Reptile"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -102,6 +114,19 @@
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "Enter: Bearer {your JWT token}",
+        "name": "Authorization",
+        "in": "header"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }
