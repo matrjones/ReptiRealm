@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\matty\\OneDrive\\Documents\\ReptiRealm\\ReptiRealm API\\ReptiRealm-API\\ReptiRealm-API\\ReptiRealm-API.csproj": {}
+    "C:\\Users\\matty\\OneDrive\\Documents\\ReptiRealm\\ReptiRealm API\\ReptiRealm-API\\ReptiRealm-API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\matty\\OneDrive\\Documents\\ReptiRealm\\ReptiRealm API\\ReptiRealm-API\\ReptiRealm-API\\ReptiRealm-API.csproj": {
+    "C:\\Users\\matty\\OneDrive\\Documents\\ReptiRealm\\ReptiRealm API\\ReptiRealm-API\\ReptiRealm-API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\matty\\OneDrive\\Documents\\ReptiRealm\\ReptiRealm API\\ReptiRealm-API\\ReptiRealm-API\\ReptiRealm-API.csproj",
+        "projectUniqueName": "C:\\Users\\matty\\OneDrive\\Documents\\ReptiRealm\\ReptiRealm API\\ReptiRealm-API\\ReptiRealm-API.csproj",
         "projectName": "ReptiRealm-API",
-        "projectPath": "C:\\Users\\matty\\OneDrive\\Documents\\ReptiRealm\\ReptiRealm API\\ReptiRealm-API\\ReptiRealm-API\\ReptiRealm-API.csproj",
+        "projectPath": "C:\\Users\\matty\\OneDrive\\Documents\\ReptiRealm\\ReptiRealm API\\ReptiRealm-API\\ReptiRealm-API.csproj",
         "packagesPath": "C:\\Users\\matty\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\matty\\OneDrive\\Documents\\ReptiRealm\\ReptiRealm API\\ReptiRealm-API\\ReptiRealm-API\\obj\\",
+        "outputPath": "C:\\Users\\matty\\OneDrive\\Documents\\ReptiRealm\\ReptiRealm API\\ReptiRealm-API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,6 +50,20 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.23, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.23, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.23, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
