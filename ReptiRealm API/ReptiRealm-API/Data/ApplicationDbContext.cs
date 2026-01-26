@@ -1,16 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ReptiRealm_API.Entities;
 using ReptiRealm_API.Entities.Common;
 
 namespace ReptiRealm_API.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-        }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {}
 
-        // DbSets go here later
-        // public DbSey<Reptile> Reptiles => Set<Reptile>();
+        public DbSet<Reptile> Reptiles => Set<Reptile>();
+        public DbSet<Species> Species => Set<Species>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
