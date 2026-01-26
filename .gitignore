@@ -1,0 +1,49 @@
+## Ignore Visual Studio / Rider user-specific files
+ReptiReam API/.vs/
+ReptiReam API/.idea/
+ReptiReam API/*.user
+ReptiReam API/*.suo
+ReptiReam API/*.userprefs
+
+## Build results
+ReptiReam API/**/bin/
+ReptiReam API/**/obj/
+ReptiReam API/**/Debug/
+ReptiReam API/**/Release/
+
+## .NET / SDK
+ReptiReam API/artifacts/
+ReptiReam API/project.lock.json
+ReptiReam API/project.fragment.lock.json
+
+## ASP.NET Core
+ReptiReam API/appsettings.Development.json
+ReptiReam API/appsettings.Local.json
+ReptiReam API/wwwroot/lib/
+
+## Logs
+ReptiReam API/**/*.log
+
+## Test results
+ReptiReam API/TestResults/
+ReptiReam API/**/TestResults/
+
+## NuGet
+ReptiReam API/*.nupkg
+ReptiReam API/*.snupkg
+ReptiReam API/packages/
+ReptiReam API/.nuget/
+
+## ReSharper / Rider
+ReptiReam API/_ReSharper*/
+ReptiReam API/*.DotSettings.user
+
+## VS Code
+ReptiReam API/.vscode/
+
+## Environment variables
+ReptiReam API/.env
+ReptiReam API/.env.*
+
+## Publish output
+ReptiReam API/publish/
