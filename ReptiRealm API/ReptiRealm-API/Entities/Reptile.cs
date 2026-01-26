@@ -12,10 +12,12 @@ namespace ReptiRealm_API.Entities
 
         #region Foreign Keys
         public Guid SpeciesId { get; set; }
+        public Guid MorphId { get; set; }
         #endregion
 
         #region Navigation Properties
         public virtual Species Species { get; set; } = null!;
+        public virtual Morph Morph { get; set; } = null!;
         #endregion
     }
 }
