@@ -47,3 +47,6 @@ ReptiReam API/.env.*
 
 ## Publish output
 ReptiReam API/publish/
+/ReptiRealm API/.vs/ReptiRealm-API/FileContentIndex
+/ReptiRealm API/ReptiRealm-API/obj/Debug/net8.0/ReptiRealm-API.AssemblyInfo.cs
+/ReptiRealm API/ReptiRealm-API/obj/Debug/net8.0/ReptiRealm-API.AssemblyInfoInputs.cache
