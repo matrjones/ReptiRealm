@@ -10,6 +10,7 @@ namespace ReptiRealm_API.Entities
         public string? Notes { get; set; }
 
         #region Foreign Keys
+        public string UserId { get; set; } = null!;
         public Guid SpeciesId { get; set; }
         public Guid MorphId { get; set; }
         public Guid FeedId { get; set; }
@@ -19,6 +20,7 @@ namespace ReptiRealm_API.Entities
         #endregion
 
         #region Navigation Properties
+        public virtual User User { get; set; } = null!;
         public virtual Species Species { get; set; } = null!;
         public virtual Morph Morph { get; set; } = null!;
         public virtual Feed Feed { get; set; } = null!;
