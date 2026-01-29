@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using ReptiRealm_API.Entities.Common;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -11,10 +12,10 @@ namespace ReptiRealm_API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IConfiguration _config;
 
-        public AuthController(UserManager<IdentityUser> userManager, IConfiguration config)
+        public AuthController(UserManager<User> userManager, IConfiguration config)
         {
             _userManager = userManager;
             _config = config;
@@ -23,7 +24,7 @@ namespace ReptiRealm_API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
-            var user = new IdentityUser { UserName = dto.Username, Email = dto.Email };
+            var user = new User { UserName = dto.Username, Email = dto.Email };
             var result = await _userManager.CreateAsync(user, dto.Password);
 
             if (!result.Succeeded)

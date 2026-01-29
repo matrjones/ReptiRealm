@@ -23,15 +23,71 @@ namespace ReptiRealm_API.Data
         {
             base.OnModelCreating(modelBuilder);
             
+            // User -> Reptile (Cascade)
             modelBuilder.Entity<Reptile>()
                 .HasOne(r => r.User)
                 .WithMany(u => u.Reptiles)
                 .HasForeignKey(r => r.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            // User -> Species (Restrict)
+            modelBuilder.Entity<Species>()
+                .HasOne(s => s.User)
+                .WithMany(u => u.Species)
+                .HasForeignKey(s => s.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Reptile -> Feeds (Cascade)
+            modelBuilder.Entity<Feed>()
+                .HasOne(f => f.Reptile)
+                .WithMany(r => r.Feeds)
+                .HasForeignKey(f => f.ReptileId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Reptile -> Sheds (Cascade)
+            modelBuilder.Entity<Shed>()
+                .HasOne(s => s.Reptile)
+                .WithMany(r => r.Sheds)
+                .HasForeignKey(s => s.ReptileId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Reptile -> Weights (Cascade)
+            modelBuilder.Entity<Weight>()
+                .HasOne(w => w.Reptile)
+                .WithMany(r => r.Weights)
+                .HasForeignKey(w => w.ReptileId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Reptile -> Defecations (Cascade)
+            modelBuilder.Entity<Defecation>()
+                .HasOne(d => d.Reptile)
+                .WithMany(r => r.Defecations)
+                .HasForeignKey(d => d.ReptileId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Species -> Morph (Cascade)
+            modelBuilder.Entity<Morph>()
+                .HasOne(m => m.Species)
+                .WithMany(s => s.Morphs)
+                .HasForeignKey(m => m.SpeciesId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Species -> Reptiles (Set Null)
+            modelBuilder.Entity<Reptile>()
+                .HasOne(r => r.Species)
+                .WithMany(s => s.Reptiles)
+                .HasForeignKey(r => r.SpeciesId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            // Weight Precision
             modelBuilder.Entity<Weight>()
                 .Property(w => w.Value)
-                .HasPrecision(5, 3);
+                .HasPrecision(7, 3);
+
+            // Reptile <-> Morph (Many-to-Many)
+            modelBuilder.Entity<Reptile>()
+                .HasMany(r => r.Morphs)
+                .WithMany(m => m.Reptiles);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         }

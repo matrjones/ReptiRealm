@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ReptiRealm_API.Data;
 
@@ -11,9 +12,11 @@ using ReptiRealm_API.Data;
 namespace ReptiRealm_API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260126190222_FixedRegurgitation")]
+    partial class FixedRegurgitation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -247,9 +250,6 @@ namespace ReptiRealm_API.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -288,9 +288,6 @@ namespace ReptiRealm_API.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("FoodTypeId")
                         .HasColumnType("uniqueidentifier");
 
@@ -302,6 +299,10 @@ namespace ReptiRealm_API.Migrations
 
                     b.Property<DateTime?>("LastModifiedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
@@ -347,15 +348,7 @@ namespace ReptiRealm_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("FoodTypes");
                 });
@@ -382,15 +375,7 @@ namespace ReptiRealm_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("SpeciesId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SpeciesId");
 
                     b.ToTable("Morphs");
                 });
@@ -433,7 +418,7 @@ namespace ReptiRealm_API.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DateOfBirth")
+                    b.Property<DateTime?>("DoB")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastModifiedBy")
@@ -453,11 +438,10 @@ namespace ReptiRealm_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
-                    b.Property<Guid?>("SpeciesId")
+                    b.Property<Guid>("SpeciesId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -481,14 +465,15 @@ namespace ReptiRealm_API.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("LastModifiedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
@@ -529,16 +514,7 @@ namespace ReptiRealm_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Species");
                 });
@@ -553,9 +529,6 @@ namespace ReptiRealm_API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastModifiedBy")
@@ -575,8 +548,8 @@ namespace ReptiRealm_API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Value")
-                        .HasPrecision(7, 3)
-                        .HasColumnType("decimal(7,3)");
+                        .HasPrecision(5, 3)
+                        .HasColumnType("decimal(5,3)");
 
                     b.HasKey("Id");
 
@@ -687,38 +660,18 @@ namespace ReptiRealm_API.Migrations
                     b.Navigation("Reptile");
                 });
 
-            modelBuilder.Entity("ReptiRealm_API.Entities.FoodType", b =>
-                {
-                    b.HasOne("ReptiRealm_API.Entities.Common.User", "User")
-                        .WithMany("FoodTypes")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ReptiRealm_API.Entities.Morph", b =>
-                {
-                    b.HasOne("ReptiRealm_API.Entities.Species", "Species")
-                        .WithMany("Morphs")
-                        .HasForeignKey("SpeciesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Species");
-                });
-
             modelBuilder.Entity("ReptiRealm_API.Entities.Reptile", b =>
                 {
                     b.HasOne("ReptiRealm_API.Entities.Species", "Species")
                         .WithMany("Reptiles")
                         .HasForeignKey("SpeciesId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ReptiRealm_API.Entities.Common.User", "User")
                         .WithMany("Reptiles")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Species");
 
@@ -736,17 +689,6 @@ namespace ReptiRealm_API.Migrations
                     b.Navigation("Reptile");
                 });
 
-            modelBuilder.Entity("ReptiRealm_API.Entities.Species", b =>
-                {
-                    b.HasOne("ReptiRealm_API.Entities.Common.User", "User")
-                        .WithMany("Species")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("ReptiRealm_API.Entities.Weight", b =>
                 {
                     b.HasOne("ReptiRealm_API.Entities.Reptile", "Reptile")
@@ -760,11 +702,7 @@ namespace ReptiRealm_API.Migrations
 
             modelBuilder.Entity("ReptiRealm_API.Entities.Common.User", b =>
                 {
-                    b.Navigation("FoodTypes");
-
                     b.Navigation("Reptiles");
-
-                    b.Navigation("Species");
                 });
 
             modelBuilder.Entity("ReptiRealm_API.Entities.FoodType", b =>
@@ -791,8 +729,6 @@ namespace ReptiRealm_API.Migrations
 
             modelBuilder.Entity("ReptiRealm_API.Entities.Species", b =>
                 {
-                    b.Navigation("Morphs");
-
                     b.Navigation("Reptiles");
                 });
 #pragma warning restore 612, 618

@@ -32,13 +32,479 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ReptiRealm_API.Controllers.DefecationController",
+    "Method": "Delete",
+    "RelativePath": "api/Defecation/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.DefecationController",
+    "Method": "GetAll",
+    "RelativePath": "api/Defecation/{reptileId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reptileId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.DefecationController",
+    "Method": "Create",
+    "RelativePath": "api/Defecation/Create/{reptileId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reptileId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "defecationDto",
+        "Type": "ReptiRealm_API.DTOs.AddDefecationDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.FeedController",
+    "Method": "Delete",
+    "RelativePath": "api/Feed/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.FeedController",
+    "Method": "ToggleRegurgitation",
+    "RelativePath": "api/Feed/{id}/regurgitation",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "regurgDto",
+        "Type": "ReptiRealm_API.DTOs.AddRegurgitationDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.FeedController",
+    "Method": "GetAll",
+    "RelativePath": "api/Feed/{reptileId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reptileId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.FeedController",
+    "Method": "Create",
+    "RelativePath": "api/Feed/Create/{reptileId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reptileId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "feedDto",
+        "Type": "ReptiRealm_API.DTOs.AddFeedDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.FoodTypeController",
+    "Method": "GetAll",
+    "RelativePath": "api/FoodType",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.FoodTypeController",
+    "Method": "GetById",
+    "RelativePath": "api/FoodType/{foodTypeId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "foodTypeId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.FoodTypeController",
+    "Method": "Delete",
+    "RelativePath": "api/FoodType/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.FoodTypeController",
+    "Method": "Create",
+    "RelativePath": "api/FoodType/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "foodTypeDto",
+        "Type": "ReptiRealm_API.DTOs.AddFoodTypeDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.MorphController",
+    "Method": "Delete",
+    "RelativePath": "api/Morph/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.MorphController",
+    "Method": "Create",
+    "RelativePath": "api/Morph/Create/{speciesId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "speciesId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "morphDto",
+        "Type": "ReptiRealm_API.DTOs.AddMorphDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.MorphController",
+    "Method": "GetById",
+    "RelativePath": "api/Morph/GetById/{morphId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "morphId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.MorphController",
+    "Method": "GetBySpecies",
+    "RelativePath": "api/Morph/GetBySpecies/{speciesId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "speciesId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ReptiRealm_API.Controllers.ReptileController",
-    "Method": "GetSecretReptiles",
+    "Method": "GetAll",
     "RelativePath": "api/Reptile",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.ReptileController",
+    "Method": "GetById",
+    "RelativePath": "api/Reptile/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.ReptileController",
+    "Method": "Delete",
+    "RelativePath": "api/Reptile/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.ReptileController",
+    "Method": "Create",
+    "RelativePath": "api/Reptile/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reptileDto",
+        "Type": "ReptiRealm_API.DTOs.AddReptileDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.ShedController",
+    "Method": "Delete",
+    "RelativePath": "api/Shed/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.ShedController",
+    "Method": "GetAll",
+    "RelativePath": "api/Shed/{reptileId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reptileId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.ShedController",
+    "Method": "Create",
+    "RelativePath": "api/Shed/Create/{reptileId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reptileId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "shedDto",
+        "Type": "ReptiRealm_API.DTOs.AddShedDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.SpeciesController",
+    "Method": "GetAll",
+    "RelativePath": "api/Species",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.SpeciesController",
+    "Method": "Delete",
+    "RelativePath": "api/Species/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.SpeciesController",
+    "Method": "GetById",
+    "RelativePath": "api/Species/{speciesId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "speciesId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.SpeciesController",
+    "Method": "Create",
+    "RelativePath": "api/Species/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "speciesDto",
+        "Type": "ReptiRealm_API.DTOs.AddSpeciesDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.WeightController",
+    "Method": "Delete",
+    "RelativePath": "api/Weight/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.WeightController",
+    "Method": "GetAll",
+    "RelativePath": "api/Weight/{reptileId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reptileId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReptiRealm_API.Controllers.WeightController",
+    "Method": "Create",
+    "RelativePath": "api/Weight/Create/{reptileId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reptileId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "weightDto",
+        "Type": "ReptiRealm_API.DTOs.AddWeightDto",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   }
 ]

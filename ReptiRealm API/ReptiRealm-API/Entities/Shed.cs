@@ -1,15 +1,22 @@
 ﻿using ReptiRealm_API.Entities.Common;
+using System.Text.Json.Serialization;
 
 namespace ReptiRealm_API.Entities
 {
     public class Shed : BaseEntity
     {
-        public required string Name { get; set; }
-        public char Rating { get; set; }
+        public required DateTime Date { get; set; }
+        public char Rating { get; set; } = 'G';
         public string? Notes { get; set; }
 
+        #region Foreign Keys
+        public Guid ReptileId { get; set; }
+        #endregion
+
         #region Navigation Properties
-        public virtual ICollection<Reptile> Reptiles { get; set; } = new List<Reptile>();
+        [JsonIgnore]
+        public virtual Reptile Reptile { get; set; } = null!;
         #endregion
     }
 }
+
