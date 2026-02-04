@@ -1,4 +1,4 @@
-using ReptiRealm_WebApp.Components;
+using ReptiRealm_WebApp;
 
 var builder = WebApplication.CreateBuilder(args);
 
