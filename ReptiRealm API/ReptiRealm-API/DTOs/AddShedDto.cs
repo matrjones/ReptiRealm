@@ -1,9 +1,11 @@
-﻿namespace ReptiRealm_API.DTOs
+﻿using ReptiRealm_API.Enums;
+
+namespace ReptiRealm_API.DTOs
 {
     public record AddShedDto
     (
         DateTime? Date,
-        char? Rating,
+        ShedRating? Rating,
         string? Notes
     );
 }

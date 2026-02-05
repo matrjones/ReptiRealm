@@ -1,4 +1,5 @@
 ﻿using ReptiRealm_API.Entities.Common;
+using ReptiRealm_API.Enums;
 using System.Text.Json.Serialization;
 
 namespace ReptiRealm_API.Entities
@@ -8,7 +9,7 @@ namespace ReptiRealm_API.Entities
         #region Variables
         public required DateTime Date { get; set; }
         public required decimal Value { get; set; }
-        public string Unit { get; set; } = "g";
+        public required WeightUnit Unit { get; set; } = WeightUnit.Grams;
         public string? Notes { get; set; }
         #endregion
 

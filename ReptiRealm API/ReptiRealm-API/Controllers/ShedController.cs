@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReptiRealm_API.Data;
 using ReptiRealm_API.DTOs;
+using ReptiRealm_API.Enums;
 using ReptiRealm_API.Entities;
 using ReptiRealm_API.Entities.Common;
 
@@ -47,7 +48,7 @@ namespace ReptiRealm_API.Controllers
             var shed = new Shed
             {
                 Date = shedDto.Date ?? DateTime.UtcNow,
-                Rating = shedDto.Rating ?? 'g',
+                Rating = shedDto.Rating ?? ShedRating.Good,
                 Notes = shedDto.Notes,
                 ReptileId = reptileId
             };

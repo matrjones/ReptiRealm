@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReptiRealm_API.Data;
 using ReptiRealm_API.DTOs;
+using ReptiRealm_API.Enums;
 using ReptiRealm_API.Entities;
 using ReptiRealm_API.Entities.Common;
 
@@ -48,7 +49,7 @@ namespace ReptiRealm_API.Controllers
             {
                 Date = weightDto.Date ?? DateTime.UtcNow,
                 Value = weightDto.Value,
-                Unit = weightDto.Unit ?? "g",
+                Unit = weightDto.Unit ?? WeightUnit.Grams,
                 Notes = weightDto.Notes,
                 ReptileId = reptileId
             };

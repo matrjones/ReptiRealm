@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReptiRealm_API.Data;
 using ReptiRealm_API.DTOs;
+using ReptiRealm_API.Enums;
 using ReptiRealm_API.Entities;
 using ReptiRealm_API.Entities.Common;
 
@@ -54,7 +55,7 @@ namespace ReptiRealm_API.Controllers
             var reptile = new Reptile
             {
                 Name = reptileDto.Name,
-                Sex = reptileDto.Sex ?? 'U',
+                Sex = reptileDto.Sex ?? Sex.Unknown,
                 DateOfBirth = reptileDto.DateOfBirth,
                 SpeciesId = reptileDto.SpeciesId,
                 Morphs = morphs

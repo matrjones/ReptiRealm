@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReptiRealm_API.Data;
 using ReptiRealm_API.DTOs;
+using ReptiRealm_API.Enums;
 using ReptiRealm_API.Entities;
 using ReptiRealm_API.Entities.Common;
 
@@ -47,7 +48,7 @@ namespace ReptiRealm_API.Controllers
             var defecation = new Defecation
             {
                 Date = defecationDto.Date ?? DateTime.UtcNow,
-                Type = defecationDto.Type ?? "Poop",
+                Type = defecationDto.Type ?? DefecationType.Faeces,
                 Notes = defecationDto.Notes,
                 ReptileId = reptileId
             };

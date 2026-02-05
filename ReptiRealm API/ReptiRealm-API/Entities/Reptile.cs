@@ -1,4 +1,5 @@
 ﻿using ReptiRealm_API.Entities.Common;
+using ReptiRealm_API.Enums;
 using System.Text.Json.Serialization;
 
 namespace ReptiRealm_API.Entities
@@ -6,8 +7,8 @@ namespace ReptiRealm_API.Entities
     public class Reptile : BaseEntity
     {
         #region Variables
-        public string Name { get; set; } = null!;
-        public char Sex { get; set; } = 'U';
+        public required string Name { get; set; }
+        public required Sex Sex { get; set; } = Sex.Unknown;
         public DateTime? DateOfBirth { get; set; }
         public string? Notes { get; set; }
         #endregion

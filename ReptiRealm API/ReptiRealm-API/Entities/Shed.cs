@@ -1,17 +1,22 @@
 ﻿using ReptiRealm_API.Entities.Common;
+using ReptiRealm_API.Enums;
 using System.Text.Json.Serialization;
 
 namespace ReptiRealm_API.Entities
 {
     public class Shed : BaseEntity
     {
+        #region Variables
         public required DateTime Date { get; set; }
-        public char Rating { get; set; } = 'G';
+        public required ShedRating Rating { get; set; } = ShedRating.Good;
         public string? Notes { get; set; }
+        #endregion
+
 
         #region Foreign Keys
         public Guid ReptileId { get; set; }
         #endregion
+
 
         #region Navigation Properties
         [JsonIgnore]

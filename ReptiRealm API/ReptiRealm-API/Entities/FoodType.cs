@@ -15,6 +15,7 @@ namespace ReptiRealm_API.Entities
         public string? UserId { get; set; } = null!;
         #endregion
 
+
         #region Navigation Properties
         [JsonIgnore]
         public virtual User? User { get; set; }

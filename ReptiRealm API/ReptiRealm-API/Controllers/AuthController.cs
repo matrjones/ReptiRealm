@@ -38,19 +38,19 @@ namespace ReptiRealm_API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
-            var user = await _userManager.FindByNameAsync(dto.Username);
+            var user = await _userManager.FindByEmailAsync(dto.Email);
             if (user == null || !await _userManager.CheckPasswordAsync(user, dto.Password))
             {
                 return Unauthorized();
             }
 
             var token = GenerateJwtToken(user);
-            return Ok(new { token });
+            return Ok(new { token, user.UserName });
         }
 
         private string GenerateJwtToken(IdentityUser user)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
@@ -74,5 +74,5 @@ namespace ReptiRealm_API.Controllers
     }
 
     public record RegisterDto(string Username, string Email, string Password);
-    public record LoginDto(string Username, string Password);
+    public record LoginDto(string Email, string Password);
 }

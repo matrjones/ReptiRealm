@@ -1,9 +1,11 @@
-﻿namespace ReptiRealm_API.DTOs
+﻿using ReptiRealm_API.Enums;
+
+namespace ReptiRealm_API.DTOs
 {
     public record AddReptileDto
     (
         string Name,
-        char? Sex,
+        Sex? Sex,
         DateTime? DateOfBirth,
         Guid? SpeciesId,
         Guid[]? MorphIds
