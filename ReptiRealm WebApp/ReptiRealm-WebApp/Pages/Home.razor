@@ -1,28 +1,64 @@
 ﻿@page "/"
+@using ReptiRealm_WebApp.Components
+@using ReptiRealm_WebApp.Enums
 @using ReptiRealm_WebApp.Layout
+@using ReptiRealm_WebApp.Models
 
 <PageTitle>Home</PageTitle>
 
-<!--Reptile List-->
-<div class="row gy-3">
-    <div class="col-12 col-md-8 col-lg-6">
-        <ReptileCard />
-    </div>
+<!--DISPLAY REPTILE CARDS-->
+<div>
+    <!-- Logic for displaying reptile cards -->
 </div>
 
+
 @code {
+    <!-- HEADER CONTENT -->
     [CascadingParameter]
-    public MainLayout Layout { get; set; }
+    public MainLayout Layout { get; set; } = null!;
 
     protected override void OnInitialized()
     {
         if (Layout != null)
         {
             Layout.PageHeading = "ReptiRealm";
-            Layout.PageSubHeading = "This is a sub heading";
-            Layout.ToolboxButtonText = "Add Reptile";
-            Layout.ToolboxButtonIcon = "+";
-            Layout.Refresh(); // Force layout to update
+            Layout.PageSubHeading = "My Animals";
+            Layout.ToolboxButtonText = TestReptiles.Count == 0 ? "Add Reptile" : null;
+            Layout.ToolboxButtonIcon = TestReptiles.Count == 0 ? "+" : null;
+            Layout.Refresh();
+        }
+
+        else
+        {
+            Layout!.PageHeading = "Error";
         }
     }
+
+    <!-- MOCK REPTILE LIST -->
+    private List<Reptile> TestReptiles = new()
+    {
+        new Reptile
+        {
+            Id = Guid.NewGuid(),
+            UserId = Guid.NewGuid(),
+            Name = "Ra",
+            Sex = Sex.Male,
+            DateOfBirth = new DateTime(2022, 05, 10),
+            Notes = "Very active"
+        },
+        new Reptile
+        {
+            Id = Guid.NewGuid(),
+            UserId = Guid.NewGuid(),
+            Name = "Kaiba",
+            Sex = Sex.Female,
+            DateOfBirth = new DateTime(2020, 01, 07)
+        },
+        new Reptile
+        {
+            Id = Guid.NewGuid(),
+            UserId = Guid.NewGuid(),
+            Name = "Lilith"
+        },
+    };
 }

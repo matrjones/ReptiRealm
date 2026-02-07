@@ -11,17 +11,23 @@
                 <div class="d-flex justify-content-between align-items-start mb-4">
                     <div>
                         <h1 class="fw-bold">@PageHeading</h1>
-                        <p class="text-muted mb-0">@PageSubHeading</p>
+                        @if (!string.IsNullOrWhiteSpace(PageSubHeading))
+                        {
+                            <p class="text-muted mb-0">@PageSubHeading</p>
+                        }
+                        
                     </div>
 
-                    <button class="btn btn-dark d-flex align-items-center gap-2" @onclick="AddReptile">
-                        <span class="fs-5">@ToolboxButtonIcon</span>
-                        @ToolboxButtonText
-                    </button>
+                    @if (!string.IsNullOrWhiteSpace(ToolboxButtonText) && !string.IsNullOrWhiteSpace(ToolboxButtonIcon))
+                    {
+                        <button class="btn btn-dark d-flex align-items-center gap-2" @onclick="AddReptile">
+                            <span class="fs-5">@ToolboxButtonIcon</span>
+                            @ToolboxButtonText
+                        </button>
+                    }
                 </div>
             </div>
 
-            <!-- This makes the page (child component) accessible as a cascading parameter -->
             <CascadingValue Value="this">
                 @Body
             </CascadingValue>
@@ -30,10 +36,10 @@
 </div>
 
 @code {
-    public string PageHeading { get; set; } = "Default Heading";
-    public string PageSubHeading { get; set; } = "Default Subheading";
-    public string ToolboxButtonText { get; set; } = "Default Button";
-    public string ToolboxButtonIcon { get; set; } = "+";
+    public string PageHeading { get; set; } = string.Empty;
+    public string? PageSubHeading { get; set; } = string.Empty;
+    public string? ToolboxButtonText { get; set; } = string.Empty;
+    public string? ToolboxButtonIcon { get; set; } = string.Empty;
 
     private void AddReptile()
     {
