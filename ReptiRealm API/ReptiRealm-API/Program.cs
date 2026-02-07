@@ -2,8 +2,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using ReptiRealm_API.Data;
-using ReptiRealm_API.Entities.Common;
+using ReptiRealm_API.Domain.Entities.Common;
+using ReptiRealm_API.Infrastructure.Data;
+using ReptiRealm_API.Infrastructure.Data.Extensions;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
     );
 });
+
+builder.Services.AddApplicationServices();
 
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
