@@ -1,41 +1,28 @@
 ﻿@page "/"
-@using Microsoft.AspNetCore.Components.Web
-@inject NavigationManager Navigation
+@using ReptiRealm_WebApp.Layout
 
 <PageTitle>Home</PageTitle>
-<div class="container py-5">
-    
-    <!--Header Row-->
-    <div class="d-flex justify-content-between align-items-start mb-4">
-        <div>
-            <h1 class="fw-bold">
-                ReptiRealm
-            </h1>
-            <p class="text-muted mb-0">
-                Track feeds, sheds, weight, and health events for your reptiles
-            </p>
-        </div>
-        
-        <button class="btn btn-dark d-flex align-items-center gap-2" @onclick="OpenModal">
-            <span class="fs-5">
-                +
-            </span>
-            Add Reptile
-        </button>
-    </div>
 
-    <!--Reptile List-->
-    <div class="row gy-3">
-        <div class="col-12 col-md-8 col-lg-6">
-            <ReptileCard />
-        </div>
+<!--Reptile List-->
+<div class="row gy-3">
+    <div class="col-12 col-md-8 col-lg-6">
+        <ReptileCard />
     </div>
 </div>
 
-@code
-{
-    private void AddReptile()
+@code {
+    [CascadingParameter]
+    public MainLayout Layout { get; set; }
+
+    protected override void OnInitialized()
     {
-        Navigation.NavigateTo("/add-reptile");
+        if (Layout != null)
+        {
+            Layout.PageHeading = "ReptiRealm";
+            Layout.PageSubHeading = "This is a sub heading";
+            Layout.ToolboxButtonText = "Add Reptile";
+            Layout.ToolboxButtonIcon = "+";
+            Layout.Refresh(); // Force layout to update
+        }
     }
 }
