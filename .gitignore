@@ -1,114 +1,83 @@
-## Ignore Visual Studio / Rider user-specific files
-ReptiReam API/.vs/
-ReptiReam API/.idea/
-ReptiReam API/*.user
-ReptiReam API/*.suo
-ReptiReam API/*.userprefs
+############################
+# IDE / Editor files
+############################
 
-## Build results
-ReptiReam API/**/bin/
-ReptiReam API/**/obj/
-ReptiReam API/**/Debug/
-ReptiReam API/**/Release/
+.vs/
+.idea/
+.vscode/
 
-## .NET / SDK
-ReptiReam API/artifacts/
-ReptiReam API/project.lock.json
-ReptiReam API/project.fragment.lock.json
+*.user
+*.suo
+*.userprefs
+*.DotSettings.user
 
-## ASP.NET Core
-ReptiReam API/appsettings.Development.json
-ReptiReam API/appsettings.Local.json
-ReptiReam API/wwwroot/lib/
+_ReSharper*/
 
-## Logs
-ReptiReam API/**/*.log
 
-## Test results
-ReptiReam API/TestResults/
-ReptiReam API/**/TestResults/
+############################
+# Build output
+############################
 
-## NuGet
-ReptiReam API/*.nupkg
-ReptiReam API/*.snupkg
-ReptiReam API/packages/
-ReptiReam API/.nuget/
+**/bin/
+**/obj/
+**/Debug/
+**/Release/
+publish/
 
-## ReSharper / Rider
-ReptiReam API/_ReSharper*/
-ReptiReam API/*.DotSettings.user
 
-## VS Code
-ReptiReam API/.vscode/
+############################
+# .NET / SDK
+############################
 
-## Environment variables
-ReptiReam API/.env
-ReptiReam API/.env.*
+artifacts/
+project.lock.json
+project.fragment.lock.json
 
-## Publish output
-ReptiReam API/publish/
-/ReptiRealm API/.vs/ReptiRealm-API/FileContentIndex
-/ReptiRealm API/ReptiRealm-API/obj/Debug/net8.0/ReptiRealm-API.AssemblyInfo.cs
-/ReptiRealm API/ReptiRealm-API/obj/Debug/net8.0/ReptiRealm-API.AssemblyInfoInputs.cache
-/ReptiRealm API/.vs/ReptiRealm-API
-/ReptiRealm API/ReptiRealm-API/bin/Debug/net8.0/ReptiRealm-API.dll
-/ReptiRealm API/ReptiRealm-API/bin/Debug/net8.0/ReptiRealm-API.exe
-/ReptiRealm API/ReptiRealm-API/bin/Debug/net8.0/ReptiRealm-API.pdb
-/ReptiRealm API/ReptiRealm-API/obj/Debug/net8.0/ref/ReptiRealm-API.dll
-/ReptiRealm API/ReptiRealm-API/obj/Debug/net8.0/apphost.exe
-/ReptiRealm API/ReptiRealm-API/obj/Debug/net8.0/ReptiRealm-API.csproj.CoreCompileInputs.cache
-/ReptiRealm API/ReptiRealm-API/obj/Debug/net8.0/refint/ReptiRealm-API.dll
-/ReptiRealm API/ReptiRealm-API/obj/Debug/net8.0/ReptiRealm-API.dll
-/ReptiRealm API/ReptiRealm-API/obj/Debug/net8.0/ReptiRealm-API.pdb
-/ReptiRealm API/ReptiRealm-API/obj/Debug/net8.0/ReptiRealm-API.sourcelink.json
-/ReptiRealm API/ReptiRealm-API/obj/Debug/net8.0/rjsmcshtml.dswa.cache.json
-/ReptiRealm API/ReptiRealm-API/obj/Debug/net8.0/rjsmrazor.dswa.cache.json
-/.vs
-/ReptiRealm API/.vs/ProjectEvaluation/reptirealm-api.metadata.v9.bin
-/ReptiRealm API/.vs/ProjectEvaluation/reptirealm-api.projects.v9.bin
-/ReptiRealm API/.vs/ProjectEvaluation/reptirealm-api.strings.v9.bin
-/ReptiRealm API/ReptiRealm-API/obj/Release/net8.0
-/ReptiRealm WebApp/.vs/ReptiRealm-WebApp/config
-/ReptiRealm WebApp/.vs/ReptiRealm-WebApp/CopilotIndices/17.14.794.21998
-/ReptiRealm WebApp/.vs/ReptiRealm-WebApp/DesignTimeBuild/.dtbcache.v2
-/ReptiRealm WebApp/.vs/ReptiRealm-WebApp/FileContentIndex
-/ReptiRealm WebApp/.vs/ReptiRealm-WebApp/v17/.suo
-/ReptiRealm WebApp/.vs/ReptiRealm-WebApp/v17/DocumentLayout.backup.json
-/ReptiRealm WebApp/ReptiRealm-WebApp/bin/Debug/net8.0
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/ref
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/refint
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/scopedcss/bundle
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/scopedcss/Layout
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/scopedcss/projectbundle
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/ApiEndpoints.json
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/apphost.exe
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/ReptiRealm-WebApp.AssemblyInfo.cs
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/ReptiRealm-WebApp.AssemblyInfoInputs.cache
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/ReptiRealm-WebApp.csproj.BuildWithSkipAnalyzers
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/ReptiRealm-WebApp.csproj.CoreCompileInputs.cache
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/ReptiRealm-WebApp.csproj.FileListAbsolute.txt
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/ReptiRealm-WebApp.dll
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/ReptiRealm-WebApp.GeneratedMSBuildEditorConfig.editorconfig
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/ReptiRealm-WebApp.genruntimeconfig.cache
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/ReptiRealm-WebApp.MvcApplicationPartsAssemblyInfo.cache
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/ReptiRealm-WebApp.pdb
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/ReptiRealm-WebApp.sourcelink.json
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/rjimswa.dswa.cache.json
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/rjsmcshtml.dswa.cache.json
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/rjsmrazor.dswa.cache.json
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/rpswa.dswa.cache.json
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/staticwebassets.build.endpoints.json
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/staticwebassets.build.json
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/staticwebassets.build.json.cache
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/staticwebassets.development.json
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/staticwebassets.references.upToDateCheck.txt
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Debug/net8.0/staticwebassets.upToDateCheck.txt
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/Release/net8.0
-/ReptiRealm API/ReptiRealm-API/obj/Debug/net8.0/EndpointInfo/ReptiRealm-API.json
-/ReptiRealm WebApp/.vs/ReptiRealm-WebApp/v17/DocumentLayout.json
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/project.assets.json
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/project.nuget.cache
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/`.csproj.nuget.dgspec.json
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/`.csproj.nuget.g.props
-/ReptiRealm WebApp/ReptiRealm-WebApp/obj/`.csproj.nuget.g.targets
-/ReptiRealm WebApp/ReptiRealm-WebApp/ReptiRealm-WebApp.csproj.user
+
+############################
+# ASP.NET Core
+############################
+
+appsettings.Development.json
+appsettings.Local.json
+wwwroot/lib/
+
+
+############################
+# Logs
+############################
+
+*.log
+
+
+############################
+# Test results
+############################
+
+TestResults/
+
+
+############################
+# NuGet
+############################
+
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+
+############################
+# Environment variables
+############################
+
+.env
+.env.*
+
+
+############################
+# Misc
+############################
+
+.vs
+/ReptiRealm API/ReptiRealm-API/obj/Debug/net8.0/ReptiRealm-API.assets.cache
