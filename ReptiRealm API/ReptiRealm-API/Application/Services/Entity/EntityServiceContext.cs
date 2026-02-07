@@ -18,7 +18,7 @@ namespace ReptiRealm_API.Application.Services.Entity
             return _context.Set<TEntity>().AsQueryable();
         }
 
-        public async Task<TEntity?> GetByIdAsync(int id)
+        public async Task<TEntity?> GetByIdAsync(Guid id)
         {
             return await _context.Set<TEntity>().FindAsync(id);
         }

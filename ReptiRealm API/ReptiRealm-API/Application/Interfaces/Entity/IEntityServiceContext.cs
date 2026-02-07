@@ -6,7 +6,7 @@ namespace ReptiRealm_API.Application.Interfaces.Entity
     {
         #region READ OPERATIONS
         IQueryable<TEntity> GetAll();
-        Task<TEntity?> GetByIdAsync(int id);
+        Task<TEntity?> GetByIdAsync(Guid id);
         #endregion
 
         #region TRANSACTION METHODS
