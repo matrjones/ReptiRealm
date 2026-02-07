@@ -1,4 +1,4 @@
-﻿namespace ReptiRealm_API.Application.Services.Entity
+﻿namespace ReptiRealm_API.Application.Interfaces.Entity
 {
     public interface IEntityService
     {

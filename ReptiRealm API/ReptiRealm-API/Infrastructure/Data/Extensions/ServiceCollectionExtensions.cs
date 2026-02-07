@@ -1,4 +1,5 @@
-﻿using ReptiRealm_API.Application.Services.Entity;
+﻿using ReptiRealm_API.Application.Interfaces.Entity;
+using ReptiRealm_API.Application.Services.Entity;
 
 namespace ReptiRealm_API.Infrastructure.Data.Extensions
 {
