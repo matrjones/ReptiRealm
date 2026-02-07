@@ -1,6 +1,6 @@
-############################
-# IDE / Editor files
-############################
+##################################
+# IDE / Editor (all projects)
+##################################
 
 .vs/
 .idea/
@@ -10,74 +10,102 @@
 *.suo
 *.userprefs
 *.DotSettings.user
-
 _ReSharper*/
 
 
-############################
-# Build output
-############################
+##################################
+# Build output (all projects)
+##################################
 
 **/bin/
 **/obj/
 **/Debug/
 **/Release/
-publish/
+**/publish/
+**/build/
 
 
-############################
-# .NET / SDK
-############################
+##################################
+# .NET / ASP.NET Core
+##################################
 
-artifacts/
-project.lock.json
-project.fragment.lock.json
+**/artifacts/
+**/project.lock.json
+**/project.fragment.lock.json
 
+**/appsettings.Development.json
+**/appsettings.Local.json
+**/wwwroot/lib/
 
-############################
-# ASP.NET Core
-############################
+**/*.log
+**/TestResults/
 
-appsettings.Development.json
-appsettings.Local.json
-wwwroot/lib/
-
-
-############################
-# Logs
-############################
-
-*.log
+**/*.nupkg
+**/*.snupkg
+**/packages/
+**/.nuget/
 
 
-############################
-# Test results
-############################
-
-TestResults/
-
-
-############################
-# NuGet
-############################
-
-*.nupkg
-*.snupkg
-packages/
-.nuget/
-
-
-############################
+##################################
 # Environment variables
-############################
+##################################
 
-.env
-.env.*
+**/.env
+**/.env.*
 
 
-############################
-# Misc
-############################
+##################################
+# Flutter / Dart (any subfolder)
+##################################
 
-.vs
-/ReptiRealm API/ReptiRealm-API/obj/Debug/net8.0/ReptiRealm-API.assets.cache
+**/.dart_tool/
+**/.packages
+**/.pub-cache/
+**/.pub/
+
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.metadata
+
+**/coverage/
+
+
+##################################
+# Flutter - Android
+##################################
+
+**/android/.gradle/
+**/android/local.properties
+**/android/key.properties
+
+**/android/app/debug/
+**/android/app/profile/
+**/android/app/release/
+
+**/*.apk
+**/*.aab
+
+
+##################################
+# Flutter - iOS
+##################################
+
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/App.framework
+
+**/ios/*.xcuserstate
+**/ios/*.xcsettings
+**/ios/*.xcbkptlist
+
+
+##################################
+# OS junk
+##################################
+
+.DS_Store
+Thumbs.db
