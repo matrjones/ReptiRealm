@@ -10,7 +10,7 @@ namespace ReptiRealm_WebApp.Models
         public Sex? Sex { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public Guid? SpeciesId { get; set; }
-        public Guid? MorphIds { get; set; }
+        public List<Guid>? MorphIds { get; set; }
         public string? Notes { get; set; }
     }
 }
