@@ -1,28 +1,44 @@
 ﻿@page "/"
+@implements IDisposable
 @using ReptiRealm_WebApp.Layout
+@using ReptiRealm_WebApp.Components
+@inject NavigationManager Navigation
 
 <PageTitle>Home</PageTitle>
 
 <!--Reptile List-->
 <div class="row gy-3">
     <div class="col-12 col-md-8 col-lg-6">
-        <ReptileCard />
+        <ReptileCard></ReptileCard>
     </div>
 </div>
 
 @code {
     [CascadingParameter]
-    public MainLayout Layout { get; set; }
+    public MainLayout Layout { get; set; } = default!;
 
     protected override void OnInitialized()
     {
-        if (Layout != null)
+        if(Layout != null)
         {
-            Layout.PageHeading = "ReptiRealm";
-            Layout.PageSubHeading = "This is a sub heading";
-            Layout.ToolboxButtonText = "Add Reptile";
-            Layout.ToolboxButtonIcon = "+";
-            Layout.Refresh(); // Force layout to update
+            Layout.SetToolbarOptions(
+                "ReptiRealm",
+                "Track feeds, sheds, weight, and health events for your reptiles",
+                "Add Reptile",
+                "+",
+                AddReptile
+            );
         }
+    }
+
+    private async Task AddReptile()
+    {
+        Navigation.NavigateTo("/reptile/create");
+        await Task.CompletedTask;
+    }
+
+    public void Dispose()
+    {
+        Layout.ResetToolbar();
     }
 }
