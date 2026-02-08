@@ -1,34 +1,21 @@
 ﻿@page "/"
-@implements IDisposable
-@using ReptiRealm_WebApp.Layout
-@using ReptiRealm_WebApp.Components
-@inject NavigationManager Navigation
 
 <PageTitle>Home</PageTitle>
 
-<!--Reptile List-->
-<div class="row gy-3">
-    <div class="col-12 col-md-8 col-lg-6">
-        <ReptileCard></ReptileCard>
-    </div>
-</div>
+<p>Welcome to ReptiRealm!</p>
 
 @code {
-    [CascadingParameter]
-    public MainLayout Layout { get; set; } = default!;
-
+    <!-- HEADER CONTENT -->
     protected override void OnInitialized()
     {
-        if(Layout != null)
+        HeaderState.SetHeader(new HeaderData
         {
-            Layout.SetToolbarOptions(
-                "ReptiRealm",
-                "Track feeds, sheds, weight, and health events for your reptiles",
-                "Add Reptile",
-                "+",
-                AddReptile
-            );
-        }
+            Heading = "ReptiRealm",
+            SubHeading = "Track feeds, sheds, weight, and health events for your reptiles",
+            ButtonText = "Add Reptile",
+            ButtonIcon = "+",
+            ButtonAction = AddReptile
+        });
     }
 
     private async Task AddReptile()
@@ -37,8 +24,31 @@
         await Task.CompletedTask;
     }
 
-    public void Dispose()
+    <!-- MOCK REPTILE LIST -->
+    private List<Reptile> TestReptiles = new()
     {
-        Layout.ResetToolbar();
-    }
+        new Reptile
+        {
+            Id = Guid.NewGuid(),
+            UserId = Guid.NewGuid(),
+            Name = "Ra",
+            Sex = Sex.Male,
+            DateOfBirth = new DateTime(2022, 05, 10),
+            Notes = "Very active"
+        },
+        new Reptile
+        {
+            Id = Guid.NewGuid(),
+            UserId = Guid.NewGuid(),
+            Name = "Kaiba",
+            Sex = Sex.Female,
+            DateOfBirth = new DateTime(2020, 01, 07)
+        },
+        new Reptile
+        {
+            Id = Guid.NewGuid(),
+            UserId = Guid.NewGuid(),
+            Name = "Lilith"
+        },
+    };
 }

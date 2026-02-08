@@ -1,4 +1,5 @@
 using ReptiRealm_WebApp;
+using ReptiRealm_WebApp.Components.HelperClass;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddHttpClient();
+builder.Services.AddSingleton<HeaderState>();
 
 var app = builder.Build();
 

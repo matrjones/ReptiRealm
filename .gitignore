@@ -109,3 +109,6 @@ _ReSharper*/
 
 .DS_Store
 Thumbs.db
+/ReptiRealm WebApp/ReptiRealm-WebApp/ReptiRealm-WebApp.csproj
+/.gitignore
+/.gitignore

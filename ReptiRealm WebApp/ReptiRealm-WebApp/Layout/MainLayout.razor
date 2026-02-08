@@ -1,72 +1,37 @@
-﻿@using Microsoft.AspNetCore.Components.Web
-@inherits LayoutComponentBase
-@inject NavigationManager Navigation
+﻿@inherits LayoutComponentBase
+
 
 <div class="page">
     <main>
         <article class="content px-4">
-            <div class="container py-5">
-
-                <!--Header Row-->
-                <div class="d-flex justify-content-between align-items-start mb-4">
-                    <div>
-                        <h1 class="fw-bold">@_heading</h1>
-                        @if(_subHeading != null)
-                        {
-                            <p class="text-muted mb-0">@_subHeading</p>
-                        }
-                    </div>
-                    @if (_buttonText != null && _buttonAction != null)
-                    {
-                        <button type="button" class="btn btn-dark d-flex align-items-center gap-2" @onclick="_buttonAction">
-                            @if (_buttonIcon != null)
-                            {
-                                <span class="fs-5">@_buttonIcon</span>
-                            }
-                            @_buttonText
-                        </button>
-                    }
-                </div>
+            <div class="container py-3">
+                <Header Heading="@HeaderState.CurrentHeader.Heading"
+                        SubHeading="@HeaderState.CurrentHeader.SubHeading"
+                        ButtonText="@HeaderState.CurrentHeader.ButtonText"
+                        ButtonIcon="@HeaderState.CurrentHeader.ButtonIcon"
+                        ButtonAction="@HeaderState.CurrentHeader.ButtonAction" />
             </div>
-
-            <!-- This makes the page (child component) accessible as a cascading parameter -->
-            <CascadingValue Value="this">
+            <div class="container py-3">
                 @Body
-            </CascadingValue>
+            </div>
         </article>
     </main>
 </div>
 
 @code {
-    private string _heading { get; set; } = "";
-    private string? _subHeading { get; set; } = null;
-    private string? _buttonText { get; set; } = null;
-    private string? _buttonIcon { get; set; } = null;
-    private Func<Task>? _buttonAction { get; set; } = null;
-
-    public void SetToolbarOptions(
-        string heading,
-        string? subHeading,
-        string? buttonText,
-        string? buttonIcon,
-        Func<Task>? buttonAction
-    )
+    protected override void OnInitialized()
     {
-        _heading = heading;
-        _subHeading = subHeading;
-        _buttonText = buttonText;
-        _buttonIcon = buttonIcon;
-        _buttonAction = buttonAction;
-        StateHasChanged();
+        HeaderState.OnChange += HeaderChanged;
     }
 
-    public void ResetToolbar()
+    private void HeaderChanged()
     {
-        _heading = "";
-        _subHeading = null;
-        _buttonText = null;
-        _buttonIcon = null;
-        _buttonAction = null;
-        StateHasChanged();
+        // Ensure this runs on the UI thread
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        HeaderState.OnChange -= HeaderChanged;
     }
 }
