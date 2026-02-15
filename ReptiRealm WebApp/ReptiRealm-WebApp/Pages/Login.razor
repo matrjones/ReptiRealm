@@ -1,9 +1,6 @@
 ﻿@page "/login"
-@inject NavigationManager Navigation
-@rendermode InteractiveServer
+@attribute [AllowAnonymous]
 
-@using ReptiRealm_WebApp.DTOs.Authentication
-@inject HttpClient Http
 
 <div class="container py-5">
 
@@ -18,17 +15,17 @@
                         <p class="text-muted mb-0">Sign in to your account</p>
                     </div>
 
-                    <EditForm Model="loginModel"
+                    <EditForm Model="_loginModel"
                               OnValidSubmit="HandleLogin"
                               FormName="loginForm">
                         <DataAnnotationsValidator />
                         <ValidationSummary />
 
                         <!-- Error Message -->
-                        @if (!string.IsNullOrEmpty(errorMessage))
+                        @if (!string.IsNullOrEmpty(_errorMessage))
                         {
                             <div class="alert alert-danger">
-                                @errorMessage
+                                @_errorMessage
                             </div>
                         }
 
@@ -36,7 +33,7 @@
                         <div class="mb-3">
                             <label class="form-label">Email</label>
                             <InputText class="form-control"
-                                       @bind-Value="loginModel.Email"
+                                       @bind-Value="_loginModel.Email"
                                        type="email" />
                         </div>
 
@@ -44,14 +41,24 @@
                         <div class="mb-4">
                             <label class="form-label">Password</label>
                             <InputText class="form-control"
-                                       @bind-Value="loginModel.Password"
+                                       @bind-Value="_loginModel.Password"
                                        type="password" />
                         </div>
 
                         <!-- Login Button -->
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-dark">
-                                Login
+                            <button type="submit" class="btn btn-dark" disabled="@_isSubmitting">
+                                @if (_isSubmitting)
+                                {
+                                    <text>
+                                        <span class="spinner-border spinner-border-sm me-2"></span>
+                                        Logging in...
+                                    </text>
+                                }
+                                else
+                                {
+                                    <text>Login</text>
+                                }
                             </button>
                         </div>
                     </EditForm>
@@ -63,24 +70,24 @@
 
 @code {
 
-    private LoginDto loginModel = new();
-    private string errorMessage = null!;
+    private LoginDto _loginModel = new();
+    private string _errorMessage = null!;
+    private bool _isSubmitting = false;
 
     private async Task HandleLogin()
     {
-        errorMessage = string.Empty; // Clear previous error
+        _isSubmitting = true;
+        var success = await AuthService.LoginAsync(_loginModel);
 
-        var response = await Http.PostAsJsonAsync(
-            "https://localhost:7264/api/Auth/login",
-            loginModel);
-
-        if (response.IsSuccessStatusCode)
+        if (success)
         {
-            Navigation.NavigateTo("/");
+            Navigation.NavigateTo("/"); // redirect to home
         }
         else
         {
-            errorMessage = "Username or password is incorrect.";
+            _errorMessage = "Username or password is incorrect.";
         }
+
+        _isSubmitting = false;
     }
 }

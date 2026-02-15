@@ -1,4 +1,4 @@
-﻿namespace ReptiRealm_WebApp.Components.HelperClass
+﻿namespace ReptiRealm_WebApp.Helpers
 {
     public class HeaderData
     {

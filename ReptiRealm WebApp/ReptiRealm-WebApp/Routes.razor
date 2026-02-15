@@ -1,8 +1,32 @@
 ﻿@rendermode InteractiveServer
+@using System.Reflection
+@using Microsoft.AspNetCore.Components.Authorization
+@using ReptiRealm_WebApp.Components.Auth
 
-<Router AppAssembly="typeof(Program).Assembly">
-    <Found Context="routeData">
-        <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
-        <FocusOnNavigate RouteData="routeData" Selector="h1" />
-    </Found>
-</Router>
+<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(Program).Assembly">
+        <Found Context="routeData">
+            @if (routeData.PageType.GetCustomAttribute(typeof(AllowAnonymousAttribute)) != null)
+            {
+                <RouteView RouteData="@routeData" DefaultLayout="typeof(AuthLayout)" />
+            }
+            else
+            {
+                <AuthorizeRouteView RouteData="@routeData" DefaultLayout="typeof(MainLayout)">
+                    <Authorizing>
+                        <div class="text-center py-5">
+                            <span class="spinner-border"></span>
+                            <p>Loading authentication...</p>
+                        </div>
+                    </Authorizing>
+                    <NotAuthorized>
+                        <RedirectToLogin />
+                    </NotAuthorized>
+                </AuthorizeRouteView>
+            }
+        </Found>
+        <NotFound>
+            <p>Page not found.</p>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>

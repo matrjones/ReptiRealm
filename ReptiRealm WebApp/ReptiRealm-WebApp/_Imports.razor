@@ -1,17 +1,30 @@
-﻿@using System.Net.Http
+﻿@* -------------------- System / .NET namespaces -------------------- *@
+@using System.Net.Http
 @using System.Net.Http.Json
+
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.AspNetCore.Components.Routing
 @using Microsoft.AspNetCore.Components.Web
-@using static Microsoft.AspNetCore.Components.Web.RenderMode
 @using Microsoft.AspNetCore.Components.Web.Virtualization
+@using static Microsoft.AspNetCore.Components.Web.RenderMode
 @using Microsoft.JSInterop
+
+@* -------------------- Project-specific namespaces -------------------- *@
 @using ReptiRealm_WebApp
 @using ReptiRealm_WebApp.Components
-@using ReptiRealm_WebApp.Components.HelperClass
+@using ReptiRealm_WebApp.DTOs.Authentication
 @using ReptiRealm_WebApp.Enums
+@using ReptiRealm_WebApp.Helpers
 @using ReptiRealm_WebApp.Layout
 @using ReptiRealm_WebApp.Models
 
+@* -------------------- Dependency injections -------------------- *@
+@inject AuthenticationStateProvider AuthStateProvider
 @inject NavigationManager Navigation
-@inject HeaderState HeaderState 
+@inject HeaderState HeaderState
+@inject HttpClient Http
+@inject AuthService AuthService
+@inject AuthenticationStateProvider AuthStateProvider

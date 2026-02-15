@@ -1,5 +1,5 @@
 ﻿@inherits LayoutComponentBase
-
+@attribute [Authorize]
 
 <div class="page">
     <main>
@@ -33,5 +33,20 @@
     public void Dispose()
     {
         HeaderState.OnChange -= HeaderChanged;
+    }
+
+    private bool _initialized;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (_initialized) return;
+
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        if (!authState.User.Identity.IsAuthenticated)
+        {
+            Navigation.NavigateTo("login", true);
+        }
+
+        _initialized = true;
     }
 }
