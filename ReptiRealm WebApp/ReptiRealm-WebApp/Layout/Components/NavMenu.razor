@@ -1,30 +1,38 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">ReptiRealm-WebApp</a>
-    </div>
+﻿<!-- Title -->
+<div class="navbar">
+    <a class="navbar-brand" href="">
+        <!--ReptiRealm icon goes here-->
+        <span class="brand-white">Repti</span>
+        <span class="brand-green">Realm</span>
+    </a>
 </div>
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
 
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="nav flex-column">
-        <div class="nav-item px-3">
+<!-- Menu -->
+<div class="nav-menu">
+    <nav class="flex-column">
+        <div class="nav-item">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                <span class="bi bi-house-door" aria-hidden="true"></span>Home
             </NavLink>
         </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
+        <div class="nav-item">
+            <NavLink class="nav-link" href="tasks">
+                <span class="bi bi-list-check" aria-hidden="true"></span>Tasks
             </NavLink>
         </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
+        <div class="nav-item">
+            <NavLink class="nav-link" href="calendar">
+                <span class="bi bi-calendar-event" aria-hidden="true"></span>Calendar
+            </NavLink>
+        </div>
+
+        <div class="nav-item">
+            <NavLink class="nav-link" href="food">
+                <span class="bi bi-fork-knife" aria-hidden="true"></span>Food
             </NavLink>
         </div>
     </nav>
 </div>
-
