@@ -1,0 +1,39 @@
+﻿.nav-item {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.bi {
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0;
+}
+
+.nav-item:first-of-type {
+    padding-top: 1rem;
+}
+
+.nav-item:last-of-type {
+    padding-bottom: 1rem;
+}
+
+.nav-item ::deep .nav-link {
+    color: #d7d7d7;
+    border-radius: 5px;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-item ::deep a.active {
+    background-color: #103010;
+    color: #CCDF92;
+}
+
+.nav-item ::deep .nav-link:hover:not(.active) {
+    background-color: #FFFFFF1A;
+    color: #F0F0F0;
+}
