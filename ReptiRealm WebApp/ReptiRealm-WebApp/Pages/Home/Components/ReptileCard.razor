@@ -1,12 +1,14 @@
-﻿<div class="reptile_card">
+﻿@using ReptiRealm_WebApp.Models.Enums
+
+<div class="reptile_card">
     <div class="name_and_sex">
         <span class="name">@Name</span>
         @if(!string.IsNullOrWhiteSpace(SexIcon))
         {
-            <span class="bi @SexIcon"></span>
+            <span class="@SexIcon"></span>
         }
     </div>
-    
+
     @if(!string.IsNullOrWhiteSpace(Species))
     {
         <div class="species">
@@ -20,8 +22,16 @@
     required public string Name { get; set; }
 
     [Parameter]
-    public string? SexIcon { get; set; }
+    public Sex Sex { get; set; } = Sex.Unknown;
 
     [Parameter]
     public string? Species { get; set; }
+
+
+    private string SexIcon => Sex switch
+    {
+        Sex.Male => "bi bi-gender-male",
+        Sex.Female => "bi bi-gender-female",
+        _ => string.Empty
+    };
 }
