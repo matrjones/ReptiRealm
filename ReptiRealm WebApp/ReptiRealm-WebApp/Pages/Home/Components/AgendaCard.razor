@@ -1,0 +1,23 @@
+﻿<div class="agenda_card">
+    <span class="bi @Icon"></span>
+    <div class="agenda_text">
+        <div class="agenda_total">
+            @AgendaTotal
+        </div>
+        <div class="agenda_description">
+            @AgendaDescription
+        </div>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    required public string Icon { get; set; }
+
+    [Parameter]
+    public int AgendaTotal { get; set; }
+
+    [Parameter]
+    required public string AgendaDescription { get; set; }
+}

@@ -3,37 +3,52 @@
 @using ReptiRealm_WebApp.Models.Enums
 
 <PageTitle>Home</PageTitle>
-
 <div class="homepage">
-    <h1 class="header">Hello, ReptiKeeper!</h1>
-    <div class="todays_agenda_header">
+    <div class="welcome_section">
+        <h1 class="header">Hello, ReptiKeeper!</h1>
+    </div>
+    
+    <div class="todays_agenda_section">
         <h3 class="sub_header">Today's Agenda</h3>
-        <p>feeds, waters, beddings, spot checks...</p>
+        <div class="agenda_tasks">
+            <AgendaCard Icon="bi-fork-knife"
+                        AgendaTotal="4"
+                        AgendaDescription="feeds" />
+        
+            <AgendaCard Icon="bi-droplet"
+                        AgendaTotal="1"
+                        AgendaDescription="Waters" />
+        
+            <AgendaCard Icon="bi-layers"
+                        AgendaTotal="0"
+                        AgendaDescription="Substrates" />
+        </div>
     </div>
-    <div class="my_reptiles_header">
+    
+    <div class="my_reptiles_section">
         <h3 class="sub_header">My Reptiles</h3>
-    </div>
-    <div class="reptile_grid">
-        <ReptileCard Name="Ra"
-                     Sex="Sex.Male"
-                     Species="Corn snake" />
+        <div class="reptile_grid">
+            <ReptileCard Name="Ra"
+                         Sex="Sex.Male"
+                         Species="Corn snake" />
 
-        <ReptileCard Name="Kaiba"
-                     Sex="Sex.Female" />
+            <ReptileCard Name="Kaiba"
+                         Sex="Sex.Female" />
 
-        <ReptileCard Name="Lucifer"
-                     Species="Mexican black kingsnake" />
+            <ReptileCard Name="Lucifer"
+                         Species="Mexican black kingsnake" />
 
-        <ReptileCard Name="Poseidon" />
+            <ReptileCard Name="1" />
 
-        <ReptileCard Name="Poseidon" />
+            <ReptileCard Name="2" />
 
-        <ReptileCard Name="Poseidon" />
+            <ReptileCard Name="3" />
 
-        <ReptileCard Name="Poseidon" />
+            <ReptileCard Name="4" />
 
-        <ReptileCard Name="Poseidon" />
+            <ReptileCard Name="5" />
 
-        <ReptileCard Name="Poseidon" />
+            <ReptileCard Name="6" />
+        </div>
     </div>
 </div>

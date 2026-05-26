@@ -11,15 +11,21 @@
   <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="Pages\Calendar\Components\" />
+    <Folder Include="Pages\Calendar\Modals\" />
     <Folder Include="Pages\Calendar\Resources\" />
     <Folder Include="Pages\Food\Components\" />
+    <Folder Include="Pages\Food\Modals\" />
     <Folder Include="Pages\Food\Resources\" />
+    <Folder Include="Pages\Home\Modals\" />
     <Folder Include="Pages\Home\Resources\" />
     <Folder Include="Pages\Reptile\Components\" />
+    <Folder Include="Pages\Reptile\Modals\" />
     <Folder Include="Pages\Reptile\Resources\" />
     <Folder Include="Pages\Shared\Components\" />
+    <Folder Include="Pages\Shared\Modals\" />
     <Folder Include="Pages\Shared\Resources\" />
     <Folder Include="Pages\Tasks\Components\" />
+    <Folder Include="Pages\Tasks\Modals\" />
     <Folder Include="Pages\Tasks\Resources\" />
     <Folder Include="Services\Api\" />
     <Folder Include="Shared\Resources\" />
