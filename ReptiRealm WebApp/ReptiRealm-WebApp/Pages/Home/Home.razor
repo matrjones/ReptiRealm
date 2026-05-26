@@ -1,5 +1,38 @@
 ﻿@page "/"
+@using ReptiRealm_WebApp.Pages.Home.Components
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, ReptiKeeper!</h1>
+<div class="homepage">
+    <h1>Hello, ReptiKeeper!</h1>
+    <div class="todays_agenda">
+        <h3>Today's Agenda</h3>
+        <p>feeds, waters, beddings, spot checks...</p>
+    </div>
+    <div class="my_reptiles_title">
+        <h3>My Reptiles</h3>
+    </div>
+    <div class="reptile_grid">
+        <ReptileCard Name="Ra"
+                     SexIcon="bi-gender-male"
+                     Species="Corn snake" />
+
+        <ReptileCard Name="Kaiba"
+                     SexIcon="bi-gender-female" />
+
+        <ReptileCard Name="Lucifer"
+                     Species="Mexican black kingsnake" />
+
+        <ReptileCard Name="Poseidon" />
+
+        <ReptileCard Name="Poseidon" />
+
+        <ReptileCard Name="Poseidon" />
+
+        <ReptileCard Name="Poseidon" />
+
+        <ReptileCard Name="Poseidon" />
+
+        <ReptileCard Name="Poseidon" />
+    </div>
+</div>
