@@ -13,11 +13,11 @@
 
 @code {
     [Parameter]
-    public string Icon { get; set; } = string.Empty;
+    required public string Icon { get; set; }
 
     [Parameter]
     public int AgendaTotal { get; set; }
 
     [Parameter]
-    public string AgendaDescription { get; set; } = string.Empty;
+    required public string AgendaDescription { get; set; }
 }
