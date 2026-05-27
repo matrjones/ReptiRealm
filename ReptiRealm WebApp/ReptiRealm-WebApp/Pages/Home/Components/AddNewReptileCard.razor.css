@@ -1,0 +1,14 @@
+﻿.add_new_reptile_card {
+    background: white;
+    border-radius: 16px;
+    padding: 1rem;
+    color: black;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 600;
+    border: 2px solid black;
+}
