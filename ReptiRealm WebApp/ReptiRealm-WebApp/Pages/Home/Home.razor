@@ -1,54 +1,64 @@
 ﻿@page "/"
 @using ReptiRealm_WebApp.Pages.Home.Components
+@using ReptiRealm_WebApp.Pages.Shared.Components
 @using ReptiRealm_WebApp.Models.Enums
+
 
 <PageTitle>Home</PageTitle>
 <div class="homepage">
-    <div class="welcome_section">
-        <h1 class="header">Hello, ReptiKeeper!</h1>
-    </div>
+    <TitleSection Title=" Welcome, ReptiKeeper!">
+        <Actions>
+            <QuickActionButton Icon="bi-plus-lg"
+                               Text="New Reptile" />
+        </Actions>
+    </TitleSection>
     
-    <div class="todays_agenda_section">
-        <h3 class="sub_header">Today's Agenda</h3>
-        <div class="agenda_tasks">
-            <AgendaCard Icon="bi-fork-knife"
-                        AgendaTotal="4"
-                        AgendaDescription="Feeds" />
-        
-            <AgendaCard Icon="bi-droplet"
-                        AgendaTotal="1"
-                        AgendaDescription="Waters" />
-        
-            <AgendaCard Icon="bi-layers"
-                        AgendaTotal="0"
-                        AgendaDescription="Substrates" />
-        </div>
-    </div>
+    <SubSection Subtitle="My Agenda">
+        <ChildContent>
+            <div class="agenda_tasks">
+                <AgendaCard Icon="bi-fork-knife"
+                            AgendaTotal="4"
+                            AgendaDescription="Feeds" />
+
+                <AgendaCard Icon="bi-droplet"
+                            AgendaTotal="1"
+                            AgendaDescription="Waters" />
+
+                <AgendaCard Icon="bi-layers"
+                            AgendaTotal="0"
+                            AgendaDescription="Substrates" />
+            </div>
+        </ChildContent>
+    </SubSection>
     
-    <div class="my_reptiles_section">
-        <h3 class="sub_header">My Reptiles</h3>
-        <div class="reptile_grid">
-            <ReptileCard Name="Ra"
-                         Sex="Sex.Male"
-                         Species="Corn snake" />
+    <SubSection Subtitle="My Reptiles">
+        <Actions>
+            <!-- This is where the filters will go -->
+        </Actions>
+        <ChildContent>
+            <div class="reptile_grid">
+                <ReptileCard Name="Ra"
+                             Sex="Sex.Male"
+                             Species="Corn snake" />
 
-            <ReptileCard Name="Kaiba"
-                         Sex="Sex.Female" />
+                <ReptileCard Name="Kaiba"
+                             Sex="Sex.Female" />
 
-            <ReptileCard Name="Lucifer"
-                         Species="Mexican black kingsnake" />
+                <ReptileCard Name="Lucifer"
+                             Species="Mexican black kingsnake" />
 
-            <ReptileCard Name="1" />
+                <ReptileCard Name="1" />
 
-            <ReptileCard Name="2" />
+                <ReptileCard Name="2" />
 
-            <ReptileCard Name="3" />
+                <ReptileCard Name="3" />
 
-            <ReptileCard Name="4" />
+                <ReptileCard Name="4" />
 
-            <ReptileCard Name="5" />
+                <ReptileCard Name="5" />
 
-            <AddNewReptileCard />
-        </div>
-    </div>
+                <AddNewReptileCard />
+            </div>
+        </ChildContent>
+    </SubSection>
 </div>

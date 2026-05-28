@@ -1,0 +1,27 @@
+﻿<button class="quick_action_button"
+        @onclick="OnClick"
+        disabled="@Disabled">
+    @if (!string.IsNullOrWhiteSpace(Icon))
+    {
+        <span class="bi @Icon"></span>
+    }
+    @if (!string.IsNullOrWhiteSpace(Text))
+    {
+        @Text
+    }
+</button>
+
+
+@code {
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public string? Text { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+}
