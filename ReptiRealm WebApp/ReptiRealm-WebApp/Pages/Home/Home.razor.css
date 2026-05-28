@@ -1,12 +1,17 @@
-﻿.agenda_tasks {
+﻿.welcome_section {
+    margin-bottom: 1rem;
+}
+
+.agenda_tasks {
     display: flex;
     gap: 1rem;
     border-block-color: black;
+    margin-bottom: 2rem;
 }
 
-.agenda_tasks > * {
-    flex: 1;
-}
+    .agenda_tasks > * {
+        flex: 1;
+    }
 
 .reptile_grid {
     display: grid;
@@ -15,6 +20,6 @@
     align-items: stretch;
 }
 
-.reptile_grid > * {
-    display: flex;
-}
+    .reptile_grid > * {
+        display: flex;
+    }

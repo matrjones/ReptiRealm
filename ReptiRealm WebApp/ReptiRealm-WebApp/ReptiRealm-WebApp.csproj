@@ -21,7 +21,6 @@
     <Folder Include="Pages\Reptile\Components\" />
     <Folder Include="Pages\Reptile\Modals\" />
     <Folder Include="Pages\Reptile\Resources\" />
-    <Folder Include="Pages\Shared\Components\" />
     <Folder Include="Pages\Shared\Modals\" />
     <Folder Include="Pages\Shared\Resources\" />
     <Folder Include="Pages\Tasks\Components\" />
