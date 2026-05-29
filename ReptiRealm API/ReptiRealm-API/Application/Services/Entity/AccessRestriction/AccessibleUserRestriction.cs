@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Http;
-using System.Linq;
-using ReptiRealm_API.Domain.Entities;
-using ReptiRealm_API.Domain.Entities.Common;
+﻿using ReptiRealm_API.Domain.Entities.Common;
 using ReptiRealm_API.Infrastructure.Data;
 using ReptiRealm_API.Application.Interfaces.Entity.AccessRestrictions;
 

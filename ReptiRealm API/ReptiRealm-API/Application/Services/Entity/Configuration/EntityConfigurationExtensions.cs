@@ -18,7 +18,7 @@ namespace ReptiRealm_API.Application.Services.Entity.Configuration
             builder.Entity<Reptile>().AccessRestriction<AccessibleReptilesRestriction>();
             builder.Entity<Shed>().BypassAccessRestriction();
             builder.Entity<Species>().BypassAccessRestriction();
-            builder.Entity<User>().BypassAccessRestriction();
+            builder.Entity<User>().AccessRestriction<AccessibleUserRestriction>();
             builder.Entity<Weight>().BypassAccessRestriction();
         });
     }

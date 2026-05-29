@@ -28,7 +28,7 @@ namespace ReptiRealm_API.Application.Services.Entity
             _configuration = configuration.ToDictionary(s => s.EntityType);
             _accessRestrictionFactory = accessRestrictionFactory;
             _httpContextAccessor = httpContextAccessor;
-            SetUser();
+            _user = SetUser();
         }
 
         #region READ OPERATIONS
@@ -152,7 +152,7 @@ namespace ReptiRealm_API.Application.Services.Entity
             }
         }
 
-        private void SetUser()
+        private User SetUser()
         {
             var userName = _httpContextAccessor.HttpContext!.User.Identity!.Name!;
             var user = _context.Set<User>().SingleOrDefault(u => u.UserName == userName);
@@ -160,7 +160,7 @@ namespace ReptiRealm_API.Application.Services.Entity
             {
                 throw new AuthenticationException();
             }
-            _user = user;
+            return user;
         }
         #endregion
     }
