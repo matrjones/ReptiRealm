@@ -1,24 +1,22 @@
-﻿using System.Linq;
+﻿using ReptiRealm_API.Domain.Entities.Common;
+using System.Linq.Expressions;
 
 namespace ReptiRealm_API.Application.Interfaces.Entity
 {
-    public interface IEntityServiceContext<TEntity> where TEntity : class
+    public interface IEntityServiceContext<TEntity> where TEntity : class, IEntityBase
     {
         #region READ OPERATIONS
-        IQueryable<TEntity> GetAll();
+        IQueryable<TEntity> GetAll(AccessRestrictionDescriptor? accessRestriction = null, bool bypassCache = false);
         Task<TEntity?> GetByIdAsync(Guid id);
         #endregion
 
         #region TRANSACTION METHODS
-        void Add(TEntity entity);
-        void AddRange(IEnumerable<TEntity> entities);
-        void Update(TEntity entity);
-        void Delete(TEntity entity);
-        void DeleteRange(IEnumerable<TEntity> entities);
-        #endregion
-
-        #region SAVE CHANGES
-        Task SaveChangesAsync();
+        Task Add(TEntity entity, CancellationToken cancellationToken = default);
+        Task AddRange(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
+        Task Update(TEntity entity, CancellationToken cancellationToken = default);
+        Task UpdateRange(IQueryable<TEntity> entities, CancellationToken cancellationToken = default);
+        Task Delete(TEntity entity, CancellationToken cancellationToken = default);
+        Task DeleteRange(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
         #endregion
     }
 }

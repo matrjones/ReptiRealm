@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using ReptiRealm_API.Domain.Entities;
 
 namespace ReptiRealm_API.Domain.Entities.Common
 {

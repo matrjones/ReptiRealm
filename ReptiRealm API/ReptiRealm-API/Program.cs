@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using ReptiRealm_API.Domain.Entities.Common;
 using ReptiRealm_API.Infrastructure.Data;
 using ReptiRealm_API.Infrastructure.Data.Extensions;
+using ReptiRealm_API.Application.Services.Entity.Configuration;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
     );
 });
+
+// Register entity configuration (per-entity access restriction settings)
+// Explicitly configure Reptile to use AccessibleReptilesRestriction so it is available
+builder.Services.ConfigureEntities();
+
+// Make HttpContext available to services that need the current user
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddApplicationServices();
 

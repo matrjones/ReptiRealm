@@ -2,7 +2,7 @@
 
 namespace ReptiRealm_API.Domain.Entities.Common
 {
-    public abstract class BaseEntity
+    public abstract class BaseEntity : IEntityBase
     {
         [Key]
         public Guid Id { get; set; }

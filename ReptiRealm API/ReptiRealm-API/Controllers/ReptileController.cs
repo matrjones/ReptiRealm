@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReptiRealm_API.Application.Interfaces.Entity;
@@ -14,22 +13,16 @@ namespace ReptiRealm_API.Controllers
     [ApiController]
     [Route("api/[controller]")]
     public class ReptileController(
-        UserManager<User> userManager,
         IEntityService entityService
     ) : ControllerBase
     {
-        private readonly UserManager<User> _userManager = userManager;
         private readonly IEntityService _entityService = entityService;
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var user = await _userManager.FindByNameAsync(User!.Identity!.Name!);
-            if (user == null) return Unauthorized();
-
             var reptiles = await _entityService.For<Reptile>()
                 .GetAll()
-                .Where(r => r.UserId == user.Id)
                 .Include(r => r.Species)
                 .Include(r => r.Morphs)
                 .ToListAsync();
@@ -40,9 +33,6 @@ namespace ReptiRealm_API.Controllers
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] AddReptileDto reptileDto)
         {
-            var user = await _userManager.FindByNameAsync(User!.Identity!.Name!);
-            if (user == null) return Unauthorized();
-
             var morphs = new List<Morph>();
             if (reptileDto.MorphIds?.Any() == true)
             {
@@ -59,13 +49,10 @@ namespace ReptiRealm_API.Controllers
                 DateOfBirth = reptileDto.DateOfBirth,
                 SpeciesId = reptileDto.SpeciesId,
                 Morphs = morphs,
-                UserId = user.Id
             };
 
-            _entityService.For<Reptile>()
+            await _entityService.For<Reptile>()
                 .Add(reptile);
-
-            await _entityService.For<Reptile>().SaveChangesAsync();
 
             return CreatedAtAction(
                 nameof(GetById),
@@ -97,21 +84,16 @@ namespace ReptiRealm_API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var user = await _userManager.FindByNameAsync(User!.Identity!.Name!);
-            if (user == null) return Unauthorized();
-
             var reptile = await _entityService.For<Reptile>()
                 .GetAll()
-                .Where(r => r.Id == id && r.UserId == user.Id)
+                .Where(r => r.Id == id)
                 .SingleOrDefaultAsync();
 
             if (reptile == null)
                 return NotFound();
 
-            _entityService.For<Reptile>()
+            await _entityService.For<Reptile>()
                 .Delete(reptile);
-                
-            await _entityService.For<Reptile>().SaveChangesAsync();
 
             return NoContent();
         }
