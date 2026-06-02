@@ -54,7 +54,7 @@
 
 
 @code {
-    private string SearchText = "";
+    private string SearchText = string.Empty;
 
     private List<ReptileCardModel> Reptiles = new()
     {
@@ -68,5 +68,5 @@
         new() { Name = "1"},
     };
 
-    private IEnumerable<ReptileCardModel> FilteredReptiles => Reptiles.Where(r => (r.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase)));
+    private IEnumerable<ReptileCardModel> FilteredReptiles => Reptiles.Where(r => r.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
 }
