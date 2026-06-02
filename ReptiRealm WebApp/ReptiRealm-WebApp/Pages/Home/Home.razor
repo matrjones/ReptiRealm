@@ -5,15 +5,17 @@
 
 
 <PageTitle>Home</PageTitle>
+
 <div class="homepage">
-    <TitleSection Title=" Welcome, ReptiKeeper!">
+    <PageSection Title=" Welcome, ReptiKeeper!">
         <Actions>
             <QuickActionButton Icon="bi-plus-lg"
                                Text="New Reptile" />
         </Actions>
-    </TitleSection>
-    
-    <SubSection Subtitle="My Agenda">
+    </PageSection>
+
+    <PageSection Title="My Agenda"
+                 IsTitle="false">
         <ChildContent>
             <div class="agenda_tasks">
                 <AgendaCard Icon="bi-fork-knife"
@@ -29,36 +31,37 @@
                             AgendaDescription="Substrates" />
             </div>
         </ChildContent>
-    </SubSection>
-    
-    <SubSection Subtitle="My Reptiles">
+    </PageSection>
+
+    <PageSection Title="My Reptiles"
+                 IsTitle="false">
         <Actions>
             <!-- This is where the filters will go -->
         </Actions>
         <ChildContent>
             <div class="reptile_grid">
-                <ReptileCard Name="Ra"
-                             Sex="Sex.Male"
-                             Species="Corn snake" />
-
-                <ReptileCard Name="Kaiba"
-                             Sex="Sex.Female" />
-
-                <ReptileCard Name="Lucifer"
-                             Species="Mexican black kingsnake" />
-
-                <ReptileCard Name="1" />
-
-                <ReptileCard Name="2" />
-
-                <ReptileCard Name="3" />
-
-                <ReptileCard Name="4" />
-
-                <ReptileCard Name="5" />
-
-                <AddNewReptileCard />
+                @foreach (var reptile in Reptiles)
+                {
+                    <ReptileCard Name="@reptile.Name"
+                                 Species="@reptile.Species"
+                                 Sex="@reptile.Sex" />
+                }
             </div>
         </ChildContent>
-    </SubSection>
+    </PageSection>
 </div>
+
+
+@code {
+    private List<ReptileCardModel> Reptiles = new()
+    {
+        new() { Name = "Ra", Species = "Corn Snake", Sex = Sex.Male},
+        new() { Name = "Kaiba", Sex = Sex.Female},
+        new() { Name = "Aelin", Species = "Brazilian Rainbow Boa"},
+        new() { Name = "1"},
+        new() { Name = "2"},
+        new() { Name = "3"},
+        new() { Name = "4"},
+        new() { Name = "5"},
+    };
+}
