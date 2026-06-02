@@ -10,14 +10,32 @@
 }
 
 .reptile_grid {
-    margin-top: 1rem;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     gap: 1rem;
-    justify-content: flex-start;
+    grid-template-columns: repeat(5, 1fr);
+    margin-top: 1rem;
 }
 
-.reptile_grid > * {
-    flex: 0 0 400px;
-    max-width: 500px;
+@media (max-width: 2500px) {
+    .reptile_grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 2000px) {
+    .reptile_grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1400px) {
+    .reptile_grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .reptile_grid {
+        grid-template-columns: 1fr;
+    }
 }
