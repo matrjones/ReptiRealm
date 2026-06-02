@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ReptiRealm_API.Data;
-using ReptiRealm_API.DTOs;
-using ReptiRealm_API.Entities;
-using ReptiRealm_API.Entities.Common;
+using ReptiRealm_API.Domain.DTOs;
+using ReptiRealm_API.Domain.Entities.Common;
+using ReptiRealm_API.Domain.Entities;
+using ReptiRealm_API.Infrastructure.Data;
 
 namespace ReptiRealm_API.Controllers
 {
