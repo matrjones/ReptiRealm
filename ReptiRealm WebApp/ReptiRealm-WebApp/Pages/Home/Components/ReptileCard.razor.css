@@ -1,5 +1,6 @@
 ﻿.reptile_card {
     background: #1b1b1b;
+    max-width: 500px;
     border-radius: 16px;
     padding: 1rem;
     color: white;
@@ -8,6 +9,7 @@
     flex-direction: column;
     text-align: left;
     align-items: flex-start;
+    width: 100%;
 }
 
 .name_and_sex {

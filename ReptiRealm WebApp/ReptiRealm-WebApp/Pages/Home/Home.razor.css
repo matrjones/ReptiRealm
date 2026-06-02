@@ -10,12 +10,14 @@
 }
 
 .reptile_grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
-    align-items: stretch;
+    justify-content: flex-start;
 }
 
 .reptile_grid > * {
-    display: flex;
+    flex: 0 0 400px;
+    max-width: 500px;
 }

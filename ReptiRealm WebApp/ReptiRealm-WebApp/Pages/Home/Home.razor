@@ -36,11 +36,12 @@
     <PageSection Title="My Reptiles"
                  IsTitle="false">
         <Actions>
-            <!-- This is where the filters will go -->
+            <SearchBar @bind-Value="SearchText"
+                       Placeholder="Search reptiles..." />
         </Actions>
         <ChildContent>
             <div class="reptile_grid">
-                @foreach (var reptile in Reptiles)
+                @foreach (var reptile in FilteredReptiles)
                 {
                     <ReptileCard Name="@reptile.Name"
                                  Species="@reptile.Species"
@@ -53,15 +54,19 @@
 
 
 @code {
+    private string SearchText = "";
+
     private List<ReptileCardModel> Reptiles = new()
     {
         new() { Name = "Ra", Species = "Corn Snake", Sex = Sex.Male},
         new() { Name = "Kaiba", Sex = Sex.Female},
         new() { Name = "Aelin", Species = "Brazilian Rainbow Boa"},
         new() { Name = "1"},
-        new() { Name = "2"},
-        new() { Name = "3"},
-        new() { Name = "4"},
-        new() { Name = "5"},
+        new() { Name = "1"},
+        new() { Name = "1"},
+        new() { Name = "1"},
+        new() { Name = "1"},
     };
+
+    private IEnumerable<ReptileCardModel> FilteredReptiles => Reptiles.Where(r => (r.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase)));
 }
