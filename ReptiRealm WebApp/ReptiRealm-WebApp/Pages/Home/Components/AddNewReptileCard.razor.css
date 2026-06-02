@@ -11,4 +11,6 @@
     font-size: 2rem;
     font-weight: 600;
     border: 2px solid black;
+    width: 100%;
+    max-width: 500px;
 }
