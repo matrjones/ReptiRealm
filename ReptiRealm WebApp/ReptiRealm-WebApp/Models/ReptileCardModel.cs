@@ -2,6 +2,7 @@
 
 public class ReptileCardModel
 {
+    public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string? Species {  get; set; }
     public Sex Sex { get; set; } = Sex.Unknown;
