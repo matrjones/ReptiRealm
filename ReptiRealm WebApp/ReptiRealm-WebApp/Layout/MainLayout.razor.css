@@ -1,15 +1,16 @@
-.page {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
 main {
     flex: 1;
-    background: #F8F7F5;
+    background: #DCD9D4;
     border-radius: 32px;
     padding: 1.5rem;
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+.page {
+    background-color: black;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .sidebar {
