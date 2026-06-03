@@ -1,4 +1,8 @@
-﻿.agenda_tasks {
+﻿.agenda_section {
+    margin-top: 1rem;
+}
+
+.agenda_tasks {
     display: flex;
     gap: 1rem;
     border-block-color: black;
