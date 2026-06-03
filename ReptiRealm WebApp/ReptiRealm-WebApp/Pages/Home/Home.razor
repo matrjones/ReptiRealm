@@ -1,7 +1,11 @@
 ﻿@page "/"
 @using ReptiRealm_WebApp.Pages.Home.Components
 @using ReptiRealm_WebApp.Pages.Shared.Components
-@using ReptiRealm_WebApp.Models.Enums
+@using ReptiRealm_WebApp.Services.Api.Interfaces
+@using ReptiRealm_WebApp.Services.Auth
+
+@inject IReptileApiService apiService
+@inject AuthApiService authApiService
 
 
 <PageTitle>Home</PageTitle>
@@ -63,17 +67,12 @@
 @code {
     private string SearchText = string.Empty;
 
-    private List<ReptileCardModel> Reptiles = new()
-    {
-        new() { Name = "Ra", Species = "Corn Snake", Sex = Sex.Male},
-        new() { Name = "Kaiba", Sex = Sex.Female},
-        new() { Name = "Aelin", Species = "Brazilian Rainbow Boa"},
-        new() { Name = "1"},
-        new() { Name = "1"},
-        new() { Name = "1"},
-        new() { Name = "1"},
-        new() { Name = "1"},
-    };
+    private List<ReptileCardModel> Reptiles = new();
 
     private IEnumerable<ReptileCardModel> FilteredReptiles => Reptiles.Where(r => r.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
+
+    protected override async Task OnInitializedAsync(){
+        await authApiService.LoginAsync("Arran4567@gmail.com", "Password123!");
+        Reptiles = await apiService.GetAllReptiles() ?? new List<ReptileCardModel>();
+    }
 }

@@ -26,7 +26,6 @@
     <Folder Include="Pages\Tasks\Components\" />
     <Folder Include="Pages\Tasks\Modals\" />
     <Folder Include="Pages\Tasks\Resources\" />
-    <Folder Include="Services\Api\" />
     <Folder Include="Shared\Resources\" />
     <Folder Include="wwwroot\Js\" />
     <Folder Include="wwwroot\Images\" />
