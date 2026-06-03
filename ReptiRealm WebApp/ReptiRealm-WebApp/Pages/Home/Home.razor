@@ -72,7 +72,7 @@
     private IEnumerable<ReptileCardModel> FilteredReptiles => Reptiles.Where(r => r.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
 
     protected override async Task OnInitializedAsync(){
-        await authApiService.LoginAsync("Arran4567@gmail.com", "Password123!");
+        await authApiService.LoginAsync("mat@mat.com", "Password1234!");
         Reptiles = await apiService.GetAllReptiles() ?? new List<ReptileCardModel>();
     }
 }
