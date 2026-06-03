@@ -1,5 +1,6 @@
 ﻿using ReptiRealm_WebApp.Models.Enums;
 
+
 public class ReptileCardModel
 {
     public Guid Id { get; set; }
