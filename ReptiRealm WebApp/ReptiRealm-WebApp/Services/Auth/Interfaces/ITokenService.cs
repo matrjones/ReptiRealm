@@ -1,0 +1,7 @@
+﻿namespace ReptiRealm_WebApp.Services.Auth.Interfaces;
+
+public interface ITokenService
+{
+    Task<string?> GetTokenAsync();
+    Task SetTokenAsync(string token);
+}
