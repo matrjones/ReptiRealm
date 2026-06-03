@@ -1,4 +1,8 @@
-﻿.agenda_tasks {
+﻿.agenda_section {
+    margin-top: 1rem;
+}
+
+.agenda_tasks {
     display: flex;
     gap: 1rem;
     border-block-color: black;
@@ -11,11 +15,31 @@
 
 .reptile_grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 1rem;
-    align-items: stretch;
+    grid-template-columns: repeat(5, 1fr);
+    margin-top: 1rem;
 }
 
-.reptile_grid > * {
-    display: flex;
+@media (max-width: 2500px) {
+    .reptile_grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 2000px) {
+    .reptile_grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1400px) {
+    .reptile_grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .reptile_grid {
+        grid-template-columns: 1fr;
+    }
 }

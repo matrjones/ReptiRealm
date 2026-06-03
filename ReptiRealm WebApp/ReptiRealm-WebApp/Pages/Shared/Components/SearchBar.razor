@@ -1,0 +1,27 @@
+﻿<div class="search_bar">
+    <span class="bi bi-search"></span>
+    <input type="text"
+    placeholder="@Placeholder"
+    value="@Value"
+    @oninput="OnInputChanged" />
+</div>
+
+
+@code {
+    [Parameter]
+    public string Placeholder { get; set; } = "Search...";
+
+    [Parameter]
+    public string? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+
+
+    private async Task OnInputChanged(ChangeEventArgs e)
+    {
+        var newValue = e.Value?.ToString() ?? "";
+        Value = newValue;
+        await ValueChanged.InvokeAsync(newValue);
+    }
+}

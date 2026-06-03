@@ -1,8 +1,10 @@
 ﻿.quick_action_button {
     color: black;
     background-color: white;
+    width: 180px;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     border: 2px solid black;
     border-radius: 12px;

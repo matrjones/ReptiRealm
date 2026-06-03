@@ -1,5 +1,18 @@
 ﻿@page "/reptile"
+@using ReptiRealm_WebApp.Pages.Shared.Components
 
-<PageTitle>Reptile</PageTitle>
 
-<h1>Reptile</h1>
+<PageTitle>@ReptileName</PageTitle>
+
+<PageSection title="@ReptileName">
+
+</PageSection>
+
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+
+    [Parameter]
+    required public string ReptileName { get; set; }
+}
