@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Json;
-
-namespace ReptiRealm_WebApp.Services.Api;
+﻿namespace ReptiRealm_WebApp.Services.Api;
 
 public abstract class ApiService
 {
