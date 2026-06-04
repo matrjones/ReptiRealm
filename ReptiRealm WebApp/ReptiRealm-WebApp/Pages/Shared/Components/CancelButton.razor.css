@@ -1,0 +1,8 @@
+﻿.confirm_button {
+    color: #002F19;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: opacity 0.2s ease;
+}

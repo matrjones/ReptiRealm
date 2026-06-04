@@ -6,8 +6,9 @@ namespace ReptiRealm_API.Domain.DTOs
     (
         string Name,
         Sex? Sex,
-        DateTime? DateOfBirth,
         Guid? SpeciesId,
+        DateTime? DateOfBirth,
+        DateTime? DateObtained,
         Guid[]? MorphIds
     );
 }

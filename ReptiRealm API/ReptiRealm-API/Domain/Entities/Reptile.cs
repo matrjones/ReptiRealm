@@ -10,6 +10,7 @@ namespace ReptiRealm_API.Domain.Entities
         public required string Name { get; set; }
         public required Sex Sex { get; set; } = Sex.Unknown;
         public DateTime? DateOfBirth { get; set; }
+        public DateTime? DateObtained { get; set; }
         public string? Notes { get; set; }
         #endregion
 

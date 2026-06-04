@@ -1,0 +1,13 @@
+﻿<button class="confirm_button"
+@OnClick="OnClick" >
+    @Label
+</button>
+
+
+@code {
+    [Parameter]
+    public string Label { get; set; } = "Cancel";
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+}

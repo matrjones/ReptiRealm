@@ -1,0 +1,72 @@
+﻿@using ReptiRealm_WebApp.Pages.Shared.Components
+
+@if (IsOpen)
+{
+    <div class="confirmation_dialog">
+        <div class="title_section">
+            <div class="title">
+                @Title
+            </div>
+            @if (!string.IsNullOrWhiteSpace(WarningMessage))
+            {
+                <div class="warning_message">
+                    <span class="@WarningIcon">
+                        @WarningMessage
+                    </span>
+                </div>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(Message))
+            {
+                <div class="message">
+                    @Message
+                </div>
+            }
+        </div>
+        <div class="body">
+            @Body
+        </div>
+        @if (!string.IsNullOrWhiteSpace(ErrorMessage))
+        {
+            <div class="error_message">
+                <span class="@ErrorIcon">
+                    @ErrorMessage
+                </span>
+            </div>
+        }
+        <div class="buttons">
+            <CancelButton OnClick="HandleCancel" />
+            <ConfirmButton OnClick="HandleSuccess" />
+        </div>
+    </div>
+}
+
+
+@code {
+    [Parameter] public EventCallback OnConfirm { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+    [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public string Title { get; set; } = string.Empty;
+    [Parameter] public string? WarningIcon { get; set; } = "bi bi-exclamation-circle";
+    [Parameter] public string? WarningMessage { get; set; }
+    [Parameter] public string? Message { get; set; }
+    [Parameter] public string? ErrorIcon { get; set; } = "bi bi-dash-circle";
+    [Parameter] public string? ErrorMessage { get; set; }
+    [Parameter] public RenderFragment? Body { get; set; }
+
+
+    private async Task HandleCancel()
+    {
+        await OnCancel.InvokeAsync();
+        await Close(false);
+    }
+
+    private async Task HandleSuccess()
+    {
+        await OnConfirm.InvokeAsync();
+        await Close(false);
+    }
+
+    private async Task Close(bool value) => await IsOpenChanged.InvokeAsync(value);
+}
