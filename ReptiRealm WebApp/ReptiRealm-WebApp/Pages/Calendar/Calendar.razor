@@ -29,9 +29,8 @@
     </CellTemplate>
 </MudCalendar>
 
-<ConfirmationDialog IsOpen="_showFeedModal"
+<ConfirmationDialog @bind-IsOpen="_showFeedModal"
                     Title="@_modalData.Title" >
-    <Body>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -50,17 +49,16 @@
                     </tr>
                 }
             </tbody>
-        </table>
-    </Body>                
+        </table>           
 </ConfirmationDialog>
 
-<ConfirmationDialog IsOpen="_showFeedModal"
-                    Title="_modalData.Title">
+<ConfirmationDialog @bind-IsOpen="_showDefecationModal"
+                    Title="@_modalData.Title">
 </ConfirmationDialog>
 
 @code {
-    private bool _showFeedModal { get; set; }
-    private bool _showDefecationModal { get; set; }
+    private bool _showFeedModal;
+    private bool _showDefecationModal;
 
     private CustomItem _modalData { get; set; } = new();
     private List<CustomItem> _events = new()

@@ -1,0 +1,30 @@
+﻿<div class="question_section">
+    <div class="form_label">
+        <span class="title">
+            @Title
+
+            @if (IsRequired)
+            {
+                <span class="required">*</span>
+            }
+        </span>
+        
+
+        @if (!string.IsNullOrWhiteSpace(Message))
+        {
+            <span class="message">@Message</span>
+        }
+    </div>
+    
+    <div class="child_content">
+        @ChildContent
+    </div>
+</div>
+
+
+@code {
+    [Parameter] public bool IsRequired { get; set; }
+    [Parameter] public required string Title { get; set; }
+    [Parameter] public string? Message { get; set; }
+    [Parameter] public required RenderFragment ChildContent { get; set; }
+}
