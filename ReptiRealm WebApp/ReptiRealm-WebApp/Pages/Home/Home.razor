@@ -14,7 +14,7 @@
 
 <!-- Homepage -->
 <div class="homepage">
-    <div class="welcome_section">
+    <div class="welcome-section">
         <PageSection Title=" Welcome, ReptiKeeper!">
             <Actions>
                 <QuickActionButton Icon="bi-plus-lg"
@@ -25,11 +25,11 @@
         </PageSection>
     </div>
 
-    <div class="agenda_section">
+    <div class="agenda-section">
         <PageSection Title="My Agenda"
         IsTitle="false">
             <ChildContent>
-                <div class="agenda_tasks">
+                <div class="agenda-tasks">
                     <AgendaCard Icon="bi-fork-knife"
                     AgendaTotal="4"
                     AgendaDescription="Feeds" />
@@ -46,7 +46,7 @@
         </PageSection>
     </div>
 
-    <div class="reptiles_section">
+    <div class="reptiles-section">
         <PageSection Title="My Reptiles"
         IsTitle="false">
             <Actions>
@@ -54,21 +54,21 @@
                 Placeholder="Search reptiles..." />
             </Actions>
             <ChildContent>
-                <div class="reptile_grid">
+                <div class="reptile-grid">
                     @foreach (var reptile in FilteredReptiles)
                     {
                         <ReptileCard Name="@reptile.Name"
-                        Species="@reptile.Species"
-                        Sex="@reptile.Sex" />
+                                     Species="@reptile.Species"
+                                     Sex="@reptile.Sex" />
                     }
-                    <AddNewReptileCard />
+                    <AddNewReptileCard OnClick="OpenAddReptileDialog" />
                 </div>
             </ChildContent>
         </PageSection>
     </div>
 </div>
 
-<!-- Add New Reptile Dialog -->
+<!-- Dialogs -->
 <AddNewReptileDialog @bind-IsOpen="ShowReptileDialog" />
 
 

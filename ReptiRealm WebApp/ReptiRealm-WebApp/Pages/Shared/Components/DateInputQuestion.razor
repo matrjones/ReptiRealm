@@ -2,8 +2,7 @@
              Title="@Title"
              Message="@Message" >
     <ChildContent>
-            <InputText class="form-control"
-                       placeholder="@Placeholder"
+            <InputDate class="form-control"
                        Value="@Value"
                        ValueChanged="@ValueChanged"
                        ValueExpression="() => Value" />
@@ -15,7 +14,6 @@
     [Parameter] public bool IsRequired { get; set; }
     [Parameter] public required string Title { get; set; }
     [Parameter] public string? Message { get; set; }
-    [Parameter] public string? Placeholder { get; set; }
-    [Parameter] public string? Value { get; set; }
-    [Parameter] public EventCallback<string?> ValueChanged { get; set; } 
+    [Parameter] public DateOnly? Value { get; set; }
+    [Parameter] public EventCallback<DateOnly?> ValueChanged { get; set; } 
 }

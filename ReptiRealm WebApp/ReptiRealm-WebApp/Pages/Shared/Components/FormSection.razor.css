@@ -1,4 +1,4 @@
-﻿.question_section {
+﻿.form-control {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-.form_label {
+.form-label {
     display: flex;
     align-items: baseline;
     justify-content: flex-start;
@@ -18,12 +18,12 @@
 }
 
 .message {
-    font-weight: 400;
     margin-left: 1rem;
-    
     color: #6c757d;
 }
 
-.child_content {
+.child-content {
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
     width: 100%;
 }

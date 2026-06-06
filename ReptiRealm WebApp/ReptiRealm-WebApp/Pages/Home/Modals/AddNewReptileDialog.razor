@@ -1,14 +1,31 @@
 ﻿@using ReptiRealm_WebApp.Pages.Shared.Components
 @using ReptiRealm_WebApp.Pages.Shared.Modals
+@using ReptiRealm_WebApp.Models.Enums
 
 <ConfirmationDialog @bind-IsOpen="@IsOpen"
-Title="Add New Reptile" >
+Title="Add New Reptile">
     <ChildContent>
         <TextInputQuestion IsRequired="true"
-                           Title="Name"
-                           Message="Message"
-                           Placeholder="Name"
-                           @bind-Value="_name"/>
+        Title="Name"
+        Placeholder="Enter name"
+        @bind-Value="_name"/>
+
+        <SelectOptionQuestion Title="Sex"
+        Options="@SexOptions"
+        @bind-Value="_sex" />
+
+        <!-- Species Dropdown + add -->
+
+        <DateInputQuestion Title="Date of Birth"
+                           Message="DD/MM/YY or MM/YY"
+                           @bind-Value="_dob" />
+
+        <DateInputQuestion Title="Date Obtained"
+                           Message="DD/MM/YY"
+                           @bind-Value="_dateObtained" />
+
+        <!-- Type Morphs and add -->
+
     </ChildContent>
 </ConfirmationDialog>
 
@@ -18,4 +35,8 @@ Title="Add New Reptile" >
     [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
 
     private string? _name;
+    private Sex _sex = Sex.Unknown;
+    private DateOnly? _dob;
+    private DateOnly? _dateObtained;
+    private readonly IEnumerable<Sex> SexOptions = Enum.GetValues<Sex>();
 }

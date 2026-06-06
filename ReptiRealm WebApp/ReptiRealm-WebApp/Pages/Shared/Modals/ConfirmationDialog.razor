@@ -2,15 +2,22 @@
 
 @if (IsOpen)
 {
-    <div class="dialog_overlay">
-        <div class="confirmation_dialog">
-            <div class="title_section">
+    <div class="dialog-overlay">
+        <div class="confirmation-dialog">
+            @if (OnlyCloseIcon)
+            {
+                <button class="close-button" @onclick="HandleCancel">
+                    <i class="@CloseIcon"></i>
+                </button>
+            }
+
+            <div class="title-section">
                 <div class="title">
                     @Title
                 </div>
                 @if (!string.IsNullOrWhiteSpace(WarningMessage))
                 {
-                    <div class="warning_message">
+                    <div class="warning-message">
                         <i class="@WarningIcon"></i>
                         <span>@WarningMessage</span>
                     </div>
@@ -23,19 +30,22 @@
                     </div>
                 }
             </div>
-            <div class="child_content">
+            <div class="child-content">
                 @ChildContent
             </div>
             @if (!string.IsNullOrWhiteSpace(ErrorMessage))
             {
-                <div class="error_message">
+                <div class="error-message">
                     <i class="@ErrorIcon"></i>
                     <span>@ErrorMessage</span>
                 </div>
             }
             <div class="buttons">
-                <CancelButton OnClick="HandleCancel" />
-                <ConfirmButton OnClick="HandleSuccess" />
+                @if (!OnlyCloseIcon)
+                {
+                    <CancelButton OnClick="HandleCancel" />
+                    <ConfirmButton OnClick="HandleSuccess" />
+                }
             </div>
         </div>
     </div>
@@ -47,6 +57,8 @@
     [Parameter] public EventCallback OnCancel { get; set; }
     [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
     [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public bool OnlyCloseIcon { get; set; }
+    [Parameter] public string? CloseIcon { get; set; } = "bi bi-x-lg";
     [Parameter] public string Title { get; set; } = string.Empty;
     [Parameter] public string? WarningIcon { get; set; } = "bi bi-exclamation-circle";
     [Parameter] public string? WarningMessage { get; set; }
@@ -54,6 +66,8 @@
     [Parameter] public string? ErrorIcon { get; set; } = "bi bi-dash-circle";
     [Parameter] public string? ErrorMessage { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
+    
+
 
     private async Task HandleCancel()
     {

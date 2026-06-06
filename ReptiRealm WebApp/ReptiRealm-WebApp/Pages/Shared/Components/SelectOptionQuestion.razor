@@ -1,0 +1,40 @@
+﻿@typeparam TOption
+
+<FormSection IsRequired="@IsRequired"
+             Title="@Title"
+             Message="@Message">
+
+    <ChildContent>
+        <div class="option-group">
+            @foreach (var option in Options)
+            {
+                <button type="button"
+                        class="option-button @(Equals(Value, option) ? "selected" : "")"
+                        @onclick="() => SelectOption(option)">
+                    @option
+                </button>
+            }
+        </div>
+    </ChildContent>
+
+</FormSection>
+
+@code {
+    [Parameter] public bool IsRequired { get; set; }
+    [Parameter] public required string Title { get; set; }
+    [Parameter] public string? Message { get; set; }
+
+    [Parameter]
+    public IEnumerable<TOption> Options { get; set; }
+        = Enumerable.Empty<TOption>();
+
+    [Parameter] public TOption? Value { get; set; }
+
+    [Parameter] public EventCallback<TOption?> ValueChanged { get; set; }
+
+    private async Task SelectOption(TOption option)
+    {
+        Value = option;
+        await ValueChanged.InvokeAsync(option);
+    }
+}

@@ -1,4 +1,4 @@
-﻿.agenda_card {
+﻿.agenda-card {
     display: flex;
     align-items: center;
     width: 250px;
@@ -15,17 +15,17 @@
     font-size: 3rem;
 }
 
-.agenda_text {
+.agenda-text {
     display: flex;
     flex-direction: column;
 }
 
-.agenda_total {
+.agenda-total {
     font-size: 1.5rem;
     font-weight: 600;
 }
 
-.agenda_description {
+.agenda-description {
     font-size: 1.2rem;
     opacity: 0.7;
 }

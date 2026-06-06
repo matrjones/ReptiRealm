@@ -1,0 +1,31 @@
+﻿.option-group {
+    display: flex;
+    width: 100%;
+}
+
+.option-button {
+    flex: 1;
+    padding: 3.6px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+    .option-button:not(:first-child) {
+        border-left: none;
+    }
+
+    .option-button:first-child {
+        border-radius: 8px 0 0 8px;
+    }
+
+    .option-button:last-child {
+        border-radius: 0 8px 8px 0;
+    }
+
+    .option-button.selected {
+        background: #1b5e20;
+        color: white;
+        font-weight: 600;
+    }

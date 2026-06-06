@@ -9,22 +9,49 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Home\Resources\**" />
+    <Compile Remove="Pages\Reptile\Components\**" />
+    <Compile Remove="Pages\Reptile\Modals\**" />
+    <Compile Remove="Pages\Reptile\Resources\**" />
+    <Compile Remove="Pages\Shared\Resources\**" />
+    <Compile Remove="Pages\Tasks\Components\**" />
+    <Compile Remove="Pages\Tasks\Modals\**" />
+    <Compile Remove="Pages\Tasks\Resources\**" />
+    <Content Remove="Pages\Home\Resources\**" />
+    <Content Remove="Pages\Reptile\Components\**" />
+    <Content Remove="Pages\Reptile\Modals\**" />
+    <Content Remove="Pages\Reptile\Resources\**" />
+    <Content Remove="Pages\Shared\Resources\**" />
+    <Content Remove="Pages\Tasks\Components\**" />
+    <Content Remove="Pages\Tasks\Modals\**" />
+    <Content Remove="Pages\Tasks\Resources\**" />
+    <EmbeddedResource Remove="Pages\Home\Resources\**" />
+    <EmbeddedResource Remove="Pages\Reptile\Components\**" />
+    <EmbeddedResource Remove="Pages\Reptile\Modals\**" />
+    <EmbeddedResource Remove="Pages\Reptile\Resources\**" />
+    <EmbeddedResource Remove="Pages\Shared\Resources\**" />
+    <EmbeddedResource Remove="Pages\Tasks\Components\**" />
+    <EmbeddedResource Remove="Pages\Tasks\Modals\**" />
+    <EmbeddedResource Remove="Pages\Tasks\Resources\**" />
+    <None Remove="Pages\Home\Resources\**" />
+    <None Remove="Pages\Reptile\Components\**" />
+    <None Remove="Pages\Reptile\Modals\**" />
+    <None Remove="Pages\Reptile\Resources\**" />
+    <None Remove="Pages\Shared\Resources\**" />
+    <None Remove="Pages\Tasks\Components\**" />
+    <None Remove="Pages\Tasks\Modals\**" />
+    <None Remove="Pages\Tasks\Resources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Helpers\" />
+    <Folder Include="Shared\" />
     <Folder Include="Pages\Calendar\Components\" />
     <Folder Include="Pages\Calendar\Modals\" />
     <Folder Include="Pages\Calendar\Resources\" />
     <Folder Include="Pages\Food\Components\" />
     <Folder Include="Pages\Food\Modals\" />
     <Folder Include="Pages\Food\Resources\" />
-    <Folder Include="Pages\Home\Resources\" />
-    <Folder Include="Pages\Reptile\Components\" />
-    <Folder Include="Pages\Reptile\Modals\" />
-    <Folder Include="Pages\Reptile\Resources\" />
-    <Folder Include="Pages\Shared\Resources\" />
-    <Folder Include="Pages\Tasks\Components\" />
-    <Folder Include="Pages\Tasks\Modals\" />
-    <Folder Include="Pages\Tasks\Resources\" />
-    <Folder Include="Shared\Resources\" />
     <Folder Include="wwwroot\Js\" />
     <Folder Include="wwwroot\Images\" />
   </ItemGroup>

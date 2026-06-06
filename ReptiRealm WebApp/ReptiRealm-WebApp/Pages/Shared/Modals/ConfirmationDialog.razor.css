@@ -1,4 +1,4 @@
-﻿.dialog_overlay {
+﻿.dialog-overlay {
     position: fixed;
     inset: 0;
     display: flex;
@@ -8,7 +8,20 @@
     z-index: 1000;
 }
 
-.confirmation_dialog {
+/*.confirmation-dialog {
+    text-align: center;
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    min-width: 400px;
+    max-width: 600px;
+    width: 90%;
+    border: 1px solid #dcdcdc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+}*/
+
+.confirmation-dialog {
+    position: relative;
     text-align: center;
     background: white;
     border-radius: 12px;
@@ -20,8 +33,19 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
-.title_section {
-    margin-bottom: 1rem;
+.close-button {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: #666;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .title {
@@ -29,14 +53,14 @@
     font-weight: 600;
 }
 
-.warning_message {
+.warning-message {
     background-color: #FFF6E7;
     font-size: 1.2rem;
     border-radius: 10px;
     padding: 4px;
 }
 
-.error_message {
+.error-message {
     margin-bottom: 1rem;
     font-size: 1.2rem;
     color: red;
@@ -49,7 +73,7 @@
     font-size: 1.2rem;
 }
 
-.body {
+.child-content {
     margin-bottom: 1rem;
     font-size: 1.2rem;
 }
