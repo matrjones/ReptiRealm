@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Home\Resources\**" />
+    <Content Remove="Pages\Home\Resources\**" />
+    <EmbeddedResource Remove="Pages\Home\Resources\**" />
+    <None Remove="Pages\Home\Resources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="Pages\Calendar\Components\" />
     <Folder Include="Pages\Calendar\Modals\" />
@@ -17,7 +24,6 @@
     <Folder Include="Pages\Food\Modals\" />
     <Folder Include="Pages\Food\Resources\" />
     <Folder Include="Pages\Home\Modals\" />
-    <Folder Include="Pages\Home\Resources\" />
     <Folder Include="Pages\Reptile\Components\" />
     <Folder Include="Pages\Reptile\Modals\" />
     <Folder Include="Pages\Reptile\Resources\" />

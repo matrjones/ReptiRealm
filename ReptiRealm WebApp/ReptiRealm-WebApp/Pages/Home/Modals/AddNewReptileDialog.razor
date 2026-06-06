@@ -1,0 +1,21 @@
+﻿@using ReptiRealm_WebApp.Pages.Shared.Components
+@using ReptiRealm_WebApp.Pages.Shared.Modals
+
+<ConfirmationDialog @bind-IsOpen="@IsOpen"
+Title="Add New Reptile" >
+    <ChildContent>
+        <TextInputQuestion IsRequired="true"
+                           Title="Name"
+                           Message="Message"
+                           Placeholder="Name"
+                           @bind-Value="_name"/>
+    </ChildContent>
+</ConfirmationDialog>
+
+
+@code {
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
+
+    private string? _name;
+}

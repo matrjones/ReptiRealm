@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using ReptiRealm_WebApp.Pages.Home.Components
+@using ReptiRealm_WebApp.Pages.Home.Modals
 @using ReptiRealm_WebApp.Pages.Shared.Components
 @using ReptiRealm_WebApp.Services.Api.Interfaces
 @using ReptiRealm_WebApp.Services.Auth
@@ -15,27 +16,28 @@
         <PageSection Title=" Welcome, ReptiKeeper!">
             <Actions>
                 <QuickActionButton Icon="bi-plus-lg"
-                                   Text="New Reptile" />
+                Text="New Reptile"
+                OnClick="OpenAddReptileDialog"/>
             </Actions>
         </PageSection>
     </div>
-    
+
     <div class="agenda_section">
         <PageSection Title="My Agenda"
-                     IsTitle="false">
+        IsTitle="false">
             <ChildContent>
                 <div class="agenda_tasks">
                     <AgendaCard Icon="bi-fork-knife"
-                                AgendaTotal="4"
-                                AgendaDescription="Feeds" />
+                    AgendaTotal="4"
+                    AgendaDescription="Feeds" />
 
                     <AgendaCard Icon="bi-droplet"
-                                AgendaTotal="1"
-                                AgendaDescription="Waters" />
+                    AgendaTotal="1"
+                    AgendaDescription="Waters" />
 
                     <AgendaCard Icon="bi-layers"
-                                AgendaTotal="0"
-                                AgendaDescription="Substrates" />
+                    AgendaTotal="0"
+                    AgendaDescription="Substrates" />
                 </div>
             </ChildContent>
         </PageSection>
@@ -43,18 +45,18 @@
 
     <div class="reptiles_section">
         <PageSection Title="My Reptiles"
-                     IsTitle="false">
+        IsTitle="false">
             <Actions>
                 <SearchBar @bind-Value="SearchText"
-                           Placeholder="Search reptiles..." />
+                Placeholder="Search reptiles..." />
             </Actions>
             <ChildContent>
                 <div class="reptile_grid">
                     @foreach (var reptile in FilteredReptiles)
                     {
                         <ReptileCard Name="@reptile.Name"
-                                     Species="@reptile.Species"
-                                     Sex="@reptile.Sex" />
+                        Species="@reptile.Species"
+                        Sex="@reptile.Sex" />
                     }
                     <AddNewReptileCard />
                 </div>
@@ -63,9 +65,11 @@
     </div>
 </div>
 
+<AddNewReptileDialog @bind-IsOpen="_showAddReptileDialog" />
 
 @code {
     private string SearchText = string.Empty;
+    private bool _showAddReptileDialog;
 
     private List<ReptileCardModel> Reptiles = new();
 
@@ -74,5 +78,11 @@
     protected override async Task OnInitializedAsync(){
         await authApiService.LoginAsync("mat@mat.com", "Password1234!");
         Reptiles = await apiService.GetAllReptiles() ?? new List<ReptileCardModel>();
+    }
+
+    private async Task OpenAddReptileDialog()
+    {
+        _showAddReptileDialog = true;
+        await Task.CompletedTask;
     }
 }

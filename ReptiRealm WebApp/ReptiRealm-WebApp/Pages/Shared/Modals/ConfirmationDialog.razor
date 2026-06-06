@@ -2,41 +2,47 @@
 
 @if (IsOpen)
 {
-    <div class="confirmation_dialog">
-        <div class="title_section">
-            <div class="title">
-                @Title
+    <div class="dialog_overlay">
+        <div class="confirmation_dialog">
+            <div class="title_section">
+                <div class="title">
+                    @Title
+                </div>
+
+                @if (!string.IsNullOrWhiteSpace(WarningMessage))
+                {
+                    <div class="warning_message">
+                        <span class="@WarningIcon">
+                            @WarningMessage
+                        </span>
+                    </div>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(Message))
+                {
+                    <div class="message">
+                        @Message
+                    </div>
+                }
             </div>
-            @if (!string.IsNullOrWhiteSpace(WarningMessage))
+
+            <div class="child_content">
+                @ChildContent
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(ErrorMessage))
             {
-                <div class="warning_message">
-                    <span class="@WarningIcon">
-                        @WarningMessage
+                <div class="error_message">
+                    <span class="@ErrorIcon">
+                        @ErrorMessage
                     </span>
                 </div>
             }
 
-            @if (!string.IsNullOrWhiteSpace(Message))
-            {
-                <div class="message">
-                    @Message
-                </div>
-            }
-        </div>
-        <div class="body">
-            @Body
-        </div>
-        @if (!string.IsNullOrWhiteSpace(ErrorMessage))
-        {
-            <div class="error_message">
-                <span class="@ErrorIcon">
-                    @ErrorMessage
-                </span>
+            <div class="buttons">
+                <CancelButton OnClick="HandleCancel" />
+                <ConfirmButton OnClick="HandleSuccess" />
             </div>
-        }
-        <div class="buttons">
-            <CancelButton OnClick="HandleCancel" />
-            <ConfirmButton OnClick="HandleSuccess" />
         </div>
     </div>
 }
@@ -53,7 +59,7 @@
     [Parameter] public string? Message { get; set; }
     [Parameter] public string? ErrorIcon { get; set; } = "bi bi-dash-circle";
     [Parameter] public string? ErrorMessage { get; set; }
-    [Parameter] public RenderFragment? Body { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
 
     private async Task HandleCancel()
