@@ -57,14 +57,12 @@
 
     private async Task HandleCancel()
     {
-        IsOpen = false;
         await OnCancel.InvokeAsync();
         await Close(false);
     }
 
     private async Task HandleSuccess()
     {
-        IsOpen = false;
         await OnConfirm.InvokeAsync();
         await Close(false);
     }
