@@ -1,6 +1,6 @@
 ﻿@page "/calendar"
 @using ReptiRealm_WebApp.Pages.Shared.Components
-
+@using ReptiRealm_WebApp.Pages.Shared.Modals
 
 <PageTitle>Calendar</PageTitle>
 
@@ -9,7 +9,17 @@
         <QuickActionButton Icon="bi-plus-lg"
                            Text="New Event" />
     </Actions>
+    
 </PageSection>
+<ConfirmationDialog IsOpen="true"
+                    Title="Title"
+                    WarningMessage="Warning"
+                    Message="Message"
+                    ErrorMessage="Error" >
+    <Body>
+        Body content
+    </Body>
+</ConfirmationDialog>
 
 
 @code {

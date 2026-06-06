@@ -16,7 +16,6 @@
     <Folder Include="Pages\Food\Components\" />
     <Folder Include="Pages\Food\Modals\" />
     <Folder Include="Pages\Food\Resources\" />
-    <Folder Include="Pages\Home\Modals\" />
     <Folder Include="Pages\Home\Resources\" />
     <Folder Include="Pages\Reptile\Components\" />
     <Folder Include="Pages\Reptile\Modals\" />

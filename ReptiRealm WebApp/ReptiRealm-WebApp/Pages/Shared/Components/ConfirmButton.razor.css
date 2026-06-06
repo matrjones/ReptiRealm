@@ -2,13 +2,9 @@
     color: white;
     background-color: #002F19;
     border: none;
+    border-radius: 20px;
     padding: 10px 20px;
     font-size: 1rem;
     font-weight: 600;
     transition: opacity 0.2s ease;
-}
-
-.confirm_button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
 }

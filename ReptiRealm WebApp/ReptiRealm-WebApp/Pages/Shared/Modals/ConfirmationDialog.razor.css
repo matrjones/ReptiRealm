@@ -1,0 +1,64 @@
+﻿.dialog_overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1000;
+}
+
+.confirmation_dialog {
+    text-align: center;
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    min-width: 400px;
+    max-width: 600px;
+    width: 90%;
+    border: 1px solid #dcdcdc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.title_section {
+    margin-bottom: 1rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.warning_message {
+    background-color: #FFF6E7;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    padding: 4px;
+}
+
+.error_message {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: red;
+    padding: 4px;
+}
+
+.message {
+    margin-bottom: 1rem;
+    gap: 1rem;
+    font-size: 1.2rem;
+}
+
+.body {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+}
