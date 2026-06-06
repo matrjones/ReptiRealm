@@ -1,4 +1,10 @@
-﻿<button class="add_new_reptile_card">
-        <span class="bi bi-plus-lg"></span>
-        <span class="label">Add New Reptile</span>
+﻿<button class="add_new_reptile_card"
+        @onclick="OnClick">
+    <span class="bi bi-plus-lg"></span>
+    <span class="label">Add New Reptile</span>
 </button>
+
+
+@code {
+    [Parameter] public EventCallback OnClick { get; set; }
+}

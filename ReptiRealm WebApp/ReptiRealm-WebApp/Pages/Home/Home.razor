@@ -2,6 +2,7 @@
 @using ReptiRealm_WebApp.Pages.Home.Components
 @using ReptiRealm_WebApp.Pages.Home.Modals
 @using ReptiRealm_WebApp.Pages.Shared.Components
+@using ReptiRealm_WebApp.Pages.Shared.Modals
 @using ReptiRealm_WebApp.Services.Api.Interfaces
 @using ReptiRealm_WebApp.Services.Auth
 
@@ -11,13 +12,15 @@
 
 <PageTitle>Home</PageTitle>
 
+<!-- Homepage -->
 <div class="homepage">
     <div class="welcome_section">
         <PageSection Title=" Welcome, ReptiKeeper!">
             <Actions>
                 <QuickActionButton Icon="bi-plus-lg"
                 Text="New Reptile"
-                OnClick="OpenAddReptileDialog"/>
+                OnClick="OpenAddReptileDialog" />
+
             </Actions>
         </PageSection>
     </div>
@@ -65,15 +68,16 @@
     </div>
 </div>
 
-<AddNewReptileDialog @bind-IsOpen="_showAddReptileDialog" />
+<!-- Add New Reptile Dialog -->
+<AddNewReptileDialog @bind-IsOpen="ShowReptileDialog" />
+
 
 @code {
-    private string SearchText = string.Empty;
-    private bool _showAddReptileDialog;
-
     private List<ReptileCardModel> Reptiles = new();
-
     private IEnumerable<ReptileCardModel> FilteredReptiles => Reptiles.Where(r => r.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
+
+    private string SearchText = string.Empty;
+    private bool ShowReptileDialog;
 
     protected override async Task OnInitializedAsync(){
         await authApiService.LoginAsync("mat@mat.com", "Password1234!");
@@ -82,7 +86,13 @@
 
     private async Task OpenAddReptileDialog()
     {
-        _showAddReptileDialog = true;
+        ShowReptileDialog = true;
+        await Task.CompletedTask;
+    }
+
+    private async Task CloseAddReptileDialog()
+    {
+        ShowReptileDialog = false;
         await Task.CompletedTask;
     }
 }

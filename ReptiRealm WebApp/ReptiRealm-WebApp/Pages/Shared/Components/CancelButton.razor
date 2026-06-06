@@ -1,13 +1,10 @@
 ﻿<button class="cancel_button"
-@onclick="OnClick" >
+        @onclick="OnClick" >
     @Label
 </button>
 
 
 @code {
-    [Parameter]
-    public string Label { get; set; } = "Cancel";
-
-    [Parameter]
-    public EventCallback OnClick { get; set; }
+    [Parameter] public string Label { get; set; } = "Cancel";
+    [Parameter] public EventCallback OnClick { get; set; }
 }

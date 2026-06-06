@@ -8,13 +8,11 @@
                 <div class="title">
                     @Title
                 </div>
-
                 @if (!string.IsNullOrWhiteSpace(WarningMessage))
                 {
                     <div class="warning_message">
-                        <span class="@WarningIcon">
-                            @WarningMessage
-                        </span>
+                        <i class="@WarningIcon"></i>
+                        <span>@WarningMessage</span>
                     </div>
                 }
 
@@ -25,20 +23,16 @@
                     </div>
                 }
             </div>
-
             <div class="child_content">
                 @ChildContent
             </div>
-
             @if (!string.IsNullOrWhiteSpace(ErrorMessage))
             {
                 <div class="error_message">
-                    <span class="@ErrorIcon">
-                        @ErrorMessage
-                    </span>
+                    <i class="@ErrorIcon"></i>
+                    <span>@ErrorMessage</span>
                 </div>
             }
-
             <div class="buttons">
                 <CancelButton OnClick="HandleCancel" />
                 <ConfirmButton OnClick="HandleSuccess" />
@@ -60,7 +54,6 @@
     [Parameter] public string? ErrorIcon { get; set; } = "bi bi-dash-circle";
     [Parameter] public string? ErrorMessage { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
-
 
     private async Task HandleCancel()
     {
