@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using ReptiRealm_WebApp.Pages.Home.Components
+@using ReptiRealm_WebApp.Pages.Home.Modals
 @using ReptiRealm_WebApp.Pages.Shared.Components
 @using ReptiRealm_WebApp.Pages.Shared.Modals
 @using ReptiRealm_WebApp.Services.Api.Interfaces
@@ -68,15 +69,7 @@
 </div>
 
 <!-- Add New Reptile Dialog -->
-<ConfirmationDialog @bind-IsOpen="ShowReptileDialog"
-Title="Title"
-WarningMessage="Warning"
-Message="Message"
-ErrorMessage="Error" >
-    <Body>
-        Body content
-    </Body>
-</ConfirmationDialog>
+<AddNewReptileDialog @bind-IsOpen="ShowReptileDialog" />
 
 
 @code {
