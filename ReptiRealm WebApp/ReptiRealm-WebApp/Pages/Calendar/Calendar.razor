@@ -20,12 +20,16 @@
             Items="_events" 
             Style="background-color: #001000; color: #CCDF92;" 
             Color="MudBlazor.Color.Primary" 
-            Height="100" 
+            Height="600" 
             MonthCellMinHeight="100" >
     <CellTemplate>
-        <div style="width: 100%; height: 100%; border: 2px solid #CCDF92">
-            <a @onclick="@(() => ShowEventModal(context))"><div style="background-color: #001000;"><MudText Style="color: #ffffff;" Typo="Typo.body1" Align="Align.Center">@(context.Title)</MudText></div></a>
-        </div>
+        <a @onclick="@(() => ShowEventModal(context))">
+            <div style="width: 100%; height: 100%; background-color: #103010; border: 2px solid #CCDF92; display: flex; align-items: center; justify-content: center;">
+                    <MudText Style="color: #ffffff;" Typo="Typo.body1" Align="Align.Center">
+                        @(context.Title)
+                    </MudText>
+            </div>
+        </a>
     </CellTemplate>
 </MudCalendar>
 
@@ -67,7 +71,7 @@
         {
             AllDay = true,
             Start = DateTime.Today,
-            End = DateTime.Today,
+            End = DateTime.Today.AddHours(2),
             Type = EventType.Feed,
             Events = new()
             {
@@ -93,7 +97,7 @@
         {
             AllDay = true,
             Start = DateTime.Today,
-            End = DateTime.Today,
+            End = DateTime.Today.AddHours(2),
             Type = EventType.Defecation
         }
     };
