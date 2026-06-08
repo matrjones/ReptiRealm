@@ -3,5 +3,5 @@
 public class Feed
 {
     public int Amount { get; set; } = 1;
-    public bool IsEaten { get; set; }
+    public bool IsEaten { get; set; } = true;
 }

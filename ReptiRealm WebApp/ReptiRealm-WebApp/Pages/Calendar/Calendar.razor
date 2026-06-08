@@ -3,8 +3,9 @@
 @using MudBlazor
 @using ReptiRealm_WebApp.Models.DTOs
 @using ReptiRealm_WebApp.Models.Enums
+@using ReptiRealm_WebApp.Pages.Calendar.Components
+@using ReptiRealm_WebApp.Pages.Calendar.Properties
 @using ReptiRealm_WebApp.Pages.Shared.Components
-@using ReptiRealm_WebApp.Pages.Shared.Modals
 
 <PageTitle>Calendar</PageTitle>
 
@@ -15,59 +16,32 @@
     </Actions>
 </PageSection>
 
-<MudCalendar 
-            T="CustomItem" 
-            Items="_events" 
-            Style="background-color: #001000; color: #CCDF92;" 
-            Color="MudBlazor.Color.Primary" 
-            Height="600" 
-            MonthCellMinHeight="100" >
+<MudCalendar T="CustomCalendarItem" 
+             Items="_events"
+             Style="background-color: #001000; color: #CCDF92;"
+             Color="MudBlazor.Color.Primary" 
+             Height="600" 
+             MonthCellMinHeight="100" >
     <CellTemplate>
-        <a @onclick="@(() => ShowEventModal(context))">
-            <div style="width: 100%; height: 100%; background-color: #103010; border: 2px solid #CCDF92; display: flex; align-items: center; justify-content: center;">
-                    <MudText Style="color: #ffffff;" Typo="Typo.body1" Align="Align.Center">
-                        @(context.Title)
-                    </MudText>
-            </div>
-        </a>
+        <div class="event_cell" @onclick="@(() => ShowEventModal(context))">
+                <MudText Typo="Typo.body1" Align="Align.Center">
+                    @(context.Title)
+                </MudText>
+        </div>
     </CellTemplate>
 </MudCalendar>
 
-<ConfirmationDialog @bind-IsOpen="_showFeedModal"
-                    Title="@_modalData.Title" >
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Reptile</th>
-                    <th>Sex</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var feedEvent in _modalData.Events)
-                {
-                    <tr>
-                        <td>@feedEvent.Reptile.Name</td>
-                        <td>
-                            <i class="@feedEvent.Reptile.Sex.GetSymbol()"></i>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>           
-</ConfirmationDialog>
-
-<ConfirmationDialog @bind-IsOpen="_showDefecationModal"
-                    Title="@_modalData.Title">
-</ConfirmationDialog>
+<FeedDialog @bind-IsOpen="_showFeedModal" Data="_modalData" />
+<DefecationDialog @bind-IsOpen="_showDefecationModal" Data="_modalData"/>
 
 @code {
-    private bool _showFeedModal;
-    private bool _showDefecationModal;
+    private bool _showFeedModal { get; set; }
+    private bool _showDefecationModal { get; set; }
 
-    private CustomItem _modalData { get; set; } = new();
-    private List<CustomItem> _events = new()
+    private CustomCalendarItem _modalData { get; set; } = new();
+    private List<CustomCalendarItem> _events = new()
     {
-        new CustomItem
+        new CustomCalendarItem
         {
             AllDay = true,
             Start = DateTime.Today,
@@ -93,7 +67,7 @@
                 }
             }
         },
-        new CustomItem
+        new CustomCalendarItem
         {
             AllDay = true,
             Start = DateTime.Today,
@@ -102,41 +76,19 @@
         }
     };
 
-    private Task ShowEventModal(CustomItem customItem)
+    private void ShowEventModal(CustomCalendarItem CustomCalendarItem)
     {
-        switch (customItem.Type)
+        _modalData = CustomCalendarItem;
+        switch (CustomCalendarItem.Type)
         {
             case EventType.Feed:
-                ShowFeedModal(customItem);
+                _showFeedModal = true;
                 break;
             case EventType.Defecation:
-                ShowDefecationModal(customItem);
+                _showDefecationModal = true;
                 break;
-
             default:
                 break;
         }
-
-        return Task.CompletedTask;
-    }
-
-    private void ShowFeedModal(CustomItem customItem)
-    {
-        _modalData = customItem;
-        _showFeedModal = true;
-    }
-
-    private void ShowDefecationModal(CustomItem customItem)
-    {
-        _modalData= customItem;
-        _showDefecationModal = true;
-    }
-
-    private class CustomItem : CalendarItem
-    {
-        public string Title => this.Type.ToString();
-        public EventType Type { get; set; }
-        public Color Color { get; set; } = MudBlazor.Color.Secondary;
-        public List<Event> Events { get; set; } = new();
     }
 }

@@ -1,6 +1,14 @@
 ﻿body {
 }
 
-.mud-cal-month-cell {
-    height: auto;
+.event_cell {
+    margin: 0 5px;
+    height: 100%;
+    background-color: #103010;
+    border: 1px solid #CCDF92;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
 }
