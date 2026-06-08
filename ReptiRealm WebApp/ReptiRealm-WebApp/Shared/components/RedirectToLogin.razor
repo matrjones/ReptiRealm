@@ -1,0 +1,29 @@
+@using Microsoft.AspNetCore.Components.Authorization
+@using ReptiRealm_WebApp.Services.Auth
+@inject NavigationManager Nav
+@inject AuthenticationStateProvider AuthStateProvider
+
+@if (!RendererInfo.IsInteractive)
+{
+    <p>Loading...</p>
+}
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender || !RendererInfo.IsInteractive)
+        {
+            return;
+        }
+
+        await ((CustomAuthenticationStateProvider)AuthStateProvider).RefreshAuthenticationStateAsync();
+
+        var state = await AuthStateProvider.GetAuthenticationStateAsync();
+        if (state.User.Identity?.IsAuthenticated == true)
+        {
+            return;
+        }
+
+        Nav.NavigateTo($"/login?returnUrl={Uri.EscapeDataString(Nav.Uri)}", replace: true);
+    }
+}

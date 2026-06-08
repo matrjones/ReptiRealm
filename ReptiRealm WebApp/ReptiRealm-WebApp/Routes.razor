@@ -1,6 +1,20 @@
-﻿<Router AppAssembly="typeof(Program).Assembly">
-    <Found Context="routeData">
-        <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
-        <FocusOnNavigate RouteData="routeData" Selector="h1" />
-    </Found>
-</Router>
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using ReptiRealm_WebApp.Shared.components
+<CascadingAuthenticationState>
+    <AuthenticationStateInitializer />
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData"
+                                DefaultLayout="@typeof(Layout.MainLayout)"
+                                @rendermode="new InteractiveServerRenderMode(prerender: false)">
+                <NotAuthorized>
+                    <RedirectToLogin />
+                </NotAuthorized>
+            </AuthorizeRouteView>
+        </Found>
+
+        <NotFound>
+            <p>Sorry, page not found.</p>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>

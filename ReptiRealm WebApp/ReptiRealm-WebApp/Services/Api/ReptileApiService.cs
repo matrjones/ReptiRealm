@@ -1,10 +1,10 @@
 ﻿using ReptiRealm_WebApp.Models.DTOs;
-using ReptiRealm_WebApp.Services.Api;
 using ReptiRealm_WebApp.Services.Api.Interfaces;
+using ReptiRealm_WebApp.Services.Auth.Interfaces;
 
 public class ReptileApiService : ApiService, IReptileApiService
 {
-    public ReptileApiService(HttpClient http) : base(http)
+    public ReptileApiService(HttpClient http, ITokenService tokenService) : base(http, tokenService)
     {
     }
 
