@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Policy;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.Extensions.Options;
 using MudBlazor;
 using MudBlazor.Services;
@@ -9,17 +13,45 @@ using ReptiRealm_WebApp.Services.Auth.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// ------------------------------------
+// UI
+// ------------------------------------
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
+builder.Services.AddMudServices();
+
+// ------------------------------------
+// CONFIG
+// ------------------------------------
+builder.Services.Configure<ApiSettings>(
+    builder.Configuration.GetSection("ApiSettings"));
+
+// ------------------------------------
+// AUTH (JWT STATE ONLY)
+// ------------------------------------
+builder.Services.AddAuthorization();
+builder.Services.AddSingleton<IAuthorizationMiddlewareResultHandler, BlazorAuthorizationMiddlewareResultHandler>();
+builder.Services.AddCascadingAuthenticationState();
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+
+// ------------------------------------
+// LOCAL STORAGE AUTH
+// ------------------------------------
+builder.Services.AddScoped<ProtectedLocalStorage>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+
+// ------------------------------------
+// HTTP CLIENTS
+// ------------------------------------
+builder.Services.AddTransient<AuthHeaderHandler>();
 
 builder.Services.AddHttpClient<IReptileApiService, ReptileApiService>((sp, client) =>
 {
     var settings = sp.GetRequiredService<IOptions<ApiSettings>>().Value;
     client.BaseAddress = new Uri(settings.BaseUrl);
-});
+})
+.AddHttpMessageHandler<AuthHeaderHandler>();
 
 builder.Services.AddHttpClient<AuthApiService>((sp, client) =>
 {
@@ -27,31 +59,26 @@ builder.Services.AddHttpClient<AuthApiService>((sp, client) =>
     client.BaseAddress = new Uri(settings.BaseUrl);
 });
 
-builder.Services.AddSingleton<ITokenService, TokenService>();
-builder.Services.AddTransient<AuthHeaderHandler>();
-
-builder.Services.AddHttpClient<AuthApiService>();
-builder.Services.AddHttpClient<IReptileApiService, ReptileApiService>()
-    .AddHttpMessageHandler<AuthHeaderHandler>();
-
-builder.Services.AddMudServices();
-
+// ------------------------------------
+// BUILD
+// ------------------------------------
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseAntiforgery();
 
 app.MapStaticAssets();
+
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 

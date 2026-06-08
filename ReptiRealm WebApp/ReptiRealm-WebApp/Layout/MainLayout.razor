@@ -1,6 +1,11 @@
-﻿@using MudBlazor
+﻿@inherits LayoutComponentBase
+
+@using MudBlazor
 @using ReptiRealm_WebApp.Layout.Components
-@inherits LayoutComponentBase
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Authorization
+
+@inject AuthenticationStateProvider AuthStateProvider
 
 <div class="page">
     <div class="sidebar">
@@ -32,4 +37,9 @@
             Secondary = "#CCDF92"
         }
     };
+
+    protected override async Task OnInitializedAsync()
+    {
+        var auth = await AuthStateProvider.GetAuthenticationStateAsync();
+    }
 }
