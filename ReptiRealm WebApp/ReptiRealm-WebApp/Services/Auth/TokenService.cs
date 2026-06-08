@@ -5,7 +5,7 @@ namespace ReptiRealm_WebApp.Services.Auth;
 
 public class TokenService : ITokenService
 {
-    private const string StorageKey = "auth_session";
+    private const string _storageKey = "auth_session";
     private readonly ProtectedLocalStorage _localStorage;
 
     public TokenService(ProtectedLocalStorage localStorage)
@@ -17,7 +17,7 @@ public class TokenService : ITokenService
     {
         try
         {
-            var result = await _localStorage.GetAsync<string>(StorageKey);
+            var result = await _localStorage.GetAsync<string>(_storageKey);
             return result.Success ? result.Value : null;
         }
         catch (InvalidOperationException ex) when (IsJsInteropUnavailable(ex))
@@ -30,7 +30,7 @@ public class TokenService : ITokenService
     {
         try
         {
-            await _localStorage.SetAsync(StorageKey, token);
+            await _localStorage.SetAsync(_storageKey, token);
         }
         catch (InvalidOperationException ex) when (IsJsInteropUnavailable(ex))
         {
@@ -41,7 +41,7 @@ public class TokenService : ITokenService
     {
         try
         {
-            await _localStorage.DeleteAsync(StorageKey);
+            await _localStorage.DeleteAsync(_storageKey);
         }
         catch (InvalidOperationException ex) when (IsJsInteropUnavailable(ex))
         {

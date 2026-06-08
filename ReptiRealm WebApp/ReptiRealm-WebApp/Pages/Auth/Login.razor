@@ -11,58 +11,58 @@
 
 <h3>Login</h3>
 
-<EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+<EditForm Model="@_loginModel" OnValidSubmit="HandleLogin">
     <DataAnnotationsValidator />
 
     <div class="card p-3" style="max-width: 400px">
 
-        @if (!string.IsNullOrEmpty(ErrorMessage))
+        @if (!string.IsNullOrEmpty(_errorMessage))
         {
             <div class="alert alert-danger">
-                @ErrorMessage
+                @_errorMessage
             </div>
         }
 
         <div class="mb-2">
             <label>Email</label>
-            <InputText class="form-control" @bind-Value="loginModel.Email" />
+            <InputText class="form-control" @bind-Value="_loginModel.Email" />
         </div>
 
         <div class="mb-2">
             <label>Password</label>
             <InputText type="password" class="form-control"
-                       @bind-Value="loginModel.Password" />
+                       @bind-Value="_loginModel.Password" />
         </div>
 
         <button class="btn btn-primary w-100"
                 type="submit"
-                disabled="@IsLoading">
+                disabled="@_isLoading">
 
-            @(IsLoading ? "Logging in..." : "Login")
+            @(_isLoading ? "Logging in..." : "Login")
         </button>
 
     </div>
 </EditForm>
 
 @code {
-    private LoginModel loginModel = new();
-    private string? ErrorMessage;
-    private bool IsLoading;
+    private LoginModel _loginModel = new();
+    private string? _errorMessage;
+    private bool _isLoading;
 
     private async Task HandleLogin()
     {
-        IsLoading = true;
-        ErrorMessage = null;
+        _isLoading = true;
+        _errorMessage = null;
 
         try
         {
             var result = await AuthApiService.LoginAsync(
-                loginModel.Email,
-                loginModel.Password);
+                _loginModel.Email,
+                _loginModel.Password);
 
             if (result is null)
             {
-                ErrorMessage = "Invalid login.";
+                _errorMessage = "Invalid login.";
                 return;
             }
 
@@ -73,7 +73,7 @@
         }
         finally
         {
-            IsLoading = false;
+            _isLoading = false;
         }
     }
 
