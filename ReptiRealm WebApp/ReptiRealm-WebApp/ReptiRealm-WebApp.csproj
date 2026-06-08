@@ -4,13 +4,12 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>ReptiRealm-WebApp</RootNamespace>
+    <RootNamespace>ReptiRealm_WebApp</RootNamespace>
     <AssemblyName>$(AssemblyName.Replace(' ', '_'))</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Helpers\" />
-    <Folder Include="Pages\Calendar\Components\" />
     <Folder Include="Pages\Calendar\Modals\" />
     <Folder Include="Pages\Calendar\Resources\" />
     <Folder Include="Pages\Food\Components\" />
@@ -27,6 +26,11 @@
     <Folder Include="Shared\Resources\" />
     <Folder Include="wwwroot\Js\" />
     <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Heron.MudCalendar" Version="4.0.0" />
+    <PackageReference Include="MudBlazor" Version="9.5.0" />
   </ItemGroup>
 
 </Project>

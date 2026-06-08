@@ -1,4 +1,6 @@
 using Microsoft.Extensions.Options;
+using MudBlazor;
+using MudBlazor.Services;
 using ReptiRealm_WebApp;
 using ReptiRealm_WebApp.Services.Api;
 using ReptiRealm_WebApp.Services.Api.Interfaces;
@@ -31,6 +33,8 @@ builder.Services.AddTransient<AuthHeaderHandler>();
 builder.Services.AddHttpClient<AuthApiService>();
 builder.Services.AddHttpClient<IReptileApiService, ReptileApiService>()
     .AddHttpMessageHandler<AuthHeaderHandler>();
+
+builder.Services.AddMudServices();
 
 var app = builder.Build();
 
