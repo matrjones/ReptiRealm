@@ -1,0 +1,53 @@
+﻿@using ReptiRealm_WebApp.Models.Enums
+@using ReptiRealm_WebApp.Pages.Calendar.Properties
+@using ReptiRealm_WebApp.Pages.Shared.Modals
+
+<ConfirmationDialog IsOpen="IsOpen"
+                    IsOpenChanged="OnDialogOpenChanged"
+                    Title="@Data.Title" 
+                    OnConfirm="HandleOnConfirm"
+                    OnCancel="OnCancel">
+    <ChildContent>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Reptile</th>
+                    <th>Sex</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var feedEvent in Data.Events)
+                {
+                    <tr>
+                        <td>@feedEvent.Reptile.Name</td>
+                        <td>
+                            <i class="@feedEvent.Reptile.Sex.GetSymbol()"></i>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </ChildContent>          
+</ConfirmationDialog>
+
+@code{
+    [Parameter] 
+    public bool IsOpen { get; set; }
+    [Parameter]
+    public required CustomCalendarItem Data { get; set; }
+    [Parameter]
+    public EventCallback<bool> IsOpenChanged { get; set; }
+    [Parameter]
+    public EventCallback OnCancel { get; set; }
+
+    private async Task HandleOnConfirm()
+    {
+        await Task.CompletedTask;
+    }
+
+    private async Task OnDialogOpenChanged(bool value)
+    {
+        IsOpen = value;
+        await IsOpenChanged.InvokeAsync(value);
+    }
+}

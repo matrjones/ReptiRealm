@@ -1,4 +1,6 @@
 ﻿@inherits LayoutComponentBase
+@using MudBlazor
+@using ReptiRealm_WebApp.Layout.Components
 @using ReptiRealm_WebApp.Layout.Components
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Authorization
@@ -23,7 +25,19 @@
     <a class="dismiss">🗙</a>
 </div>
 
-@code{
+<MudThemeProvider Theme="_theme"/>
+<MudPopoverProvider />
+
+@code {
+    private MudTheme _theme = new MudTheme()
+    {
+        PaletteLight = new PaletteLight()
+        {
+            Primary = "#103010",
+            Secondary = "#CCDF92"
+        }
+    };
+
     protected override async Task OnInitializedAsync()
     {
         var auth = await AuthStateProvider.GetAuthenticationStateAsync();

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.Extensions.Options;
+using MudBlazor;
+using MudBlazor.Services;
 using ReptiRealm_WebApp;
 using ReptiRealm_WebApp.Services.Api;
 using ReptiRealm_WebApp.Services.Api.Interfaces;
@@ -16,6 +18,8 @@ var builder = WebApplication.CreateBuilder(args);
 // ------------------------------------
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddMudServices();
 
 // ------------------------------------
 // CONFIG
