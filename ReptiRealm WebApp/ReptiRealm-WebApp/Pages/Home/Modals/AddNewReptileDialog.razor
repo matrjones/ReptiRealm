@@ -1,9 +1,14 @@
 ﻿@using ReptiRealm_WebApp.Pages.Shared.Components
 @using ReptiRealm_WebApp.Pages.Shared.Modals
 @using ReptiRealm_WebApp.Models.Enums
+@using ReptiRealm_WebApp.Services.Api.Interfaces
+@using ReptiRealm_WebApp.Models.DTOs
+@inject IReptileApiService apiService
+
 
 <BaseDialog @bind-IsOpen="@IsOpen"
-Title="Add New Reptile">
+Title="Add New Reptile"
+OnConfirm="HandleConfirm">
     <ChildContent>
         <TextInput IsRequired="true"
         Title="Name"
@@ -22,9 +27,9 @@ Title="Add New Reptile">
         Message="DD/MM/YY or MM/YY"
         @bind-Value="_dob" />
 
-        <DateInput Title="Date Obtained"
+        @*<DateInput Title="Date Obtained"
         Message="DD/MM/YY"
-        @bind-Value="_dateObtained" />
+        @bind-Value="_dateObtained" />*@
 
         <!-- User can type a morph and add it to list -->
 
@@ -35,6 +40,7 @@ Title="Add New Reptile">
 @code {
     [Parameter] public bool IsOpen { get; set; }
     [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
+    [Parameter] public EventCallback OnSuccess { get; set; }
 
     private string? _name;
     private Sex _sex = Sex.Unknown;
@@ -51,4 +57,18 @@ Title="Add New Reptile">
         _dob = null;
         _dateObtained = null;
     }
+
+    private async Task HandleConfirm()
+    {
+        await apiService.CreateReptile(new Reptile
+        {
+            Name = _name,
+            Sex = _sex,
+            DateOfBirth = _dob.HasValue ? _dob.Value.ToDateTime(TimeOnly.MinValue) : null
+        });
+
+        await OnSuccess.InvokeAsync();
+    }
+
+
 }

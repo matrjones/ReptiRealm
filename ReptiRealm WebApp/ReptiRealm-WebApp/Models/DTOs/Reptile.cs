@@ -4,7 +4,7 @@ namespace ReptiRealm_WebApp.Models.DTOs
 {
     public class Reptile
     {
-        public required Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public required string Name { get; set; }
         public required Sex Sex { get; set; } = Sex.Unknown;
         public DateTime? DateOfBirth { get; set; }

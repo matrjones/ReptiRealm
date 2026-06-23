@@ -14,10 +14,17 @@ public class ReptileApiService : ApiService, IReptileApiService
 
         return result?.Select(s => new ReptileCardModel
         {
-            Id = s.Id,
+            Id = s.Id!.Value,
             Name = s.Name,
             Sex = s.Sex,
             Species = s.Species?.Name
         }).ToList();
+    }
+
+    public async Task<Reptile?> CreateReptile(Reptile reptile)
+    {
+        var result = await PostAsync<Reptile>("reptile/create", reptile);
+
+        return result;
     }
 }
