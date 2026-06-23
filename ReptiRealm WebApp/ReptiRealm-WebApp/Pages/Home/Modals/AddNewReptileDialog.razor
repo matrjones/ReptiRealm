@@ -2,34 +2,34 @@
 @using ReptiRealm_WebApp.Pages.Shared.Modals
 @using ReptiRealm_WebApp.Models.Enums
 
-<ConfirmationDialog @bind-IsOpen="@IsOpen"
+<BaseDialog @bind-IsOpen="@IsOpen"
 Title="Add New Reptile">
     <ChildContent>
         <TextInput IsRequired="true"
-                   Title="Name"
-                   Placeholder="Enter name"
-                   @bind-Value="_name" />
+        Title="Name"
+        Placeholder="Enter name"
+        @bind-Value="_name" />
 
         <MultiSelectBar Title="Sex"
-                        Options="@SexOptions"
-                        @bind-Value="_sex" />
+        Options="@SexOptions"
+        @bind-Value="_sex" />
 
         <TextInput Title="Species"
-                   Placeholder="Enter species"
-                   @bind-Value="_species" />
+        Placeholder="Enter species"
+        @bind-Value="_species" />
 
         <DateInput Title="Date of Birth"
-                           Message="DD/MM/YY or MM/YY"
-                           @bind-Value="_dob" />
+        Message="DD/MM/YY or MM/YY"
+        @bind-Value="_dob" />
 
         <DateInput Title="Date Obtained"
-                           Message="DD/MM/YY"
-                           @bind-Value="_dateObtained" />
+        Message="DD/MM/YY"
+        @bind-Value="_dateObtained" />
 
-        <!-- Type Morphs and add -->
+        <!-- User can type a morph and add it to list -->
 
     </ChildContent>
-</ConfirmationDialog>
+</BaseDialog>
 
 
 @code {
@@ -42,4 +42,13 @@ Title="Add New Reptile">
     private DateOnly? _dob;
     private DateOnly? _dateObtained;
     private readonly IEnumerable<Sex> SexOptions = Enum.GetValues<Sex>();
+
+    protected override void OnParametersSet()
+    {
+        _name = null;
+        _sex = Sex.Unknown;
+        _species = null;
+        _dob = null;
+        _dateObtained = null;
+    }
 }
