@@ -1,0 +1,85 @@
+﻿@page "/login"
+@attribute [AllowAnonymous]
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using ReptiRealm_WebApp.Services.Auth
+
+@inject NavigationManager NavigationManager
+@inject AuthApiService AuthApiService
+@inject AuthenticationStateProvider AuthStateProvider
+
+<h3>Login</h3>
+
+<EditForm Model="@_loginModel" OnValidSubmit="HandleLogin">
+    <DataAnnotationsValidator />
+
+    <div class="card p-3" style="max-width: 400px">
+
+        @if (!string.IsNullOrEmpty(_errorMessage))
+        {
+            <div class="alert alert-danger">
+                @_errorMessage
+            </div>
+        }
+
+        <div class="mb-2">
+            <label>Email</label>
+            <InputText class="form-control" @bind-Value="_loginModel.Email" />
+        </div>
+
+        <div class="mb-2">
+            <label>Password</label>
+            <InputText type="password" class="form-control"
+                       @bind-Value="_loginModel.Password" />
+        </div>
+
+        <button class="btn btn-primary w-100"
+                type="submit"
+                disabled="@_isLoading">
+
+            @(_isLoading ? "Logging in..." : "Login")
+        </button>
+
+    </div>
+</EditForm>
+
+@code {
+    private LoginModel _loginModel = new();
+    private string? _errorMessage;
+    private bool _isLoading;
+
+    private async Task HandleLogin()
+    {
+        _isLoading = true;
+        _errorMessage = null;
+
+        try
+        {
+            var result = await AuthApiService.LoginAsync(
+                _loginModel.Email,
+                _loginModel.Password);
+
+            if (result is null)
+            {
+                _errorMessage = "Invalid login.";
+                return;
+            }
+
+            var authProvider = (CustomAuthenticationStateProvider)AuthStateProvider;
+            authProvider.NotifyUserAuthentication(result.Token);
+
+            NavigationManager.NavigateTo("/");
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private class LoginModel
+    {
+        public string Email { get; set; } = "";
+        public string Password { get; set; } = "";
+    }
+}

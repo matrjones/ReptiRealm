@@ -1,7 +1,5 @@
-﻿using ReptiRealm_WebApp.Services.Auth.Interfaces;
-using System.Net.Http.Headers;
-
-namespace ReptiRealm_WebApp.Services.Auth;
+﻿using System.Net.Http.Headers;
+using ReptiRealm_WebApp.Services.Auth.Interfaces;
 
 public class AuthHeaderHandler : DelegatingHandler
 {

@@ -13,7 +13,7 @@ public class AuthApiService
         _tokenService = tokenService;
     }
 
-    public async Task<bool> LoginAsync(string email, string password)
+    public async Task<LoginResponse?> LoginAsync(string email, string password)
     {
         var response = await _http.PostAsJsonAsync("auth/login", new
         {
@@ -22,13 +22,21 @@ public class AuthApiService
         });
 
         if (!response.IsSuccessStatusCode)
-            return false;
+            return null;
 
         var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
 
-        await _tokenService.SetTokenAsync(result!.Token);
+        if (result?.Token is null)
+            return null;
 
-        return true;
+        await _tokenService.SetTokenAsync(result.Token);
+
+        return result;
+    }
+
+    public async Task Logout()
+    {
+        await _tokenService.RemoveTokenAsync();
     }
 }
 

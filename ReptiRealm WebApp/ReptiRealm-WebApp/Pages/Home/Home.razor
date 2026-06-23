@@ -1,8 +1,8 @@
 ﻿@page "/"
+
 @using ReptiRealm_WebApp.Pages.Home.Components
 @using ReptiRealm_WebApp.Pages.Home.Modals
 @using ReptiRealm_WebApp.Pages.Shared.Components
-@using ReptiRealm_WebApp.Pages.Shared.Modals
 @using ReptiRealm_WebApp.Services.Api.Interfaces
 @using ReptiRealm_WebApp.Services.Auth
 @inject IReptileApiService apiService
@@ -80,7 +80,6 @@
     private bool ShowReptileDialog;
 
     protected override async Task OnInitializedAsync(){
-        await authApiService.LoginAsync("mat@mat.com", "Password1234!");
         await RefreshReptiles();
     }
 

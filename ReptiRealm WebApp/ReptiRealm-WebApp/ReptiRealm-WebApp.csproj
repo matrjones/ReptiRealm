@@ -4,7 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>ReptiRealm-WebApp</RootNamespace>
+    <RootNamespace>ReptiRealm_WebApp</RootNamespace>
     <AssemblyName>$(AssemblyName.Replace(' ', '_'))</AssemblyName>
   </PropertyGroup>
 
@@ -52,8 +52,26 @@
     <Folder Include="Pages\Food\Components\" />
     <Folder Include="Pages\Food\Modals\" />
     <Folder Include="Pages\Food\Resources\" />
+    <Folder Include="Pages\Home\Resources\" />
+    <Folder Include="Pages\Reptile\Components\" />
+    <Folder Include="Pages\Reptile\Modals\" />
+    <Folder Include="Pages\Reptile\Resources\" />
+    <Folder Include="Pages\Shared\Resources\" />
+    <Folder Include="Pages\Tasks\Components\" />
+    <Folder Include="Pages\Tasks\Modals\" />
+    <Folder Include="Pages\Tasks\Resources\" />
+    <Folder Include="Shared\Components\" />
+    <Folder Include="Shared\Resources\" />
     <Folder Include="wwwroot\Js\" />
     <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Heron.MudCalendar" Version="4.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="9.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="9.0.16" />
+    <PackageReference Include="MudBlazor" Version="9.5.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.19.1" />
   </ItemGroup>
 
 </Project>

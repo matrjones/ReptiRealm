@@ -4,9 +4,9 @@
 <button class="reptile-card">
     <div class="name-and-sex">
         <span class="name">@Name</span>
-        @if(!string.IsNullOrWhiteSpace(SexIcon))
+        @if(!string.IsNullOrWhiteSpace(Sex.GetSymbol()))
         {
-            <span class="@SexIcon"></span>
+            <span class="@Sex.GetSymbol()"></span>
         }
     </div>
 

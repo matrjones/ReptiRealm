@@ -1,5 +1,11 @@
-﻿@using ReptiRealm_WebApp.Layout.Components
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
+
+@using MudBlazor
+@using ReptiRealm_WebApp.Layout.Components
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Authorization
+
+@inject AuthenticationStateProvider AuthStateProvider
 
 <div class="page">
     <div class="sidebar">
@@ -18,3 +24,22 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+<MudThemeProvider Theme="_theme"/>
+<MudPopoverProvider />
+
+@code {
+    private MudTheme _theme = new MudTheme()
+    {
+        PaletteLight = new PaletteLight()
+        {
+            Primary = "#103010",
+            Secondary = "#CCDF92"
+        }
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        var auth = await AuthStateProvider.GetAuthenticationStateAsync();
+    }
+}

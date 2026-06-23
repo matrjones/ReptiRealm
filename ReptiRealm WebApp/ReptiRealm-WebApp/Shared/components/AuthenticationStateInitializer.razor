@@ -1,0 +1,15 @@
+@using Microsoft.AspNetCore.Components.Authorization
+@using ReptiRealm_WebApp.Services.Auth
+@inject AuthenticationStateProvider AuthStateProvider
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender || !RendererInfo.IsInteractive)
+        {
+            return;
+        }
+
+        await ((CustomAuthenticationStateProvider)AuthStateProvider).RefreshAuthenticationStateAsync();
+    }
+}

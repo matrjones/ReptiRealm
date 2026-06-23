@@ -1,7 +1,11 @@
 ﻿@page "/calendar"
-@using ReptiRealm_WebApp.Pages.Home.Modals
+@using Heron.MudCalendar
+@using MudBlazor
+@using ReptiRealm_WebApp.Models.DTOs
+@using ReptiRealm_WebApp.Models.Enums
+@using ReptiRealm_WebApp.Pages.Calendar.Components
+@using ReptiRealm_WebApp.Pages.Calendar.Properties
 @using ReptiRealm_WebApp.Pages.Shared.Components
-@using ReptiRealm_WebApp.Pages.Shared.Modals
 
 <PageTitle>Calendar</PageTitle>
 
@@ -10,10 +14,81 @@
         <QuickActionButton Icon="bi-plus-lg"
                            Text="New Event" />
     </Actions>
-    
 </PageSection>
 
+<MudCalendar T="CustomCalendarItem" 
+             Items="_events"
+             Style="background-color: #001000; color: #CCDF92;"
+             Color="MudBlazor.Color.Primary" 
+             Height="600" 
+             MonthCellMinHeight="100" >
+    <CellTemplate>
+        <div class="event_cell" @onclick="@(() => ShowEventModal(context))">
+                <MudText Typo="Typo.body1" Align="Align.Center">
+                    @(context.Title)
+                </MudText>
+        </div>
+    </CellTemplate>
+</MudCalendar>
+
+<FeedDialog @bind-IsOpen="_showFeedModal" Data="_modalData" />
+<DefecationDialog @bind-IsOpen="_showDefecationModal" Data="_modalData"/>
 
 @code {
+    private bool _showFeedModal { get; set; }
+    private bool _showDefecationModal { get; set; }
 
+    private CustomCalendarItem _modalData { get; set; } = new();
+    private List<CustomCalendarItem> _events = new()
+    {
+        new CustomCalendarItem
+        {
+            AllDay = true,
+            Start = DateTime.Today,
+            End = DateTime.Today.AddHours(2),
+            Type = EventType.Feed,
+            Events = new()
+            {
+                new FeedEvent{
+                    Reptile = new Reptile
+                    {
+                        Id = new Guid(),
+                        Name = "Ra",
+                        Sex = Sex.Male
+                    }
+                },
+                new FeedEvent{
+                    Reptile = new Reptile
+                    {
+                        Id = new Guid(),
+                        Name = "Kaiba",
+                        Sex = Sex.Female
+                    }
+                }
+            }
+        },
+        new CustomCalendarItem
+        {
+            AllDay = true,
+            Start = DateTime.Today,
+            End = DateTime.Today.AddHours(2),
+            Type = EventType.Defecation
+        }
+    };
+
+    private void ShowEventModal(CustomCalendarItem CustomCalendarItem)
+    {
+        _modalData = CustomCalendarItem;
+        switch (CustomCalendarItem.Type)
+        {
+            case EventType.Feed:
+                _showFeedModal = true;
+                break;
+            case EventType.Defecation:
+                _showDefecationModal = true;
+                break;
+            default:
+                break;
+        }
+    }
 }
