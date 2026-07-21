@@ -9,18 +9,15 @@
 @inject IReptileApiService apiService
 @inject AuthApiService authApiService
 
-
 <PageTitle>Home</PageTitle>
 
-<!-- Homepage -->
 <div class="homepage">
     <div class="welcome_section">
         <PageSection Title=" Welcome, ReptiKeeper!">
             <Actions>
                 <QuickActionButton Icon="bi-plus-lg"
-                Text="New Reptile"
-                OnClick="OpenAddReptileDialog" />
-
+                                   Text="New Reptile"
+                                   OnClick="OpenAddReptileDialog" />
             </Actions>
         </PageSection>
     </div>
@@ -61,14 +58,13 @@
                         Species="@reptile.Species"
                         Sex="@reptile.Sex" />
                     }
-                    <AddNewReptileCard />
+                    <AddNewReptileCard OnClick="OpenAddReptileDialog"/>
                 </div>
             </ChildContent>
         </PageSection>
     </div>
 </div>
 
-<!-- Add New Reptile Dialog -->
 <AddNewReptileDialog @bind-IsOpen="ShowReptileDialog" />
 
 

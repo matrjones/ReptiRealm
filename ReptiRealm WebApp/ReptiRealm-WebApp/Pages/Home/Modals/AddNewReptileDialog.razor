@@ -1,8 +1,9 @@
 ﻿@using ReptiRealm_WebApp.Pages.Shared.Components
 @using ReptiRealm_WebApp.Pages.Shared.Modals
 
-<ConfirmationDialog @bind-IsOpen="@IsOpen"
-Title="Add New Reptile" >
+<ConfirmationDialog IsOpen="IsOpen"
+                    IsOpenChanged="IsOpenChanged"
+                    Title="Add New Reptile" >
     <ChildContent>
         <TextInputQuestion IsRequired="true"
                            Title="Name"
