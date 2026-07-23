@@ -1,4 +1,4 @@
-﻿.search_bar {
+﻿.search-bar {
     font-size: 30px;
     display: flex;
     align-items: center;
@@ -11,7 +11,7 @@
     height: 50px;
 }
 
-.search_bar input {
+.search-bar input {
     flex: 1;
     border: none;
     outline: none;
@@ -19,6 +19,6 @@
     font-size: 1.2rem;
 }
 
-.search_bar .bi-search {
+.search-bar .bi-search {
     color: #666;
 }

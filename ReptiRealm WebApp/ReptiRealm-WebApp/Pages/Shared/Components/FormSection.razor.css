@@ -1,4 +1,4 @@
-﻿.question_section {
+﻿.question-section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-.form_label {
+.form-label {
     display: flex;
     align-items: baseline;
     justify-content: flex-start;
@@ -25,6 +25,6 @@
     color: #6c757d;
 }
 
-.child_content {
+.child-content {
     width: 100%;
 }

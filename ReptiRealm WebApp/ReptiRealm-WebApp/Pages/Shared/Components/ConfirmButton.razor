@@ -1,12 +1,17 @@
-﻿<button class="confirm_button"
-@onclick="OnClick"
-disabled="@IsDisabled" >
+﻿<button class="confirm-button"
+        disabled="@IsDisabled"
+        @onclick="OnClick">
     @Label
 </button>
 
 
 @code {
-    [Parameter] public string Label { get; set; } = "Confirm";
-    [Parameter] public EventCallback OnClick { get; set; }
-    [Parameter] public bool IsDisabled { get; set; }
+    [Parameter]
+    public string Label { get; set; } = "Confirm";
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+    
+    [Parameter]
+    public bool IsDisabled { get; set; }
 }

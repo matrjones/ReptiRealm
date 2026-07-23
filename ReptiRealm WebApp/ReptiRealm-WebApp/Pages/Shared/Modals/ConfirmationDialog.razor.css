@@ -1,4 +1,4 @@
-﻿.dialog_overlay {
+﻿.dialog-overlay {
     position: fixed;
     inset: 0;
     display: flex;
@@ -8,7 +8,7 @@
     z-index: 1000;
 }
 
-.confirmation_dialog {
+.confirmation-dialog {
     text-align: center;
     background: white;
     border-radius: 12px;
@@ -20,7 +20,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
-.title_section {
+.title-section {
     margin-bottom: 1rem;
 }
 
@@ -29,14 +29,14 @@
     font-weight: 600;
 }
 
-.warning_message {
+.warning-message {
     background-color: #FFF6E7;
     font-size: 1.2rem;
     border-radius: 10px;
     padding: 4px;
 }
 
-.error_message {
+.error-message {
     margin-bottom: 1rem;
     font-size: 1.2rem;
     color: red;
