@@ -9,12 +9,12 @@
     margin: 0;
 }
 
-.title_actions {
+.title-actions {
     display: flex;
     gap: 0.75rem;
     align-items: center;
 }
 
-.child_content {
+.child-content {
     margin-top: 1rem;
 }

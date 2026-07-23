@@ -1,21 +1,33 @@
 ﻿<FormSection IsRequired="@IsRequired"
              Title="@Title"
-             Message="@Message" >
+             Message="@Message">
     <ChildContent>
-        <InputText class="form_control"
-                   placeholder="@Placeholder"
-                   Value="@Value"
-                   ValueChanged="@ValueChanged"
-                   ValueExpression="() => Value"/>
-    </ChildContent>
+        <div class="text-input">
+            <InputText placeholder="@Placeholder"
+                       Value="@Value"
+                       ValueChanged="@ValueChanged"
+                       ValueExpression="() => Value"/>
+        </div>
+        </ChildContent>
 </FormSection>
 
 
 @code {
-    [Parameter] public bool IsRequired { get; set; }
-    [Parameter] public required string Title { get; set; }
-    [Parameter] public string? Message { get; set; }
-    [Parameter] public string? Placeholder { get; set; }
-    [Parameter] public string? Value { get; set; }
-    [Parameter] public EventCallback<string?> ValueChanged { get; set; } 
+    [Parameter]
+    public bool IsRequired { get; set; }
+    
+    [Parameter]
+    public required string Title { get; set; }
+    
+    [Parameter]
+    public string? Message { get; set; }
+    
+    [Parameter]
+    public string? Placeholder { get; set; }
+    
+    [Parameter]
+    public string? Value { get; set; }
+    
+    [Parameter]
+    public EventCallback<string?> ValueChanged { get; set; } 
 }

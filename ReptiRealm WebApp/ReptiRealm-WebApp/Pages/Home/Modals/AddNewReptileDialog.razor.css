@@ -1,2 +1,19 @@
-﻿body {
+﻿.name-question {
+    margin-bottom: 1.5rem;
+}
+
+.sex-question {
+    margin-bottom: 1.5rem;
+}
+
+.species-question {
+    margin-bottom: 1.5rem;
+}
+
+.dob-question {
+    margin-bottom: 1.5rem;
+}
+
+.date-obtained-question {
+    margin-bottom: 1.5rem;
 }

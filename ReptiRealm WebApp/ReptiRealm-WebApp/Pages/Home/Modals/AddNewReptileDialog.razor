@@ -5,18 +5,60 @@
                     IsOpenChanged="IsOpenChanged"
                     Title="Add New Reptile" >
     <ChildContent>
-        <TextInputQuestion IsRequired="true"
-                           Title="Name"
-                           Message="Message"
-                           Placeholder="Name"
-                           @bind-Value="_name"/>
+        <div class="questions-section">
+            <div class="name-question">
+                <TextInputQuestion IsRequired="true"
+                                   Title="Name"
+                                   Placeholder="Name"
+                                   @bind-Value="_name" />
+            </div>
+            <div class="sex-question">
+                <SelectionQuestion IsRequired="false"
+                                   Title="Sex"
+                                   Options="_sexOptions"
+                                   @bind-Value="_sex" />
+            </div>
+            <div class="species-question">
+                <TextInputQuestion Title="Species"
+                                   Placeholder="Species"
+                                   @bind-Value="_species" />
+            </div>
+            <div class="dob-question">
+                <DateSelection IsRequired="false"
+                               title="Date of Birth"
+                               Message="(DD/MM/YYYY)" />
+            </div>
+            <div class="date-obtained-question">
+                <DateSelection IsRequired="false"
+                               title="Date Obtained"
+                               Message="(DD/MM/YYYY)" />
+            </div>
+        </div>
     </ChildContent>
 </ConfirmationDialog>
 
 
 @code {
-    [Parameter] public bool IsOpen { get; set; }
-    [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
+    [Parameter]
+    public bool IsOpen { get; set; }
+    
+    [Parameter]
+    public EventCallback<bool> IsOpenChanged { get; set; }
 
     private string? _name;
+    private string? _sex;
+    private string? _species;
+
+    private readonly string[] _sexOptions =
+    [
+        "Male",
+        "Female",
+        "Unknown"
+    ];
+
+    protected override void OnInitialized()
+    {
+        _sex = _sexOptions[2];
+        base.OnInitialized();
+    }
 }

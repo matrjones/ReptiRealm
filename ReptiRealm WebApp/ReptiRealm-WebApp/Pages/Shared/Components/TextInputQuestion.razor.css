@@ -1,1 +1,27 @@
-﻿
+﻿.text-input {
+    display: block;
+    height: 40px;
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .375rem;
+    padding: .375rem .75rem;
+    box-sizing: border-box;
+}
+
+.text-input ::deep input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    box-shadow: none;
+}
+
+.text-input:focus {
+    outline: none;
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}

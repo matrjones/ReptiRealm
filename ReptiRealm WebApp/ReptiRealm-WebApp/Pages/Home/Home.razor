@@ -28,16 +28,16 @@
             <ChildContent>
                 <div class="agenda_tasks">
                     <AgendaCard Icon="bi-fork-knife"
-                    AgendaTotal="4"
-                    AgendaDescription="Feeds" />
+                                AgendaTotal="4"
+                                AgendaDescription="Feeds" />
 
                     <AgendaCard Icon="bi-droplet"
-                    AgendaTotal="1"
-                    AgendaDescription="Waters" />
+                                AgendaTotal="1"
+                                AgendaDescription="Waters" />
 
                     <AgendaCard Icon="bi-layers"
-                    AgendaTotal="0"
-                    AgendaDescription="Substrates" />
+                                AgendaTotal="0"
+                                AgendaDescription="Substrates" />
                 </div>
             </ChildContent>
         </PageSection>
@@ -48,15 +48,15 @@
         IsTitle="false">
             <Actions>
                 <SearchBar @bind-Value="SearchText"
-                Placeholder="Search reptiles..." />
+                           Placeholder="Search reptiles..." />
             </Actions>
             <ChildContent>
                 <div class="reptile_grid">
                     @foreach (var reptile in FilteredReptiles)
                     {
                         <ReptileCard Name="@reptile.Name"
-                        Species="@reptile.Species"
-                        Sex="@reptile.Sex" />
+                                     Species="@reptile.Species"
+                                     Sex="@reptile.Sex" />
                     }
                     <AddNewReptileCard OnClick="OpenAddReptileDialog"/>
                 </div>

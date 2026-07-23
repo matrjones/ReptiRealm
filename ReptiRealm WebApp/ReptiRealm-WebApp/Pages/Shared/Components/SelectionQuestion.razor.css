@@ -1,0 +1,33 @@
+﻿.selection-bar {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.selection-option {
+    font-size: 1rem;
+    font-weight: bold;
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: white;
+    cursor: pointer;
+    transition: background-color .2s;
+}
+
+.selection-option:not(:last-child) {
+    border-right: 1px solid #ccc;
+}
+
+.selection-option.selected {
+    background: #1b5e20;
+    color: white;
+    font-weight: 600;
+}
+
+.selection-option:hover:not(.selected) {
+    background: #f3f3f3;
+}

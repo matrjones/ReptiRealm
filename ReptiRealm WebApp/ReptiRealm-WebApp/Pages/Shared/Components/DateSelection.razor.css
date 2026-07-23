@@ -1,0 +1,27 @@
+﻿.date-input {
+    display: block;
+    height: 40px;
+    border: 1px solid #ced4da;
+    border-radius: .375rem;
+    background-color: #fff;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.date-input ::deep input {
+    width: 100%;
+    height: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #212529;
+    border: none;
+    outline: none;
+    background: transparent;
+    box-sizing: border-box;
+}
+
+.date-input:focus-within {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 .25rem rgba(13,110,253,.25);
+}
