@@ -1,2 +1,7 @@
-﻿body {
+﻿.name-question {
+    margin-bottom: 1.5rem;
+}
+
+.sex-question {
+    margin-bottom: 1.5rem;
 }

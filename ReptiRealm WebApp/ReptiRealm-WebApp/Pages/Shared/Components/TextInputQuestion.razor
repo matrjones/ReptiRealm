@@ -1,13 +1,14 @@
 ﻿<FormSection IsRequired="@IsRequired"
              Title="@Title"
-             Message="@Message" >
+             Message="@Message">
     <ChildContent>
-        <InputText class="form_control"
-                   placeholder="@Placeholder"
-                   Value="@Value"
-                   ValueChanged="@ValueChanged"
-                   ValueExpression="() => Value"/>
-    </ChildContent>
+        <div class="text-input">
+            <InputText placeholder="@Placeholder"
+                       Value="@Value"
+                       ValueChanged="@ValueChanged"
+                       ValueExpression="() => Value"/>
+        </div>
+        </ChildContent>
 </FormSection>
 
 

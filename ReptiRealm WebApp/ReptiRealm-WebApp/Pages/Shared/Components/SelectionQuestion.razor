@@ -1,0 +1,32 @@
+﻿<FormSection IsRequired="@IsRequired"
+Title="@Title"
+Message="@Message">
+    <ChildContent>
+        <div class="selection-bar">
+            @foreach (var option in Options)
+            {
+                <button type="button"
+                class="selection-option @(SelectedOption == option ? "selected" : "")"
+                @onclick="() => SelectOption(option)">
+                    @option
+                </button>
+            }
+        </div>
+    </ChildContent>
+</FormSection>
+
+
+@code {
+    [Parameter] public bool IsRequired { get; set; }
+    [Parameter] public required string Title { get; set; }
+    [Parameter] public string? Message { get; set; }
+    [Parameter] public IEnumerable<string> Options { get; set; } = [];
+    [Parameter] public string? SelectedOption { get; set; }
+    [Parameter] public EventCallback<string?> SelectedOptionChanged { get; set; }
+
+    private async Task SelectOption(string option)
+    {
+        SelectedOption = option;
+        await SelectedOptionChanged.InvokeAsync(option);
+    }
+}

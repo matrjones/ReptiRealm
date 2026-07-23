@@ -2,14 +2,28 @@
 @using ReptiRealm_WebApp.Pages.Shared.Modals
 
 <ConfirmationDialog IsOpen="IsOpen"
-                    IsOpenChanged="IsOpenChanged"
-                    Title="Add New Reptile" >
+IsOpenChanged="IsOpenChanged"
+Title="Add New Reptile" >
     <ChildContent>
-        <TextInputQuestion IsRequired="true"
-                           Title="Name"
-                           Message="Message"
-                           Placeholder="Name"
-                           @bind-Value="_name"/>
+        <div class="questions-section">
+            <div class="name-question">
+                <TextInputQuestion IsRequired="true"
+                Title="Name"
+                Placeholder="Name"
+                @bind-Value="_name" />
+            </div>
+            <div class="sex-question">
+                <SelectionQuestion IsRequired="true"
+                Title="Sex"
+                Options="_sexOptions"
+                @bind-SelectedOption="_sex" />
+            </div>
+            <div class="species-question">
+                <TextInputQuestion Title="Species"
+                Placeholder="Species"
+                @bind-Value="_species" />
+            </div>
+        </div>
     </ChildContent>
 </ConfirmationDialog>
 
@@ -19,4 +33,19 @@
     [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
 
     private string? _name;
+    private string? _sex;
+    private string? _species;
+
+    private readonly string[] _sexOptions =
+    [
+        "Male",
+        "Female",
+        "Unknown"
+    ];
+
+    protected override void OnInitialized()
+    {
+        _sex = _sexOptions[2];
+        base.OnInitialized();
+    }
 }
