@@ -1,0 +1,19 @@
+﻿<FormSection IsRequired="@IsRequired"
+             Title="@Title"
+             Message="@Message">
+    <ChildContent>
+        <div class="date-input">
+            <InputDate TValue="DateTime?"
+                       @bind-Value="Value" />
+        </div>
+    </ChildContent>
+</FormSection>
+
+
+@code {
+    [Parameter] public bool IsRequired { get; set; }
+    [Parameter] required public string Title { get; set; }
+    [Parameter] public string? Message { get; set; }
+    [Parameter] public DateTime? Value { get; set; }
+    [Parameter] public EventCallback<DateTime?> ValueChanged { get; set; }
+}
