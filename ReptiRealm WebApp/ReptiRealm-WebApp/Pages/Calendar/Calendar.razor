@@ -1,6 +1,7 @@
 ﻿@page "/calendar"
-@using Heron.MudCalendar
-@using MudBlazor
+
+@using Radzen
+@using Radzen.Blazor
 @using ReptiRealm_WebApp.Models.DTOs
 @using ReptiRealm_WebApp.Models.Enums
 @using ReptiRealm_WebApp.Pages.Calendar.Components
@@ -9,39 +10,60 @@
 
 <PageTitle>Calendar</PageTitle>
 
-<PageSection title="Calendar" >
+<PageSection Title="Calendar">
     <Actions>
         <QuickActionButton Icon="bi-plus-lg"
                            Text="New Event" />
     </Actions>
 </PageSection>
 
-<MudCalendar T="CustomCalendarItem" 
-             Items="_events"
-             Style="background-color: #001000; color: #CCDF92;"
-             Color="MudBlazor.Color.Primary" 
-             Height="600" 
-             MonthCellMinHeight="100" >
-    <CellTemplate>
-        <div class="event_cell" @onclick="@(() => ShowEventModal(context))">
-                <MudText Typo="Typo.body1" Align="Align.Center">
-                    @(context.Title)
-                </MudText>
+<RadzenScheduler TItem="CalendarItem"
+                 Data="@_events"
+                 StartProperty="Start"
+                 EndProperty="End"
+                 TextProperty="Title"
+                 SelectedIndex="0"
+                 SlotSelect="@OnSlotSelect"
+                 AppointmentSelect="@OnAppointmentSelect"
+                 AppointmentRender="@OnAppointmentRender"
+                 Style="height:600px">
+
+    <ChildContent>
+        <RadzenMonthView />
+    </ChildContent>
+
+    <Template Context="appointment">
+        <div class="p-1">
+            @switch (appointment.Type)
+            {
+                case EventType.Feed:
+                    <b>🦗 Feed</b>
+                    break;
+
+                case EventType.Defecation:
+                    <b>💩 Defecation</b>
+                    break;
+            }
+
+            <div>@appointment.Title</div>
         </div>
-    </CellTemplate>
-</MudCalendar>
+    </Template>
+
+</RadzenScheduler>
 
 <FeedDialog @bind-IsOpen="_showFeedModal" Data="_modalData" />
-<DefecationDialog @bind-IsOpen="_showDefecationModal" Data="_modalData"/>
+<DefecationDialog @bind-IsOpen="_showDefecationModal" Data="_modalData" />
 
 @code {
-    private bool _showFeedModal { get; set; }
-    private bool _showDefecationModal { get; set; }
 
-    private CustomCalendarItem _modalData { get; set; } = new();
-    private List<CustomCalendarItem> _events = new()
+    private bool _showFeedModal;
+    private bool _showDefecationModal;
+
+    private CalendarItem _modalData = new();
+
+    private List<CalendarItem> _events = new()
     {
-        new CustomCalendarItem
+        new()
         {
             AllDay = true,
             Start = DateTime.Today,
@@ -49,45 +71,79 @@
             Type = EventType.Feed,
             Events = new()
             {
-                new FeedEvent{
-                    Reptile = new Reptile
+                new FeedEvent
+                {
+                    Reptile = new()
                     {
-                        Id = new Guid(),
+                        Id = Guid.NewGuid(),
                         Name = "Ra",
                         Sex = Sex.Male
                     }
                 },
-                new FeedEvent{
-                    Reptile = new Reptile
+                new FeedEvent
+                {
+                    Reptile = new()
                     {
-                        Id = new Guid(),
+                        Id = Guid.NewGuid(),
                         Name = "Kaiba",
                         Sex = Sex.Female
                     }
                 }
             }
         },
-        new CustomCalendarItem
+        new()
         {
             AllDay = true,
             Start = DateTime.Today,
-            End = DateTime.Today.AddHours(2),
+            End = DateTime.Today.AddHours(1),
             Type = EventType.Defecation
         }
     };
 
-    private void ShowEventModal(CustomCalendarItem CustomCalendarItem)
+    private void OnAppointmentSelect(SchedulerAppointmentSelectEventArgs<CalendarItem> args)
     {
-        _modalData = CustomCalendarItem;
-        switch (CustomCalendarItem.Type)
+        ShowEventModal(args.Data!);
+    }
+
+    void OnAppointmentRender(SchedulerAppointmentRenderEventArgs<CalendarItem> args)
+    {
+        // Never call StateHasChanged in AppointmentRender - would lead to infinite loop
+        switch (args.Data!.Type)
+        {
+            case EventType.Feed:
+                args.Attributes["style"] = "background: green";
+                break;
+
+            case EventType.Defecation:
+                args.Attributes["style"] = "background: brown";
+                break;
+
+            default:
+                args.Attributes["style"] = "background: blue";
+                break;
+        }
+    }
+
+    private void OnSlotSelect(SchedulerSlotSelectEventArgs args)
+    {
+        // Optional: Create a new event when clicking an empty day.
+    }
+
+    private void ShowEventModal(CalendarItem item)
+    {
+        _modalData = item;
+
+        _showFeedModal = false;
+        _showDefecationModal = false;
+
+        switch (item.Type)
         {
             case EventType.Feed:
                 _showFeedModal = true;
                 break;
+
             case EventType.Defecation:
                 _showDefecationModal = true;
-                break;
-            default:
                 break;
         }
     }
