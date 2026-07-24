@@ -12,7 +12,7 @@
 <PageTitle>Home</PageTitle>
 
 <div class="homepage">
-    <div class="welcome_section">
+    <div class="welcome-section">
         <PageSection Title=" Welcome, ReptiKeeper!">
             <Actions>
                 <QuickActionButton Icon="bi-plus-lg"
@@ -22,11 +22,11 @@
         </PageSection>
     </div>
 
-    <div class="agenda_section">
-        <PageSection Title="My Agenda"
+    <div class="agenda-section">
+        <PageSection Title="Today's Agenda"
         IsTitle="false">
             <ChildContent>
-                <div class="agenda_tasks">
+                <div class="agenda-tasks">
                     <AgendaCard Icon="bi-fork-knife"
                                 AgendaTotal="4"
                                 AgendaDescription="Feeds" />
@@ -43,7 +43,7 @@
         </PageSection>
     </div>
 
-    <div class="reptiles_section">
+    <div class="reptiles-section">
         <PageSection Title="My Reptiles"
         IsTitle="false">
             <Actions>
@@ -51,7 +51,7 @@
                            Placeholder="Search reptiles..." />
             </Actions>
             <ChildContent>
-                <div class="reptile_grid">
+                <div class="reptile-grid">
                     @foreach (var reptile in FilteredReptiles)
                     {
                         <ReptileCard Name="@reptile.Name"
