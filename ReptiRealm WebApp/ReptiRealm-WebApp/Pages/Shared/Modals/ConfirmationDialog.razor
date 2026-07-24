@@ -35,7 +35,8 @@
             }
             <div class="buttons">
                 <CancelButton OnClick="HandleCancel" />
-                <ConfirmButton OnClick="HandleSuccess" />
+                <ConfirmButton Label="@ActionButtonLabel"
+                OnClick="HandleSuccess" />
             </div>
         </div>
     </div>
@@ -45,36 +46,39 @@
 @code {
     [Parameter]
     public EventCallback OnConfirm { get; set; }
-    
+
     [Parameter]
     public EventCallback OnCancel { get; set; }
-    
+
     [Parameter]
     public EventCallback<bool> IsOpenChanged { get; set; }
-    
+
     [Parameter]
     public bool IsOpen { get; set; }
-    
+
     [Parameter]
     public string Title { get; set; } = string.Empty;
-    
+
     [Parameter]
     public string? WarningIcon { get; set; } = "bi bi-exclamation-circle";
-    
+
     [Parameter]
     public string? WarningMessage { get; set; }
-    
+
     [Parameter]
     public string? Message { get; set; }
-    
+
     [Parameter]
     public string? ErrorIcon { get; set; } = "bi bi-dash-circle";
-    
+
     [Parameter]
     public string? ErrorMessage { get; set; }
-    
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public string? ActionButtonLabel { get; set; } = "Confirm";
 
 
     private async Task HandleCancel()
