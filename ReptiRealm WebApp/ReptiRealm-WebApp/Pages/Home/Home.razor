@@ -3,6 +3,7 @@
 @using ReptiRealm_WebApp.Pages.Home.Components
 @using ReptiRealm_WebApp.Pages.Home.Modals
 @using ReptiRealm_WebApp.Pages.Shared.Components
+@using ReptiRealm_WebApp.Pages.Shared.Modals
 @using ReptiRealm_WebApp.Services.Api.Interfaces
 @using ReptiRealm_WebApp.Services.Auth
 
@@ -29,7 +30,8 @@
                 <div class="agenda-tasks">
                     <AgendaCard Icon="bi-fork-knife"
                                 AgendaTotal="4"
-                                AgendaDescription="Feeds" />
+                                AgendaDescription="Feeds"
+                                OnClick="OpenTaskDialog"/>
 
                     <AgendaCard Icon="bi-droplet"
                                 AgendaTotal="1"
@@ -47,8 +49,8 @@
         <PageSection Title="My Reptiles"
         IsTitle="false">
             <Actions>
-                <SearchBar @bind-Value="SearchText"
-                           Placeholder="Search reptiles..." />
+                <SearchBar Placeholder="Search reptiles..."
+                           @bind-Value="SearchText" />
             </Actions>
             <ChildContent>
                 <div class="reptile-grid">
@@ -66,15 +68,20 @@
 </div>
 
 <AddNewReptileDialog @bind-IsOpen="ShowReptileDialog" />
+<TaskDialog Title="@_taskTitle"
+            @bind-IsOpen="ShowTaskDialog" />
 
 
 @code {
     private List<ReptileCardModel> Reptiles = new();
     private IEnumerable<ReptileCardModel> FilteredReptiles => Reptiles.Where(r => r.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
-
-    private string SearchText = string.Empty;
+    
     private bool ShowReptileDialog;
-
+    private bool ShowTaskDialog;
+    
+    private string SearchText = string.Empty;
+    private string _taskTitle = "Feeds";
+    
     protected override async Task OnInitializedAsync()
     {
         Reptiles = await apiService.GetAllReptiles() ?? new List<ReptileCardModel>();
@@ -89,6 +96,18 @@
     private async Task CloseAddReptileDialog()
     {
         ShowReptileDialog = false;
+        await Task.CompletedTask;
+    }
+
+    private async Task OpenTaskDialog()
+    {
+        ShowTaskDialog = true;
+        await Task.CompletedTask;
+    }
+
+    private async Task CloseTaskDialog()
+    {
+        ShowTaskDialog = false;
         await Task.CompletedTask;
     }
 }

@@ -2,38 +2,38 @@
 @using ReptiRealm_WebApp.Pages.Shared.Modals
 
 <ConfirmationDialog IsOpen="IsOpen"
-IsOpenChanged="IsOpenChanged"
-Title="Add New Reptile" >
+                    IsOpenChanged="IsOpenChanged"
+                    Title="Add New Reptile" >
     <ChildContent>
         <div class="questions-section">
             <div class="name-question">
                 <TextInputQuestion IsRequired="true"
-                Title="Name"
-                Placeholder="Name"
-                @bind-Value="_name" />
+                                   Title="Name"
+                                   Placeholder="Name"
+                                   @bind-Value="_name" />
             </div>
             <div class="sex-question">
                 <SelectionQuestion IsRequired="false"
-                Title="Sex"
-                Options="_sexOptions"
-                @bind-Value="_sex" />
+                                   Title="Sex"
+                                   Options="_sexOptions"
+                                   @bind-Value="_sex" />
             </div>
             <div class="species-question">
                 <TextInputQuestion Title="Species"
-                Placeholder="Species"
-                @bind-Value="_species" />
+                                   Placeholder="Species"
+                                   @bind-Value="_species" />
             </div>
             <div class="dob-question">
                 <DateSelection IsRequired="false"
-                title="Date of Birth"
-                Message="(DD/MM/YYYY)"
-                @bind-Value="_dateOfBirth" />
+                               Title="Date of Birth"
+                               Message="(DD/MM/YYYY)"
+                               @bind-Value="_dateOfBirth" />
             </div>
             <div class="date-obtained-question">
                 <DateSelection IsRequired="false"
-                title="Date Obtained"
-                Message="(DD/MM/YYYY)"
-                @bind-Value="_dateObtained" />
+                               title="Date Obtained"
+                               Message="(DD/MM/YYYY)"
+                               @bind-Value="_dateObtained" />
             </div>
         </div>
     </ChildContent>
