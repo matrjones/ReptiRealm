@@ -1,10 +1,17 @@
 ﻿<div class="items"
 @onclick="Toggle">
     <input type="checkbox"
-    checked="@Checked"
-    @onclick:stopPropagation="true"
-    @onchange="OnCheckboxChanged" />
+           checked="@Checked"
+           @onclick:stopPropagation="true"
+           @onchange="OnCheckboxChanged" />
+    
     <span>@Item</span>
+    
+    <button class="dismiss-button"
+            @onclick="Dismiss"
+            @onchange="OnCheckboxChanged">
+        x
+    </button>
 </div>
 
 
@@ -21,6 +28,9 @@
     [Parameter]
     public bool IsOverdue { get; set; }
 
+    [Parameter]
+    public EventCallback OnDismiss { get; set; }
+
     private async Task Toggle()
     {
         Checked = !Checked;
@@ -31,5 +41,10 @@
     {
         Checked = (bool)e.Value!;
         await CheckedChanged.InvokeAsync(Checked);
+    }
+
+    private async Task Dismiss()
+    {
+        await OnDismiss.InvokeAsync();
     }
 }
