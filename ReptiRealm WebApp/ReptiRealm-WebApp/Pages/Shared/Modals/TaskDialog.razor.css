@@ -1,1 +1,15 @@
-﻿
+﻿.task-columns {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.column {
+    flex: 1;
+}
+
+.divider {
+    width: 1px;
+    background: #ccc;
+    align-self: stretch;
+}

@@ -1,6 +1,6 @@
 ﻿namespace ReptiRealm_WebApp.Models.Enums;
 
-public enum EventType
+public enum TaskType
 {
     Feed,
     Defecation,

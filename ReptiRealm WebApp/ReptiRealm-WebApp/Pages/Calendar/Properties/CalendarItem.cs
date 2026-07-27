@@ -9,6 +9,6 @@ public class CalendarItem
     public DateTime Start { get; set; }
     public DateTime End { get; set; }
     public bool AllDay { get; set; }
-    public EventType Type { get; set; }
+    public TaskType Type { get; set; }
     public List<Event> Events { get; set; } = new();
 }

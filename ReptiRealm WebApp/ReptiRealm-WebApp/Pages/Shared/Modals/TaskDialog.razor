@@ -1,11 +1,33 @@
 ﻿@using ReptiRealm_WebApp.Pages.Shared.Components
+@using ReptiRealm_WebApp.Models.DTOs
+
 <ConfirmationDialog IsOpen="IsOpen"
                     IsOpenChanged="IsOpenChanged"
                     Title="@Title">
+
     <ChildContent>
-        <CheckboxItem Item="Ra" />
-        <CheckboxItem Item="Kaiba" />
+        @if (_hasOverdueTasks)
+        {
+            <div class="task-columns">
+                <div class="column">
+                    <Checklist Title="Due Today"
+                               Tasks="_currentTasks"/>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="column">
+                    <Checklist Title="Overdue"
+                               Tasks="_overdueTasks"/>
+                </div>
+            </div>
+        }
+        else
+        {
+            <Checklist Tasks="_currentTasks"/>
+        }
     </ChildContent>
+    
 </ConfirmationDialog>
 
 
@@ -18,8 +40,12 @@
     public EventCallback<bool> IsOpenChanged { get; set; }
 
     [Parameter]
-    public bool HasOverdueTasks { get; set; }
+    public string Title { get; set; } = string.Empty;
 
     [Parameter]
-    public string Title { get; set; } = string.Empty;
+    public required IEnumerable<Models.DTOs.Task> Tasks { get; set; }
+
+    private IEnumerable<Models.DTOs.Task> _currentTasks => Tasks.Where(t => !t.IsOverdue);
+    private IEnumerable<Models.DTOs.Task> _overdueTasks => Tasks.Where(t => t.IsOverdue);
+    private bool _hasOverdueTasks => _overdueTasks.Any();
 }
