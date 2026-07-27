@@ -1,6 +1,10 @@
-﻿.task-columns {
+﻿.checklist-content {
+    margin-top: -1rem;
+}
+
+.task-columns {
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
     align-items: flex-start;
 }
 

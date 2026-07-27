@@ -1,8 +1,8 @@
 ﻿.items {
     display: flex;
     align-items: center;
+    min-width: 200px;
     gap: 0.75rem;
-    padding: 0.25rem;
     cursor: pointer;
     border-radius: 6px;
     transition: background-color 0.15s ease;

@@ -6,26 +6,28 @@
                     Title="@Title">
 
     <ChildContent>
-        @if (_hasOverdueTasks)
-        {
-            <div class="task-columns">
-                <div class="column">
-                    <Checklist Title="Due Today"
-                               Tasks="_currentTasks"/>
+        <div class="checklist-content">
+            @if (_hasOverdueTasks)
+            {
+                <div class="task-columns">
+                    <div class="column">
+                        <Checklist Title="Due Today"
+                                   Tasks="_currentTasks" />
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="column">
+                        <Checklist Title="Overdue"
+                                   Tasks="_overdueTasks" />
+                    </div>
                 </div>
-                
-                <div class="divider"></div>
-                
-                <div class="column">
-                    <Checklist Title="Overdue"
-                               Tasks="_overdueTasks"/>
-                </div>
-            </div>
-        }
-        else
-        {
-            <Checklist Tasks="_currentTasks"/>
-        }
+            }
+            else
+            {
+                <Checklist Tasks="_currentTasks" />
+            }
+        </div>
     </ChildContent>
     
 </ConfirmationDialog>
