@@ -1,13 +1,13 @@
 ﻿@using ReptiRealm_WebApp.Pages.Shared.Components
-
 <ConfirmationDialog IsOpen="IsOpen"
-IsOpenChanged="IsOpenChanged"
-Title="@Title">
+                    IsOpenChanged="IsOpenChanged"
+                    Title="@Title">
     <ChildContent>
         <CheckboxItem Item="Ra" />
         <CheckboxItem Item="Kaiba" />
     </ChildContent>
 </ConfirmationDialog>
+
 
 
 @code {
@@ -22,5 +22,4 @@ Title="@Title">
 
     [Parameter]
     public string Title { get; set; } = string.Empty;
-
 }

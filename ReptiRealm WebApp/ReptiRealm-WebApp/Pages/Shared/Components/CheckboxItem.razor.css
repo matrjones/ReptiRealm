@@ -1,1 +1,23 @@
-﻿
+﻿.items {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.25rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.15s ease;
+}
+
+.items:hover {
+    background-color: #f5f5f5;
+}
+
+.items input[type="checkbox"] {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.items span {
+    font-size: 1.5rem;
+    font-weight: 500;
+}

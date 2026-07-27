@@ -10,6 +10,7 @@
     border-radius: .375rem;
     padding: .375rem .75rem;
     box-sizing: border-box;
+    width: 500px;
 }
 
 .text-input ::deep input {
