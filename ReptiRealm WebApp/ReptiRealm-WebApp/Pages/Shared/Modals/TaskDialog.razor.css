@@ -13,7 +13,7 @@
 }
 
 .divider {
-    width: 1px;
+    width: 2px;
     background: #ccc;
     align-self: stretch;
 }
