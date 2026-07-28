@@ -1,0 +1,61 @@
+﻿@using Radzen
+@using Radzen.Blazor
+
+<div class="items" 
+@onclick="Toggle">
+    <RadzenCheckBox TValue="bool?"
+                    Value="@Checked"
+                    ValueChanged="@OnCheckboxChanged"
+                    @onclick:stopPropagation="true" />
+    
+    <span>@Item</span>
+    
+    <button class="dismiss-button"
+            @onclick="Dismiss"
+            @onclick:stopPropagation="true">
+        ❌
+    </button>
+</div>
+
+
+@code {
+    [Parameter]
+    public string Item { get; set; } = string.Empty;
+
+    [Parameter]
+    public bool? Checked { get; set; } = false;
+
+    [Parameter]
+    public EventCallback<bool?> CheckedChanged { get; set; }
+
+    [Parameter]
+    public bool IsOverdue { get; set; }
+
+    [Parameter]
+    public EventCallback OnDismiss { get; set; }
+
+    private async Task Toggle()
+    {
+        Checked = Checked switch
+        {
+            null => false,
+            true => false,
+            false => true
+        };
+
+        await CheckedChanged.InvokeAsync(Checked);
+    }
+
+    private async Task OnCheckboxChanged(bool? value)
+    {
+        Checked = value;
+        await CheckedChanged.InvokeAsync(value);
+    }
+
+    private async Task Dismiss()
+    {
+        Checked = null;
+        await CheckedChanged.InvokeAsync(null);
+        await OnDismiss.InvokeAsync();
+    }
+}

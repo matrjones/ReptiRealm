@@ -1,13 +1,16 @@
 ﻿@page "/"
 
+@using ReptiRealm_WebApp.Models.Enums
 @using ReptiRealm_WebApp.Pages.Home.Components
 @using ReptiRealm_WebApp.Pages.Home.Modals
 @using ReptiRealm_WebApp.Pages.Shared.Components
+@using ReptiRealm_WebApp.Pages.Shared.Modals
 @using ReptiRealm_WebApp.Services.Api.Interfaces
 @using ReptiRealm_WebApp.Services.Auth
 
 @inject IReptileApiService apiService
 @inject AuthApiService authApiService
+
 
 <PageTitle>Home</PageTitle>
 
@@ -28,16 +31,19 @@
             <ChildContent>
                 <div class="agenda-tasks">
                     <AgendaCard Icon="bi-fork-knife"
-                                AgendaTotal="4"
-                                AgendaDescription="Feeds" />
+                                AgendaTotal="@_feedTasks.Count"
+                                AgendaDescription="Feeds"
+                                OnClick='() => OpenTaskDialog(TaskType.Feed)' />
 
                     <AgendaCard Icon="bi-droplet"
-                                AgendaTotal="1"
-                                AgendaDescription="Waters" />
+                                AgendaTotal="@_waterTasks.Count"
+                                AgendaDescription="Waters"
+                                OnClick='() => OpenTaskDialog(TaskType.Water)' />
 
                     <AgendaCard Icon="bi-layers"
-                                AgendaTotal="0"
-                                AgendaDescription="Substrates" />
+                                AgendaTotal="@_substrateTasks.Count"
+                                AgendaDescription="Substrates"
+                                OnClick='() => OpenTaskDialog(TaskType.Substrate)' />
                 </div>
             </ChildContent>
         </PageSection>
@@ -47,8 +53,8 @@
         <PageSection Title="My Reptiles"
         IsTitle="false">
             <Actions>
-                <SearchBar @bind-Value="SearchText"
-                           Placeholder="Search reptiles..." />
+                <SearchBar Placeholder="Search reptiles..."
+                           @bind-Value="SearchText" />
             </Actions>
             <ChildContent>
                 <div class="reptile-grid">
@@ -66,14 +72,22 @@
 </div>
 
 <AddNewReptileDialog @bind-IsOpen="ShowReptileDialog" />
+<TaskDialog Title="@_taskTitle"
+            Tasks="@_tasks"
+            @bind-IsOpen="ShowTaskDialog" />
 
 
 @code {
     private List<ReptileCardModel> Reptiles = new();
     private IEnumerable<ReptileCardModel> FilteredReptiles => Reptiles.Where(r => r.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
 
-    private string SearchText = string.Empty;
+    private IEnumerable<Models.DTOs.Task> _tasks = new List<Models.DTOs.Task>();
+
     private bool ShowReptileDialog;
+    private bool ShowTaskDialog;
+
+    private string SearchText = string.Empty;
+    private string _taskTitle = "Feeds";
 
     protected override async Task OnInitializedAsync()
     {
@@ -91,4 +105,82 @@
         ShowReptileDialog = false;
         await Task.CompletedTask;
     }
+
+    private async Task OpenTaskDialog(TaskType taskType)
+    {
+        _taskTitle = taskType switch
+        {
+            TaskType.Feed => "Feeds",
+            TaskType.Water => "Waters",
+            TaskType.Substrate => "Substrates",
+            _ => taskType.ToString()
+        };
+
+        _tasks = taskType switch
+        {
+            TaskType.Feed => _feedTasks,
+            TaskType.Water => _waterTasks,
+            TaskType.Substrate => _substrateTasks,
+            _ => new List<Models.DTOs.Task>()
+        };
+
+        ShowTaskDialog = true;
+        await Task.CompletedTask;
+    }
+
+    private async Task CloseTaskDialog()
+    {
+        ShowTaskDialog = false;
+        await Task.CompletedTask;
+    }
+
+    private List<Models.DTOs.FeedTask> _feedTasks = new List<Models.DTOs.FeedTask>
+    {
+        new Models.DTOs.FeedTask
+        {
+            Reptile = new Models.DTOs.Reptile
+            {
+                Id = new Guid(),
+                Name = "Ra",
+                Sex = Sex.Unknown
+            }
+        },
+        new Models.DTOs.FeedTask
+        {
+            Reptile = new Models.DTOs.Reptile
+            {
+                Id = new Guid(),
+                Name = "Jiggy Mc Jigsaw",
+                Sex = Sex.Unknown
+            },
+            IsOverdue = true
+        }
+    };
+
+    private List<Models.DTOs.WaterTask> _waterTasks = new List<Models.DTOs.WaterTask>
+    {
+        new Models.DTOs.WaterTask
+        {
+            Reptile = new Models.DTOs.Reptile
+            {
+                Id = new Guid(),
+                Name = "Ra",
+                Sex = Sex.Unknown
+            }
+        }
+    };
+
+    private List<Models.DTOs.SubstrateTask> _substrateTasks = new List<Models.DTOs.SubstrateTask>
+    {
+        new Models.DTOs.SubstrateTask
+        {
+            Reptile = new Models.DTOs.Reptile
+            {
+                Id = new Guid(),
+                Name = "Ra",
+                Sex = Sex.Unknown
+            },
+            IsOverdue = true
+        }
+    };
 }

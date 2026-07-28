@@ -1,4 +1,5 @@
-﻿<button class="agenda-card">
+﻿<button class="agenda-card"
+        @onclick="OnClick">
     <span class="bi @Icon"></span>
     <div class="agenda-text">
         <div class="agenda-total">
@@ -12,6 +13,9 @@
 
 
 @code {
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
     [Parameter]
     required public string Icon { get; set; }
 

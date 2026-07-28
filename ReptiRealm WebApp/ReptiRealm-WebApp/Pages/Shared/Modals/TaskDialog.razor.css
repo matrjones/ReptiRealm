@@ -1,0 +1,19 @@
+﻿.checklist-content {
+    margin-top: -1rem;
+}
+
+.task-columns {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.column {
+    flex: 1;
+}
+
+.divider {
+    width: 2px;
+    background: #ccc;
+    align-self: stretch;
+}
