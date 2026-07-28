@@ -11,6 +11,7 @@
 @inject IReptileApiService apiService
 @inject AuthApiService authApiService
 
+
 <PageTitle>Home</PageTitle>
 
 <div class="homepage">
@@ -18,8 +19,8 @@
         <PageSection Title=" Welcome, ReptiKeeper!">
             <Actions>
                 <QuickActionButton Icon="bi-plus-lg"
-                Text="New Reptile"
-                OnClick="OpenAddReptileDialog" />
+                                   Text="New Reptile"
+                                   OnClick="OpenAddReptileDialog" />
             </Actions>
         </PageSection>
     </div>
@@ -30,19 +31,19 @@
             <ChildContent>
                 <div class="agenda-tasks">
                     <AgendaCard Icon="bi-fork-knife"
-                    AgendaTotal="4"
-                    AgendaDescription="Feeds"
-                    OnClick='() => OpenTaskDialog("Feeds")' />
+                                AgendaTotal="@_feedTasks.Count"
+                                AgendaDescription="Feeds"
+                                OnClick='() => OpenTaskDialog(TaskType.Feed)' />
 
                     <AgendaCard Icon="bi-droplet"
-                    AgendaTotal="1"
-                    AgendaDescription="Waters"
-                    OnClick='() => OpenTaskDialog("Waters")' />
+                                AgendaTotal="@_waterTasks.Count"
+                                AgendaDescription="Waters"
+                                OnClick='() => OpenTaskDialog(TaskType.Water)' />
 
                     <AgendaCard Icon="bi-layers"
-                    AgendaTotal="0"
-                    AgendaDescription="Substrates"
-                    OnClick='() => OpenTaskDialog("Substrates")' />
+                                AgendaTotal="@_substrateTasks.Count"
+                                AgendaDescription="Substrates"
+                                OnClick='() => OpenTaskDialog(TaskType.Substrate)' />
                 </div>
             </ChildContent>
         </PageSection>
@@ -53,15 +54,15 @@
         IsTitle="false">
             <Actions>
                 <SearchBar Placeholder="Search reptiles..."
-                @bind-Value="SearchText" />
+                           @bind-Value="SearchText" />
             </Actions>
             <ChildContent>
                 <div class="reptile-grid">
                     @foreach (var reptile in FilteredReptiles)
                     {
                         <ReptileCard Name="@reptile.Name"
-                        Species="@reptile.Species"
-                        Sex="@reptile.Sex" />
+                                     Species="@reptile.Species"
+                                     Sex="@reptile.Sex" />
                     }
                     <AddNewReptileCard OnClick="OpenAddReptileDialog"/>
                 </div>
@@ -72,8 +73,8 @@
 
 <AddNewReptileDialog @bind-IsOpen="ShowReptileDialog" />
 <TaskDialog Title="@_taskTitle"
-Tasks="@_tasks"
-@bind-IsOpen="ShowTaskDialog" />
+            Tasks="@_tasks"
+            @bind-IsOpen="ShowTaskDialog" />
 
 
 @code {
@@ -105,15 +106,21 @@ Tasks="@_tasks"
         await Task.CompletedTask;
     }
 
-    private async Task OpenTaskDialog(string title)
+    private async Task OpenTaskDialog(TaskType taskType)
     {
-        _taskTitle = title;
-
-        _tasks = title switch
+        _taskTitle = taskType switch
         {
-            "Feeds" => _feedTasks,
-            "Waters" => _waterTasks,
-            "Substrates" => _substrateTasks,
+            TaskType.Feed => "Feeds",
+            TaskType.Water => "Waters",
+            TaskType.Substrate => "Substrates",
+            _ => taskType.ToString()
+        };
+
+        _tasks = taskType switch
+        {
+            TaskType.Feed => _feedTasks,
+            TaskType.Water => _waterTasks,
+            TaskType.Substrate => _substrateTasks,
             _ => new List<Models.DTOs.Task>()
         };
 

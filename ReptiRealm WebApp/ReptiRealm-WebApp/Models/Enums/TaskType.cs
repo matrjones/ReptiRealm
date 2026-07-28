@@ -6,4 +6,6 @@ public enum TaskType
     Defecation,
     Shed,
     Weight,
+    Water,
+    Substrate
 }
