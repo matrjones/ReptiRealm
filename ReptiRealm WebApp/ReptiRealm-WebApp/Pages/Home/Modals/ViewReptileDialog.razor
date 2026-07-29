@@ -1,0 +1,56 @@
+﻿@using ReptiRealm_WebApp.Models.Enums
+@using ReptiRealm_WebApp.Pages.Shared.Components
+@using ReptiRealm_WebApp.Pages.Shared.Modals
+
+<DisplayDialog IsOpen="IsOpen"
+               IsOpenChanged="IsOpenChanged"
+               Title="@Name"
+               IsEditable="true">
+    <ChildContent>
+        <div class="view-name">
+            <DisplayField Title="Name"
+                          Value="@Name" />
+        </div>
+        <div class="view-sex">
+            <DisplayField Title="Sex"
+                          Value="@Sex" />
+        </div>
+        <div class="view-species">
+            <DisplayField Title="Species"
+                          Value="@Species" />
+        </div>
+        <div class="view-dob">
+            <DisplayField Title="Date of Birth"
+                          Value="@DateOfBirth" />
+        </div>
+        <div class="view-date-obtained">
+            <DisplayField Title="Date Obtainted"
+                          Value="@DateObtained" />
+        </div>
+        
+    </ChildContent>
+</DisplayDialog>
+
+
+@code {
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsOpenChanged { get; set; }
+
+    [Parameter]
+    public required string Name { get; set; }
+
+    [Parameter]
+    public Sex Sex { get; set; }
+
+    [Parameter]
+    public string? Species { get; set; }
+
+    [Parameter]
+    public DateTime? DateOfBirth { get; set; }
+
+    [Parameter]
+    public DateTime? DateObtained { get; set; }
+}

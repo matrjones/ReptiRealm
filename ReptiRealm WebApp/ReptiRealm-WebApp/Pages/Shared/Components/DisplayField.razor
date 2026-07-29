@@ -1,0 +1,22 @@
+﻿<FormSection Title="@Title"
+             Message="@Message">
+    <ChildContent>
+        <div class="display-field">
+            @Value
+        </div>
+    </ChildContent>
+</FormSection>
+
+
+@code {
+    [Parameter]
+    public required string Title { get; set; }
+
+    [Parameter]
+    public string? Message { get; set; }
+
+    [Parameter]
+    public object? Value { get; set; }
+
+
+}

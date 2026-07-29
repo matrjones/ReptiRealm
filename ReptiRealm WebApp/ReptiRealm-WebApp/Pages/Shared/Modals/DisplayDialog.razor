@@ -8,12 +8,12 @@
                 <span class="title">
                     @Title
                 </span>
-                @if (HasTitleIcon)
+                @if (IsEditable)
                 {
                     <button type="button"
-                    class="title-icon-button"
-                    @onclick="HandleTitleIconClick">
-                        <i class="@TitleIcon"></i>
+                            class="title-icon-button"
+                            @onclick="HandleTitleIconClick">
+                        <i class="@EditIcon"></i>
                     </button>
                 }
             </div>
@@ -47,7 +47,7 @@
 
             <div class="buttons">
                 <CancelButton Label="Close"
-                OnClick="HandleCancel" />
+                              OnClick="HandleClose" />
             </div>
         </div>
     </div>
@@ -71,10 +71,10 @@
     public required string Title { get; set; }
 
     [Parameter]
-    public string TitleIcon { get; set; } = "bi pencil";
+    public string EditIcon { get; set; } = "bi bi-pencil";
 
     [Parameter]
-    public bool HasTitleIcon { get; set; } = true;
+    public bool IsEditable { get; set; }
 
     [Parameter]
     public string? WarningIcon { get; set; } = "bi bi-exclamation-circle";
@@ -99,7 +99,7 @@
         await OnTitleIconClick.InvokeAsync();
     }
 
-    private async Task HandleCancel()
+    private async Task HandleClose()
     {
         await OnCancel.InvokeAsync();
         await Close(false);

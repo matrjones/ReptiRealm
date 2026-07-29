@@ -1,5 +1,4 @@
 ﻿@page "/"
-
 @using ReptiRealm_WebApp.Models.Enums
 @using ReptiRealm_WebApp.Pages.Home.Components
 @using ReptiRealm_WebApp.Pages.Home.Modals
@@ -7,7 +6,6 @@
 @using ReptiRealm_WebApp.Pages.Shared.Modals
 @using ReptiRealm_WebApp.Services.Api.Interfaces
 @using ReptiRealm_WebApp.Services.Auth
-
 @inject IReptileApiService apiService
 @inject AuthApiService authApiService
 
@@ -27,7 +25,7 @@
 
     <div class="agenda-section">
         <PageSection Title="Today's Agenda"
-        IsTitle="false">
+                     IsTitle="false">
             <ChildContent>
                 <div class="agenda-tasks">
                     <AgendaCard Icon="bi-fork-knife"
@@ -51,7 +49,7 @@
 
     <div class="reptiles-section">
         <PageSection Title="My Reptiles"
-        IsTitle="false">
+                     IsTitle="false">
             <Actions>
                 <SearchBar Placeholder="Search reptiles..."
                            @bind-Value="SearchText" />
@@ -62,7 +60,8 @@
                     {
                         <ReptileCard Name="@reptile.Name"
                                      Species="@reptile.Species"
-                                     Sex="@reptile.Sex" />
+                                     Sex="@reptile.Sex"
+                                     OnClick="OpenViewReptileDialog" />
                     }
                     <AddNewReptileCard OnClick="OpenAddReptileDialog"/>
                 </div>
@@ -71,7 +70,13 @@
     </div>
 </div>
 
-<AddNewReptileDialog @bind-IsOpen="ShowReptileDialog" />
+<AddNewReptileDialog @bind-IsOpen="ShowAddReptileDialog" />
+<ViewReptileDialog @bind-IsOpen="ShowViewReptileDialog"
+                   Name="Ra"
+                   Sex="Sex.Male"
+                   Species="Corn snake"
+                   DateOfBirth="new DateTime(2020, 7, 10)"
+                   DateObtained="new DateTime(2024, 11, 28)" />
 <TaskDialog Title="@_taskTitle"
             Tasks="@_tasks"
             @bind-IsOpen="ShowTaskDialog" />
@@ -83,11 +88,12 @@
 
     private IEnumerable<Models.DTOs.Task> _tasks = new List<Models.DTOs.Task>();
 
-    private bool ShowReptileDialog;
+    private bool ShowAddReptileDialog;
+    private bool ShowViewReptileDialog;
     private bool ShowTaskDialog;
 
     private string SearchText = string.Empty;
-    private string _taskTitle = "Feeds";
+    private string? _taskTitle;
 
     protected override async Task OnInitializedAsync()
     {
@@ -96,13 +102,25 @@
 
     private async Task OpenAddReptileDialog()
     {
-        ShowReptileDialog = true;
+        ShowAddReptileDialog = true;
         await Task.CompletedTask;
     }
 
     private async Task CloseAddReptileDialog()
     {
-        ShowReptileDialog = false;
+        ShowAddReptileDialog = false;
+        await Task.CompletedTask;
+    }
+
+    private async Task OpenViewReptileDialog()
+    {
+        ShowViewReptileDialog = true;
+        await Task.CompletedTask;
+    }
+
+    private async Task CloseViewReptileDialog()
+    {
+        ShowViewReptileDialog = false;
         await Task.CompletedTask;
     }
 

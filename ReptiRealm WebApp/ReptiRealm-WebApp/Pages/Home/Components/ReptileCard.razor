@@ -1,6 +1,7 @@
 ﻿@using ReptiRealm_WebApp.Models.Enums
 
-<button class="reptile-card">
+<button class="reptile-card"
+        @onclick="OnClick">
     <div class="name-and-sex">
         <span class="name">
             @Name
@@ -14,13 +15,16 @@
     @if(!string.IsNullOrWhiteSpace(Species))
     {
         <div class="species">
-            <p class="species-text">@Species</p>
+            @Species
         </div>
     }
 </button>
 
 
 @code {
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
     [Parameter]
     public Guid Id { get; set; }
 
