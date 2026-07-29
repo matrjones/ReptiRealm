@@ -1,9 +1,10 @@
 ﻿@using ReptiRealm_WebApp.Models.Enums
 
-
 <button class="reptile-card">
     <div class="name-and-sex">
-        <span class="name">@Name</span>
+        <span class="name">
+            @Name
+        </span>
         @if(!string.IsNullOrWhiteSpace(Sex.GetSymbol()))
         {
             <span class="@Sex.GetSymbol()"></span>
