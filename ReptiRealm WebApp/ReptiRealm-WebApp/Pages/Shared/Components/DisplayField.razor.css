@@ -10,4 +10,5 @@
     padding: .375rem .75rem;
     box-sizing: border-box;
     width: 500px;
+    user-select: none;
 }
