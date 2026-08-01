@@ -2,7 +2,7 @@
 
 namespace ReptiRealm_WebApp.Models.DTOs
 {
-    public abstract class Task
+    public abstract class Activity
     {
         public required Reptile Reptile { get; set; }
         public TaskType Type { get; set; }

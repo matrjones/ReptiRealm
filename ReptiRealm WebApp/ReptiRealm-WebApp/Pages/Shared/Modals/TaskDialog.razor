@@ -45,9 +45,9 @@
     public string Title { get; set; } = string.Empty;
 
     [Parameter]
-    public required IEnumerable<Models.DTOs.Task> Tasks { get; set; }
+    public required IEnumerable<Activity> Tasks { get; set; }
 
-    private IEnumerable<Models.DTOs.Task> _currentTasks => Tasks.Where(t => !t.IsOverdue);
-    private IEnumerable<Models.DTOs.Task> _overdueTasks => Tasks.Where(t => t.IsOverdue);
+    private IEnumerable<Activity> _currentTasks => Tasks.Where(t => !t.IsOverdue);
+    private IEnumerable<Activity> _overdueTasks => Tasks.Where(t => t.IsOverdue);
     private bool _hasOverdueTasks => _overdueTasks.Any();
 }

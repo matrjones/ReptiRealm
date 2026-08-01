@@ -10,5 +10,5 @@ public class CalendarItem
     public DateTime End { get; set; }
     public bool AllDay { get; set; }
     public TaskType Type { get; set; }
-    public List<Event> Events { get; set; } = new();
+    public List<Activity> Events { get; set; } = new();
 }

@@ -1,5 +1,6 @@
 ﻿@page "/"
 
+@using ReptiRealm_WebApp.Models.DTOs
 @using ReptiRealm_WebApp.Models.Enums
 @using ReptiRealm_WebApp.Pages.Home.Components
 @using ReptiRealm_WebApp.Pages.Home.Modals
@@ -81,7 +82,7 @@
     private List<ReptileCardModel> Reptiles = new();
     private IEnumerable<ReptileCardModel> FilteredReptiles => Reptiles.Where(r => r.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
 
-    private IEnumerable<Models.DTOs.Task> _tasks = new List<Models.DTOs.Task>();
+    private IEnumerable<Activity> _tasks = new List<Activity>();
 
     private bool ShowReptileDialog;
     private bool ShowTaskDialog;
@@ -121,7 +122,7 @@
             TaskType.Feed => _feedTasks,
             TaskType.Water => _waterTasks,
             TaskType.Substrate => _substrateTasks,
-            _ => new List<Models.DTOs.Task>()
+            _ => new List<Activity>()
         };
 
         ShowTaskDialog = true;
@@ -134,20 +135,20 @@
         await Task.CompletedTask;
     }
 
-    private List<Models.DTOs.FeedTask> _feedTasks = new List<Models.DTOs.FeedTask>
+    private List<FeedActivity> _feedTasks = new List<FeedActivity>
     {
-        new Models.DTOs.FeedTask
+        new FeedActivity
         {
-            Reptile = new Models.DTOs.Reptile
+            Reptile = new Reptile
             {
                 Id = new Guid(),
                 Name = "Ra",
                 Sex = Sex.Unknown
             }
         },
-        new Models.DTOs.FeedTask
+        new FeedActivity
         {
-            Reptile = new Models.DTOs.Reptile
+            Reptile = new Reptile
             {
                 Id = new Guid(),
                 Name = "Jiggy Mc Jigsaw",
@@ -157,9 +158,9 @@
         }
     };
 
-    private List<Models.DTOs.WaterTask> _waterTasks = new List<Models.DTOs.WaterTask>
+    private List<WaterActivity> _waterTasks = new List<WaterActivity>
     {
-        new Models.DTOs.WaterTask
+        new WaterActivity
         {
             Reptile = new Models.DTOs.Reptile
             {
@@ -170,9 +171,9 @@
         }
     };
 
-    private List<Models.DTOs.SubstrateTask> _substrateTasks = new List<Models.DTOs.SubstrateTask>
+    private List<SubstrateActivity> _substrateTasks = new List<SubstrateActivity>
     {
-        new Models.DTOs.SubstrateTask
+        new SubstrateActivity
         {
             Reptile = new Models.DTOs.Reptile
             {
