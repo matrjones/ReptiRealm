@@ -16,6 +16,7 @@ namespace ReptiRealm_API.Application.Services.Entity.Configuration
             builder.Entity<Morph>().BypassAccessRestriction();
             builder.Entity<Regurgitation>().BypassAccessRestriction();
             builder.Entity<Reptile>().AccessRestriction<AccessibleReptilesRestriction>();
+            builder.Entity<Schedule>().BypassAccessRestriction();
             builder.Entity<Shed>().BypassAccessRestriction();
             builder.Entity<Species>().BypassAccessRestriction();
             builder.Entity<User>().AccessRestriction<AccessibleUserRestriction>();

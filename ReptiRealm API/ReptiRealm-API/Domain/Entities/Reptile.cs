@@ -30,6 +30,7 @@ namespace ReptiRealm_API.Domain.Entities
         public virtual ICollection<Shed> Sheds { get; set; } = new List<Shed>();
         public virtual ICollection<Weight> Weights { get; set; } = new List<Weight>();
         public virtual ICollection<Defecation> Defecations { get; set; } = new List<Defecation>();
+        public virtual ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
         #endregion
     }
 }

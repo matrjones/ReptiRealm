@@ -1,12 +1,12 @@
-﻿using ReptiRealm_WebApp.Models.Enums;
+﻿using ReptiRealm_API.Domain.Entities;
+using ReptiRealm_API.Domain.Enums;
 
-namespace ReptiRealm_WebApp.Models.DTOs
+namespace ReptiRealm_API.Domain.DTOs
 {
-    public abstract class Activity
+    public class ActivityDto
     {
         public required Reptile Reptile { get; set; }
         public ActivityType Type { get; set; }
-        public TaskState State { get; set; }
         public bool IsOverdue { get; set; }
     }
 }

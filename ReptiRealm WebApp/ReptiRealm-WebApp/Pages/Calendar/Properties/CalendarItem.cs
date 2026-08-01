@@ -5,10 +5,10 @@ namespace ReptiRealm_WebApp.Pages.Calendar.Properties;
 
 public class CalendarItem
 {
-    public string Title => this.Type.ToString();
+    public string Title => Type.ToString();
     public DateTime Start { get; set; }
     public DateTime End { get; set; }
     public bool AllDay { get; set; }
-    public TaskType Type { get; set; }
+    public ActivityType Type { get; set; }
     public List<Activity> Events { get; set; } = new();
 }

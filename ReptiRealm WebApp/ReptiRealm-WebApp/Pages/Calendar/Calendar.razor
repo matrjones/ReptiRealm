@@ -36,11 +36,11 @@
         <div class="p-1">
             @switch (appointment.Type)
             {
-                case TaskType.Feed:
+                case ActivityType.Feed:
                     <b>🦗 Feed</b>
                     break;
 
-                case TaskType.Defecation:
+                case ActivityType.Defecation:
                     <b>💩 Defecation</b>
                     break;
             }
@@ -68,7 +68,7 @@
             AllDay = true,
             Start = DateTime.Today,
             End = DateTime.Today.AddHours(2),
-            Type = TaskType.Feed,
+            Type = ActivityType.Feed,
             Events = new()
             {
                 new FeedActivity
@@ -96,7 +96,7 @@
             AllDay = true,
             Start = DateTime.Today,
             End = DateTime.Today.AddHours(1),
-            Type = TaskType.Defecation
+            Type = ActivityType.Defecation
         }
     };
 
@@ -110,11 +110,11 @@
         // Never call StateHasChanged in AppointmentRender - would lead to infinite loop
         switch (args.Data!.Type)
         {
-            case TaskType.Feed:
+            case ActivityType.Feed:
                 args.Attributes["style"] = "background: green";
                 break;
 
-            case TaskType.Defecation:
+            case ActivityType.Defecation:
                 args.Attributes["style"] = "background: brown";
                 break;
 
@@ -138,11 +138,11 @@
 
         switch (item.Type)
         {
-            case TaskType.Feed:
+            case ActivityType.Feed:
                 _showFeedModal = true;
                 break;
 
-            case TaskType.Defecation:
+            case ActivityType.Defecation:
                 _showDefecationModal = true;
                 break;
         }

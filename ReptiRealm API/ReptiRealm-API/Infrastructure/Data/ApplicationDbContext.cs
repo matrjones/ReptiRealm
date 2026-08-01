@@ -18,6 +18,7 @@ namespace ReptiRealm_API.Infrastructure.Data
         public DbSet<Shed> Sheds => Set<Shed>();
         public DbSet<Weight> Weights => Set<Weight>();
         public DbSet<Defecation> Defecations => Set<Defecation>();
+        public DbSet<Schedule> Activities => Set<Schedule>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -88,6 +89,13 @@ namespace ReptiRealm_API.Infrastructure.Data
             modelBuilder.Entity<Reptile>()
                 .HasMany(r => r.Morphs)
                 .WithMany(m => m.Reptiles);
+
+            // Schedule -> Reptile (Cascade)
+            modelBuilder.Entity<Schedule>()
+                .HasOne(s => s.Reptile)
+                .WithMany(r => r.Schedules)
+                .HasForeignKey(s => s.ReptileId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         }
