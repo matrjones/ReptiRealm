@@ -12,10 +12,10 @@ namespace ReptiRealm_API.Controllers
     [ApiController]
     [Route("api/[controller]")]
     public class ActivityController(
-            IEntityService entityService
-        ) : Controller
-        {
-            private readonly IEntityService _entityService = entityService;
+        IEntityService entityService
+    ) : Controller
+    {
+        private readonly IEntityService _entityService = entityService;
 
         [HttpGet("Today")]
         public async Task<IActionResult> GetTodayActivities()
