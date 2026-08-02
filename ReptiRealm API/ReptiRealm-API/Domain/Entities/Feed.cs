@@ -8,7 +8,7 @@ namespace ReptiRealm_API.Domain.Entities
         #region Variables
         public required DateTime Date { get; set; }
         public required int Amount { get; set; } = 1;
-        public required bool IsEaten { get; set; } = true;
+        public bool IsEaten { get; set; } = true;
         public string? Notes { get; set; }
         #endregion
 

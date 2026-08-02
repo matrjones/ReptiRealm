@@ -34,17 +34,17 @@
                     <AgendaCard Icon="bi-fork-knife"
                                 AgendaTotal="@_feedTasks.Count"
                                 AgendaDescription="Feeds"
-                                OnClick='() => OpenTaskDialog(TaskType.Feed)' />
+                                OnClick='() => OpenTaskDialog(ActivityType.Feed)' />
 
                     <AgendaCard Icon="bi-droplet"
                                 AgendaTotal="@_waterTasks.Count"
                                 AgendaDescription="Waters"
-                                OnClick='() => OpenTaskDialog(TaskType.Water)' />
+                                OnClick='() => OpenTaskDialog(ActivityType.Water)' />
 
                     <AgendaCard Icon="bi-layers"
                                 AgendaTotal="@_substrateTasks.Count"
                                 AgendaDescription="Substrates"
-                                OnClick='() => OpenTaskDialog(TaskType.Substrate)' />
+                                OnClick='() => OpenTaskDialog(ActivityType.Substrate)' />
                 </div>
             </ChildContent>
         </PageSection>
@@ -107,21 +107,21 @@
         await Task.CompletedTask;
     }
 
-    private async Task OpenTaskDialog(TaskType taskType)
+    private async Task OpenTaskDialog(ActivityType taskType)
     {
         _taskTitle = taskType switch
         {
-            TaskType.Feed => "Feeds",
-            TaskType.Water => "Waters",
-            TaskType.Substrate => "Substrates",
+            ActivityType.Feed => "Feeds",
+            ActivityType.Water => "Waters",
+            ActivityType.Substrate => "Substrates",
             _ => taskType.ToString()
         };
 
         _tasks = taskType switch
         {
-            TaskType.Feed => _feedTasks,
-            TaskType.Water => _waterTasks,
-            TaskType.Substrate => _substrateTasks,
+            ActivityType.Feed => _feedTasks,
+            ActivityType.Water => _waterTasks,
+            ActivityType.Substrate => _substrateTasks,
             _ => new List<Activity>()
         };
 
