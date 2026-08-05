@@ -6,7 +6,7 @@ namespace ReptiRealm_WebApp.Models.DTOs
     {
         public required Reptile Reptile { get; set; }
         public ActivityType Type { get; set; }
-        public TaskState State { get; set; }
+        public ActivityState State { get; set; }
         public bool IsOverdue { get; set; }
     }
 }

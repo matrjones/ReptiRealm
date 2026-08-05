@@ -1,5 +1,4 @@
 ﻿@page "/"
-
 @using ReptiRealm_WebApp.Models.DTOs
 @using ReptiRealm_WebApp.Models.Enums
 @using ReptiRealm_WebApp.Pages.Home.Components
@@ -8,7 +7,6 @@
 @using ReptiRealm_WebApp.Pages.Shared.Modals
 @using ReptiRealm_WebApp.Services.Api.Interfaces
 @using ReptiRealm_WebApp.Services.Auth
-
 @inject IReptileApiService apiService
 @inject AuthApiService authApiService
 
@@ -30,21 +28,21 @@
         <PageSection Title="Today's Agenda"
         IsTitle="false">
             <ChildContent>
-                <div class="agenda-tasks">
+                <div class="agenda-activities">
                     <AgendaCard Icon="bi-fork-knife"
                                 AgendaTotal="@_feedActivities.Count"
                                 AgendaDescription="Feeds"
-                                OnClick='() => OpenTaskDialog(ActivityType.Feed)' />
+                                OnClick='() => OpenActivityDialog(ActivityType.Feed)' />
 
                     <AgendaCard Icon="bi-droplet"
                                 AgendaTotal="@_waterActivities.Count"
                                 AgendaDescription="Waters"
-                                OnClick='() => OpenTaskDialog(ActivityType.Water)' />
+                                OnClick='() => OpenActivityDialog(ActivityType.Water)' />
 
                     <AgendaCard Icon="bi-layers"
                                 AgendaTotal="@_substrateActivities.Count"
                                 AgendaDescription="Substrates"
-                                OnClick='() => OpenTaskDialog(ActivityType.Substrate)' />
+                                OnClick='() => OpenActivityDialog(ActivityType.Substrate)' />
                 </div>
             </ChildContent>
         </PageSection>
@@ -108,7 +106,7 @@
         await Task.CompletedTask;
     }
 
-    private async Task OpenTaskDialog(ActivityType activityType)
+    private async Task OpenActivityDialog(ActivityType activityType)
     {
         _activityTitle = activityType switch
         {
@@ -130,7 +128,7 @@
         await Task.CompletedTask;
     }
 
-    private async Task CloseTaskDialog()
+    private async Task CloseActivityDialog()
     {
         ShowActivityDialog = false;
         await Task.CompletedTask;

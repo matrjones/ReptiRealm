@@ -2,14 +2,14 @@
     margin-top: 1rem;
 }
 
-.agenda-tasks {
+.agenda-activities {
     display: flex;
     gap: 1rem;
     border-block-color: black;
     margin-bottom: 2rem;
 }
 
-.agenda-tasks > * {
+.agenda-activities > * {
     flex: 1;
 }
 

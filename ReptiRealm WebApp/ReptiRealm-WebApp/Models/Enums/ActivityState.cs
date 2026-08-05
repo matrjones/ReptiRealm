@@ -1,6 +1,6 @@
 ﻿namespace ReptiRealm_WebApp.Models.Enums
 {
-    public enum TaskState
+    public enum ActivityState
     {
         Incomplete,
         Complete,
