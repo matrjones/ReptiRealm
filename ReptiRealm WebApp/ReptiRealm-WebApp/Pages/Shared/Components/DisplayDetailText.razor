@@ -1,0 +1,36 @@
+﻿@typeparam TValue
+
+<FormSection Title="@Title"
+             Message="@Message">
+    <ChildContent>
+        <div class="display-value">
+            @DisplayText
+        </div>
+    </ChildContent>
+</FormSection>
+
+
+@code {
+    [Parameter]
+    public required string Title { get; set; }
+
+    [Parameter]
+    public string? Message { get; set; }
+
+    [Parameter]
+    public TValue? Value { get; set; }
+
+    [Parameter]
+    public string? Format { get; set; }
+
+    private string DisplayText =>
+        Value switch
+        {
+            null => string.Empty,
+            DateTime dt when !string.IsNullOrWhiteSpace(Format) => dt.ToString(Format),
+            DateTime dt => dt.ToShortDateString(),
+            IFormattable formattable when !string.IsNullOrWhiteSpace(Format)
+                => formattable.ToString(Format, null),
+            _ => Value.ToString() ?? string.Empty
+        };
+}

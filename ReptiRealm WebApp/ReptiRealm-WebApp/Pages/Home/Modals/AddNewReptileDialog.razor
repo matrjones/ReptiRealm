@@ -6,30 +6,30 @@
                     Title="Add New Reptile" >
     <ChildContent>
         <div class="questions-section">
-            <div class="name-question">
+            <div class="question">
                 <TextInputQuestion IsRequired="true"
                                    Title="Name"
                                    Placeholder="Name"
                                    @bind-Value="_name" />
             </div>
-            <div class="sex-question">
+            <div class="question">
                 <SelectionQuestion IsRequired="false"
                                    Title="Sex"
                                    Options="_sexOptions"
                                    @bind-Value="_sex" />
             </div>
-            <div class="species-question">
+            <div class="question">
                 <TextInputQuestion Title="Species"
                                    Placeholder="Species"
                                    @bind-Value="_species" />
             </div>
-            <div class="dob-question">
+            <div class="question">
                 <DateSelection IsRequired="false"
                                Title="Date of Birth"
                                Message="(DD/MM/YYYY)"
                                @bind-Value="_dateOfBirth" />
             </div>
-            <div class="date-obtained-question">
+            <div class="question">
                 <DateSelection IsRequired="false"
                                title="Date Obtained"
                                Message="(DD/MM/YYYY)"

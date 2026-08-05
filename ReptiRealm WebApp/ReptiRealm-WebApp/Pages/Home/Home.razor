@@ -19,7 +19,7 @@
             <Actions>
                 <QuickActionButton Icon="bi-plus-lg"
                                    Text="New Reptile"
-                                   OnClick="OpenAddReptileDialog" />
+                                   OnClick="OpenAddNewReptileDialog" />
             </Actions>
         </PageSection>
     </div>
@@ -61,48 +61,53 @@
                     {
                         <ReptileCard Name="@reptile.Name"
                                      Species="@reptile.Species"
-                                     Sex="@reptile.Sex" />
+                                     Sex="@reptile.Sex"
+                                     OnClick="() => OpenDisplayReptileDetailsDialog()"/>
                     }
-                    <AddNewReptileCard OnClick="OpenAddReptileDialog"/>
+                    <AddNewReptileCard OnClick="OpenAddNewReptileDialog"/>
                 </div>
             </ChildContent>
         </PageSection>
     </div>
 </div>
 
-<AddNewReptileDialog @bind-IsOpen="ShowReptileDialog" />
+<AddNewReptileDialog @bind-IsOpen="ShowAddNewReptileDialog" />
 
 <ActivityDialog Title="@_activityTitle"
-            Activities="@_activities"
-            @bind-IsOpen="ShowActivityDialog" />
+                Activities="@_activities"
+                @bind-IsOpen="ShowActivityDialog" />
+
+<DisplayReptileDetailsDialog Name="Ra"
+                             Species="Corn Snake"
+                             DateOfBirth="@(new DateTime(2020, 1, 15))"
+                             DateObtained="@(new DateTime(2023, 7, 22))"
+                             @bind-IsOpen="ShowDisplayReptileDetailsDialog" />
 
 
 @code {
     private List<ReptileCardModel> Reptiles = new();
     private IEnumerable<ReptileCardModel> FilteredReptiles => Reptiles.Where(r => r.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
-
     private IEnumerable<Activity> _activities = new List<Activity>();
-
-    private bool ShowReptileDialog;
     private bool ShowActivityDialog;
-
+    private bool ShowAddNewReptileDialog;
+    private bool ShowDisplayReptileDetailsDialog;
     private string SearchText = string.Empty;
-    private string _activityTitle = "Feeds";
+    private string _activityTitle = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
         Reptiles = await apiService.GetAllReptiles() ?? new List<ReptileCardModel>();
     }
 
-    private async Task OpenAddReptileDialog()
+    private async Task OpenAddNewReptileDialog()
     {
-        ShowReptileDialog = true;
+        ShowAddNewReptileDialog = true;
         await Task.CompletedTask;
     }
 
     private async Task CloseAddReptileDialog()
     {
-        ShowReptileDialog = false;
+        ShowAddNewReptileDialog = false;
         await Task.CompletedTask;
     }
 
@@ -131,6 +136,18 @@
     private async Task CloseActivityDialog()
     {
         ShowActivityDialog = false;
+        await Task.CompletedTask;
+    }
+
+    private async Task OpenDisplayReptileDetailsDialog()
+    {
+        ShowDisplayReptileDetailsDialog = true;
+        await Task.CompletedTask;
+    }
+
+    private async Task CloseDisplayReptileDetailsDialog()
+    {
+        ShowDisplayReptileDetailsDialog = false;
         await Task.CompletedTask;
     }
 
