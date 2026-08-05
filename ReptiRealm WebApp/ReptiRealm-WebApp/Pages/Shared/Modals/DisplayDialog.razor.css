@@ -1,2 +1,85 @@
-﻿body {
+﻿.dialog-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1000;
+}
+
+.display-dialog {
+    text-align: center;
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    width: fit-content;
+    min-width: 320px;
+    max-width: min(600px, 90vw);
+    border: 1px solid #dcdcdc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.title-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.title-icon-button {
+    position: absolute;
+    right: 0;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+}
+
+.title-icon-button i {
+    font-size: 1.1rem;
+}
+
+.warning-message {
+    background-color: #FFF6E7;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    padding: 4px;
+}
+
+.error-message {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: red;
+    padding: 4px;
+}
+
+.message {
+    margin-bottom: 1rem;
+    gap: 1rem;
+    font-size: 1.2rem;
+}
+
+.body {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.buttons {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
 }
