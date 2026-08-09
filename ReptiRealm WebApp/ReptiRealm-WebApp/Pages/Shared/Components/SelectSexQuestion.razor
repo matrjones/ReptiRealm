@@ -1,0 +1,48 @@
+﻿@using ReptiRealm_WebApp.Models.Enums
+<FormSection IsRequired="@IsRequired"
+             Title="@Title"
+             Message="@Message">
+    <ChildContent>
+        <div class="selection-bar">
+            @foreach (var sex in Enum.GetValues<Sex>())
+            {
+                <button type="button"
+                        class="selection-option @(Value == sex ? "selected" : "")"
+                        @onclick="() => SelectOption(sex)">
+                    @sex
+                </button>
+            }
+        </div>
+    </ChildContent>
+</FormSection>
+
+
+@code {
+    [Parameter]
+    public bool IsRequired { get; set; }
+
+    [Parameter]
+    public required string Title { get; set; }
+
+    [Parameter]
+    public string? Message { get; set; }
+
+    [Parameter]
+    public Sex? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<Sex?> ValueChanged { get; set; }
+
+
+    private async Task SelectOption(Sex sex)
+    {
+        Value = sex;
+        await ValueChanged.InvokeAsync(sex);
+    }
+
+    protected override void OnInitialized()
+    {
+        Value = Value ?? Sex.Unknown;
+        base.OnInitialized();
+    }
+}

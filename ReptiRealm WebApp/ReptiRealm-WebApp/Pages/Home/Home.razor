@@ -78,6 +78,7 @@
                 @bind-IsOpen="ShowActivityDialog" />
 
 <DisplayReptileDetailsDialog Name="Ra"
+                             Sex="Sex.Male"
                              Species="Corn Snake"
                              DateOfBirth="@(new DateTime(2020, 1, 15))"
                              DateObtained="@(new DateTime(2023, 7, 22))"
@@ -159,7 +160,7 @@
             {
                 Id = new Guid(),
                 Name = "Ra",
-                Sex = Sex.Unknown
+                Sex = Sex.Male
             }
         },
         new FeedActivity
@@ -168,7 +169,7 @@
             {
                 Id = new Guid(),
                 Name = "Jiggy Mc Jigsaw",
-                Sex = Sex.Unknown
+                Sex = Sex.Female
             },
             IsOverdue = true
         }
@@ -194,8 +195,7 @@
             Reptile = new Models.DTOs.Reptile
             {
                 Id = new Guid(),
-                Name = "Ra",
-                Sex = Sex.Unknown
+                Name = "Ra"
             },
             IsOverdue = true
         }
