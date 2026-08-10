@@ -110,7 +110,7 @@
         _showAddNewReptileDialog = false;
     }
 
-    private async Task OpenActivityDialog(ActivityType activityType)
+    private void OpenActivityDialog(ActivityType activityType)
     {
         _activityTitle = activityType switch
         {
@@ -129,7 +129,6 @@
         };
 
         _showActivityDialog = true;
-        await Task.CompletedTask;
     }
 
     private void CloseActivityDialog()
