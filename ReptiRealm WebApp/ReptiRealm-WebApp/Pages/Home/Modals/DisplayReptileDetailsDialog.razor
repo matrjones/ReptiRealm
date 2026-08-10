@@ -1,0 +1,73 @@
+﻿@using ReptiRealm_WebApp.Models.Enums
+@using ReptiRealm_WebApp.Pages.Shared.Components
+@using ReptiRealm_WebApp.Pages.Shared.Modals
+
+<DisplayDialog IsOpen="IsOpen"
+               IsOpenChanged="IsOpenChanged"
+               Title="@Name"
+               HasTitleIcon="true">
+    <ChildContent>
+        <div class="detail-items">
+            <div class="detail-item">
+                <DisplayDetailText Title="Name"
+                                   Value="@Name" />
+            </div>
+
+            <div class="detail-item">
+                <DisplaySexSelection Title="Sex"
+                                     Value="@Sex" />
+            </div>
+            
+
+            @if (!string.IsNullOrWhiteSpace(Species))
+            {
+                <div class="detail-item">
+                    <DisplayDetailText Title="Species"
+                                       Value="@Species" />
+                </div>
+            }
+
+            @if (DateOfBirth.HasValue)
+            {
+                <div class="detail-item">
+                    <DisplayDetailText Title="Date of Birth"
+                                       Value="@DateOfBirth"
+                                       Format="dd/MM/yyyy" />
+                </div>
+            }
+
+            @if (DateObtained.HasValue)
+            {
+                <div class="detail-item">
+                    <DisplayDetailText Title="Date Obtained"
+                                       Value="@DateObtained"
+                                       Format="dd/MM/yyyy" />
+                </div>
+            }
+        </div>
+    </ChildContent>
+</DisplayDialog>
+
+
+@code {
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsOpenChanged { get; set; }
+
+    [Parameter]
+    public required string Name { get; set; }
+
+    [Parameter]
+    public string? Species { get; set; }
+
+    [Parameter]
+    public DateTime? DateOfBirth { get; set; }
+
+    [Parameter]
+    public DateTime? DateObtained { get; set; }
+
+    [Parameter]
+    public Sex? Sex { get; set; }
+}

@@ -1,4 +1,5 @@
-﻿@using ReptiRealm_WebApp.Pages.Shared.Components
+﻿@using ReptiRealm_WebApp.Models.Enums
+@using ReptiRealm_WebApp.Pages.Shared.Components
 @using ReptiRealm_WebApp.Pages.Shared.Modals
 
 <ConfirmationDialog IsOpen="IsOpen"
@@ -6,30 +7,29 @@
                     Title="Add New Reptile" >
     <ChildContent>
         <div class="questions-section">
-            <div class="name-question">
+            <div class="question">
                 <TextInputQuestion IsRequired="true"
                                    Title="Name"
                                    Placeholder="Name"
                                    @bind-Value="_name" />
             </div>
-            <div class="sex-question">
-                <SelectionQuestion IsRequired="false"
+            <div class="question">
+                <SelectSexQuestion IsRequired="false"
                                    Title="Sex"
-                                   Options="_sexOptions"
                                    @bind-Value="_sex" />
             </div>
-            <div class="species-question">
+            <div class="question">
                 <TextInputQuestion Title="Species"
                                    Placeholder="Species"
                                    @bind-Value="_species" />
             </div>
-            <div class="dob-question">
+            <div class="question">
                 <DateSelection IsRequired="false"
                                Title="Date of Birth"
                                Message="(DD/MM/YYYY)"
                                @bind-Value="_dateOfBirth" />
             </div>
-            <div class="date-obtained-question">
+            <div class="question">
                 <DateSelection IsRequired="false"
                                title="Date Obtained"
                                Message="(DD/MM/YYYY)"
@@ -48,21 +48,8 @@
     public EventCallback<bool> IsOpenChanged { get; set; }
 
     private string? _name;
-    private string? _sex;
+    private Sex? _sex;
     private string? _species;
     private DateTime? _dateOfBirth;
     private DateTime? _dateObtained;
-
-    private readonly string[] _sexOptions =
-    [
-        "Male",
-        "Female",
-        "Unknown"
-    ];
-
-    protected override void OnInitialized()
-    {
-        _sex = _sexOptions[2];
-        base.OnInitialized();
-    }
 }

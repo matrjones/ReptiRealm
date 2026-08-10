@@ -19,7 +19,7 @@
             <Actions>
                 <QuickActionButton Icon="bi-plus-lg"
                                    Text="New Reptile"
-                                   OnClick="OpenAddReptileDialog" />
+                                   OnClick="OpenAddNewReptileDialog" />
             </Actions>
         </PageSection>
     </div>
@@ -50,63 +50,67 @@
 
     <div class="reptiles-section">
         <PageSection Title="My Reptiles"
-        IsTitle="false">
+                     IsTitle="false">
             <Actions>
                 <SearchBar Placeholder="Search reptiles..."
-                           @bind-Value="SearchText" />
+                           @bind-Value="_searchText" />
             </Actions>
             <ChildContent>
                 <div class="reptile-grid">
-                    @foreach (var reptile in FilteredReptiles)
+                    @foreach (var reptile in _filteredReptiles)
                     {
                         <ReptileCard Name="@reptile.Name"
                                      Species="@reptile.Species"
-                                     Sex="@reptile.Sex" />
+                                     Sex="@reptile.Sex"
+                                     OnClick="() => OpenDisplayReptileDetailsDialog()"/>
                     }
-                    <AddNewReptileCard OnClick="OpenAddReptileDialog"/>
+                    <AddNewReptileCard OnClick="OpenAddNewReptileDialog"/>
                 </div>
             </ChildContent>
         </PageSection>
     </div>
 </div>
 
-<AddNewReptileDialog @bind-IsOpen="ShowReptileDialog" />
+<AddNewReptileDialog @bind-IsOpen="_showAddNewReptileDialog" />
 
 <ActivityDialog Title="@_activityTitle"
-            Activities="@_activities"
-            @bind-IsOpen="ShowActivityDialog" />
+                Activities="@_activities"
+                @bind-IsOpen="_showActivityDialog" />
+
+<DisplayReptileDetailsDialog Name="Ra"
+                             Sex="Sex.Male"
+                             Species="Corn Snake"
+                             DateOfBirth="@(new DateTime(2020, 1, 15))"
+                             DateObtained="@(new DateTime(2023, 7, 22))"
+                             @bind-IsOpen="_showDisplayReptileDetailsDialog" />
 
 
 @code {
-    private List<ReptileCardModel> Reptiles = new();
-    private IEnumerable<ReptileCardModel> FilteredReptiles => Reptiles.Where(r => r.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
-
+    private List<ReptileCardModel> _reptiles = new();
+    private IEnumerable<ReptileCardModel> _filteredReptiles => _reptiles.Where(r => r.Name.Contains(_searchText, StringComparison.OrdinalIgnoreCase));
     private IEnumerable<Activity> _activities = new List<Activity>();
-
-    private bool ShowReptileDialog;
-    private bool ShowActivityDialog;
-
-    private string SearchText = string.Empty;
-    private string _activityTitle = "Feeds";
+    private bool _showActivityDialog;
+    private bool _showAddNewReptileDialog;
+    private bool _showDisplayReptileDetailsDialog;
+    private string _searchText = string.Empty;
+    private string _activityTitle = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
-        Reptiles = await apiService.GetAllReptiles() ?? new List<ReptileCardModel>();
+        _reptiles = await apiService.GetAllReptiles() ?? new List<ReptileCardModel>();
     }
 
-    private async Task OpenAddReptileDialog()
+    private void OpenAddNewReptileDialog()
     {
-        ShowReptileDialog = true;
-        await Task.CompletedTask;
+        _showAddNewReptileDialog = true;
     }
 
-    private async Task CloseAddReptileDialog()
+    private void CloseAddReptileDialog()
     {
-        ShowReptileDialog = false;
-        await Task.CompletedTask;
+        _showAddNewReptileDialog = false;
     }
 
-    private async Task OpenActivityDialog(ActivityType activityType)
+    private void OpenActivityDialog(ActivityType activityType)
     {
         _activityTitle = activityType switch
         {
@@ -124,14 +128,22 @@
             _ => new List<Activity>()
         };
 
-        ShowActivityDialog = true;
-        await Task.CompletedTask;
+        _showActivityDialog = true;
     }
 
-    private async Task CloseActivityDialog()
+    private void CloseActivityDialog()
     {
-        ShowActivityDialog = false;
-        await Task.CompletedTask;
+        _showActivityDialog = false;
+    }
+
+    private void OpenDisplayReptileDetailsDialog()
+    {
+        _showDisplayReptileDetailsDialog = true;
+    }
+
+    private void CloseDisplayReptileDetailsDialog()
+    {
+        _showDisplayReptileDetailsDialog = false;
     }
 
     private List<FeedActivity> _feedActivities = new List<FeedActivity>
@@ -142,7 +154,7 @@
             {
                 Id = new Guid(),
                 Name = "Ra",
-                Sex = Sex.Unknown
+                Sex = Sex.Male
             }
         },
         new FeedActivity
@@ -151,7 +163,7 @@
             {
                 Id = new Guid(),
                 Name = "Jiggy Mc Jigsaw",
-                Sex = Sex.Unknown
+                Sex = Sex.Female
             },
             IsOverdue = true
         }
@@ -177,8 +189,7 @@
             Reptile = new Models.DTOs.Reptile
             {
                 Id = new Guid(),
-                Name = "Ra",
-                Sex = Sex.Unknown
+                Name = "Ra"
             },
             IsOverdue = true
         }

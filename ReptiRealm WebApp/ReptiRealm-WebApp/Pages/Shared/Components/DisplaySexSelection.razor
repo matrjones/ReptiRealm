@@ -1,0 +1,27 @@
+﻿@using ReptiRealm_WebApp.Models.Enums
+
+<FormSection Title="@Title"
+             Message="@Message">
+    <ChildContent>
+        <div class="display-bar">
+            @foreach (var sex in Enum.GetValues<Sex>())
+            {
+                <div class="display-item @(Value == sex ? "selected" : "")">
+                    @sex
+                </div>
+            }
+        </div>
+    </ChildContent>
+</FormSection>
+
+
+@code {
+    [Parameter]
+    public required string Title { get; set; }
+
+    [Parameter]
+    public string? Message { get; set; }
+
+    [Parameter]
+    public Sex? Value { get; set; }
+}
