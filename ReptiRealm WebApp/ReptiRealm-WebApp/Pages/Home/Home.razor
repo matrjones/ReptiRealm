@@ -50,14 +50,14 @@
 
     <div class="reptiles-section">
         <PageSection Title="My Reptiles"
-        IsTitle="false">
+                     IsTitle="false">
             <Actions>
                 <SearchBar Placeholder="Search reptiles..."
-                           @bind-Value="SearchText" />
+                           @bind-Value="_searchText" />
             </Actions>
             <ChildContent>
                 <div class="reptile-grid">
-                    @foreach (var reptile in FilteredReptiles)
+                    @foreach (var reptile in _filteredReptiles)
                     {
                         <ReptileCard Name="@reptile.Name"
                                      Species="@reptile.Species"
@@ -71,45 +71,43 @@
     </div>
 </div>
 
-<AddNewReptileDialog @bind-IsOpen="ShowAddNewReptileDialog" />
+<AddNewReptileDialog @bind-IsOpen="_showAddNewReptileDialog" />
 
 <ActivityDialog Title="@_activityTitle"
                 Activities="@_activities"
-                @bind-IsOpen="ShowActivityDialog" />
+                @bind-IsOpen="_showActivityDialog" />
 
 <DisplayReptileDetailsDialog Name="Ra"
                              Sex="Sex.Male"
                              Species="Corn Snake"
                              DateOfBirth="@(new DateTime(2020, 1, 15))"
                              DateObtained="@(new DateTime(2023, 7, 22))"
-                             @bind-IsOpen="ShowDisplayReptileDetailsDialog" />
+                             @bind-IsOpen="_showDisplayReptileDetailsDialog" />
 
 
 @code {
-    private List<ReptileCardModel> Reptiles = new();
-    private IEnumerable<ReptileCardModel> FilteredReptiles => Reptiles.Where(r => r.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
+    private List<ReptileCardModel> _reptiles = new();
+    private IEnumerable<ReptileCardModel> _filteredReptiles => _reptiles.Where(r => r.Name.Contains(_searchText, StringComparison.OrdinalIgnoreCase));
     private IEnumerable<Activity> _activities = new List<Activity>();
-    private bool ShowActivityDialog;
-    private bool ShowAddNewReptileDialog;
-    private bool ShowDisplayReptileDetailsDialog;
-    private string SearchText = string.Empty;
+    private bool _showActivityDialog;
+    private bool _showAddNewReptileDialog;
+    private bool _showDisplayReptileDetailsDialog;
+    private string _searchText = string.Empty;
     private string _activityTitle = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
-        Reptiles = await apiService.GetAllReptiles() ?? new List<ReptileCardModel>();
+        _reptiles = await apiService.GetAllReptiles() ?? new List<ReptileCardModel>();
     }
 
-    private async Task OpenAddNewReptileDialog()
+    private void OpenAddNewReptileDialog()
     {
-        ShowAddNewReptileDialog = true;
-        await Task.CompletedTask;
+        _showAddNewReptileDialog = true;
     }
 
-    private async Task CloseAddReptileDialog()
+    private void CloseAddReptileDialog()
     {
-        ShowAddNewReptileDialog = false;
-        await Task.CompletedTask;
+        _showAddNewReptileDialog = false;
     }
 
     private async Task OpenActivityDialog(ActivityType activityType)
@@ -130,26 +128,23 @@
             _ => new List<Activity>()
         };
 
-        ShowActivityDialog = true;
+        _showActivityDialog = true;
         await Task.CompletedTask;
     }
 
-    private async Task CloseActivityDialog()
+    private void CloseActivityDialog()
     {
-        ShowActivityDialog = false;
-        await Task.CompletedTask;
+        _showActivityDialog = false;
     }
 
-    private async Task OpenDisplayReptileDetailsDialog()
+    private void OpenDisplayReptileDetailsDialog()
     {
-        ShowDisplayReptileDetailsDialog = true;
-        await Task.CompletedTask;
+        _showDisplayReptileDetailsDialog = true;
     }
 
-    private async Task CloseDisplayReptileDetailsDialog()
+    private void CloseDisplayReptileDetailsDialog()
     {
-        ShowDisplayReptileDetailsDialog = false;
-        await Task.CompletedTask;
+        _showDisplayReptileDetailsDialog = false;
     }
 
     private List<FeedActivity> _feedActivities = new List<FeedActivity>

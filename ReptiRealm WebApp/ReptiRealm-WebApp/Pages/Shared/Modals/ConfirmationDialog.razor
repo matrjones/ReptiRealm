@@ -11,7 +11,7 @@
                 @if (!string.IsNullOrWhiteSpace(WarningMessage))
                 {
                     <div class="warning-message">
-                        <i class="@WarningIcon"></i>
+                        <i class="@WarningIcon"/>
                         <span>@WarningMessage</span>
                     </div>
                 }
@@ -36,7 +36,7 @@
             <div class="buttons">
                 <CancelButton OnClick="HandleCancel" />
                 <ConfirmButton Label="@ActionButtonLabel"
-                OnClick="HandleSuccess" />
+                               OnClick="HandleSuccess" />
             </div>
         </div>
     </div>

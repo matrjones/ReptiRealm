@@ -11,11 +11,11 @@
 
 <h3>Login</h3>
 
-<EditForm Model="@_loginModel" OnValidSubmit="HandleLogin">
+<EditForm Model="@_loginModel"
+          OnValidSubmit="HandleLogin">
     <DataAnnotationsValidator />
 
     <div class="card p-3" style="max-width: 400px">
-
         @if (!string.IsNullOrEmpty(_errorMessage))
         {
             <div class="alert alert-danger">
@@ -25,12 +25,14 @@
 
         <div class="mb-2">
             <label>Email</label>
-            <InputText class="form-control" @bind-Value="_loginModel.Email" />
+            <InputText class="form-control"
+                       @bind-Value="_loginModel.Email" />
         </div>
 
         <div class="mb-2">
             <label>Password</label>
-            <InputText type="password" class="form-control"
+            <InputText type="password"
+                       class="form-control"
                        @bind-Value="_loginModel.Password" />
         </div>
 
@@ -40,7 +42,6 @@
 
             @(_isLoading ? "Logging in..." : "Login")
         </button>
-
     </div>
 </EditForm>
 
@@ -56,9 +57,7 @@
 
         try
         {
-            var result = await AuthApiService.LoginAsync(
-                _loginModel.Email,
-                _loginModel.Password);
+            var result = await AuthApiService.LoginAsync(_loginModel.Email, _loginModel.Password);
 
             if (result is null)
             {

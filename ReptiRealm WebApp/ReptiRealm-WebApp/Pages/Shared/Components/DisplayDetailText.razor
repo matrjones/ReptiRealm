@@ -4,7 +4,7 @@
              Message="@Message">
     <ChildContent>
         <div class="display-value">
-            @DisplayText
+            @_displayText
         </div>
     </ChildContent>
 </FormSection>
@@ -23,7 +23,7 @@
     [Parameter]
     public string? Format { get; set; }
 
-    private string DisplayText =>
+    private string _displayText =>
         Value switch
         {
             null => string.Empty,

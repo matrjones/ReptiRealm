@@ -8,14 +8,16 @@
         </span>
         @if(!string.IsNullOrWhiteSpace(Sex.GetSymbol()))
         {
-            <span class="@Sex.GetSymbol()"></span>
+            <span class="@Sex.GetSymbol()" />
         }
     </div>
 
     @if(!string.IsNullOrWhiteSpace(Species))
     {
         <div class="species">
-            <p class="species-text">@Species</p>
+            <p class="species-text">
+                @Species
+            </p>
         </div>
     }
 </button>
