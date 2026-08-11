@@ -26,7 +26,7 @@
 
     <div class="agenda-section">
         <PageSection Title="Today's Agenda"
-        IsTitle="false">
+                     IsTitle="false">
             <ChildContent>
                 <div class="agenda-activities">
                     <AgendaCard Icon="bi-fork-knife"
@@ -62,9 +62,9 @@
                         <ReptileCard Name="@reptile.Name"
                                      Species="@reptile.Species"
                                      Sex="@reptile.Sex"
-                                     OnClick="() => OpenDisplayReptileDetailsDialog()"/>
+                                     OnClick="() => OpenDisplayReptileDetailsDialog()" />
                     }
-                    <AddNewReptileCard OnClick="OpenAddNewReptileDialog"/>
+                    <AddNewReptileCard OnClick="OpenAddNewReptileDialog" />
                 </div>
             </ChildContent>
         </PageSection>
@@ -82,6 +82,7 @@
                              Species="Corn Snake"
                              DateOfBirth="@(new DateTime(2020, 1, 15))"
                              DateObtained="@(new DateTime(2023, 7, 22))"
+                             OnIconClick="OpenAddNewReptileDialog"
                              @bind-IsOpen="_showDisplayReptileDetailsDialog" />
 
 
@@ -102,6 +103,7 @@
 
     private void OpenAddNewReptileDialog()
     {
+        _showDisplayReptileDetailsDialog = false;
         _showAddNewReptileDialog = true;
     }
 
