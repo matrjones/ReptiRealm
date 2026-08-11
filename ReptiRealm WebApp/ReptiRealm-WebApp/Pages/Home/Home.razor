@@ -3,6 +3,7 @@
 @using ReptiRealm_WebApp.Models.Enums
 @using ReptiRealm_WebApp.Pages.Home.Components
 @using ReptiRealm_WebApp.Pages.Home.Modals
+@using ReptiRealm_WebApp.Pages.Home.Models
 @using ReptiRealm_WebApp.Pages.Shared.Components
 @using ReptiRealm_WebApp.Pages.Shared.Modals
 @using ReptiRealm_WebApp.Services.Api.Interfaces
@@ -86,10 +87,10 @@
 
 
 @code {
-    private List<ReptileCardModel> _reptiles = new();
-    private IEnumerable<ReptileCardModel> _filteredReptiles => _reptiles.Where(r => r.Name.Contains(_searchText, StringComparison.OrdinalIgnoreCase));
+    private List<ReptileCardDto> _reptiles = new();
+    private IEnumerable<ReptileCardDto> _filteredReptiles => _reptiles.Where(r => r.Name.Contains(_searchText, StringComparison.OrdinalIgnoreCase));
     private IEnumerable<Activity> _activities = new List<Activity>();
-    private ReptileCardModel? _selectedReptile;
+    private ReptileCardDto? _selectedReptile;
     private bool _showActivityDialog;
     private bool _showAddNewReptileDialog;
     private bool _showDisplayReptileDetailsDialog;
@@ -98,7 +99,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _reptiles = await apiService.GetAllReptiles() ?? new List<ReptileCardModel>();
+        _reptiles = await apiService.GetAllReptiles() ?? new List<ReptileCardDto>();
     }
 
     private void OpenAddNewReptileDialog()
@@ -138,7 +139,7 @@
         _showActivityDialog = false;
     }
 
-    private void OpenDisplayReptileDetailsDialog(ReptileCardModel reptile)
+    private void OpenDisplayReptileDetailsDialog(ReptileCardDto reptile)
     {
         _selectedReptile = reptile;
         _showDisplayReptileDetailsDialog = true;
@@ -176,7 +177,7 @@
     {
         new WaterActivity
         {
-            Reptile = new Models.DTOs.Reptile
+            Reptile = new Reptile
             {
                 Id = new Guid(),
                 Name = "Ra",
@@ -189,7 +190,7 @@
     {
         new SubstrateActivity
         {
-            Reptile = new Models.DTOs.Reptile
+            Reptile = new Reptile
             {
                 Id = new Guid(),
                 Name = "Ra"

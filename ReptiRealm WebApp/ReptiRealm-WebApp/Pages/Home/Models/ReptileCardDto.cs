@@ -1,0 +1,15 @@
+﻿using ReptiRealm_WebApp.Models.Enums;
+
+namespace ReptiRealm_WebApp.Pages.Home.Models
+{
+    public class ReptileCardDto
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string? Species {  get; set; }
+        public Sex Sex { get; set; } = Sex.Unknown;
+        public DateTime? DateOfBirth { get; set; }
+        public DateTime? DateObtained {  get; set; }
+    }
+}
+

@@ -1,6 +1,7 @@
-﻿namespace ReptiRealm_WebApp.Services.Api.Interfaces;
+﻿using ReptiRealm_WebApp.Pages.Home.Models;
+namespace ReptiRealm_WebApp.Services.Api.Interfaces;
 
 public interface IReptileApiService
 {
-    Task<List<ReptileCardModel>?> GetAllReptiles();
+    Task<List<ReptileCardDto>?> GetAllReptiles();
 }
