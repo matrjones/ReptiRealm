@@ -8,6 +8,7 @@ namespace ReptiRealm_WebApp.Models.DTOs
         public required string Name { get; set; }
         public Sex Sex { get; set; } = Sex.Unknown;
         public DateTime? DateOfBirth { get; set; }
+        public DateTime? DateObtained { get; set; }
         public string? Notes { get; set; }
         public string UserId { get; set; } = null!;
         public Species? Species { get; set; }

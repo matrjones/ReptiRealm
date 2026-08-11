@@ -1,47 +1,50 @@
 ﻿@using ReptiRealm_WebApp.Models.Enums
+@using ReptiRealm_WebApp.Pages.Home.Models
 @using ReptiRealm_WebApp.Pages.Shared.Components
 @using ReptiRealm_WebApp.Pages.Shared.Modals
+@using ReptiRealm_WebApp.Models.DTOs
+
 
 <DisplayDialog IsOpen="IsOpen"
                IsOpenChanged="IsOpenChanged"
-               Title="@Name"
+               Title="@Reptile.Name"
                HasTitleIcon="true"
                OnTitleIconClick="OnIconClick">
     <ChildContent>
         <div class="detail-items">
             <div class="detail-item">
                 <DisplayDetailText Title="Name"
-                                   Value="@Name" />
+                                   Value="@Reptile.Name" />
             </div>
 
             <div class="detail-item">
                 <DisplaySexSelection Title="Sex"
-                                     Value="@Sex" />
+                                     Value="@Reptile.Sex" />
             </div>
 
 
-            @if (!string.IsNullOrWhiteSpace(Species))
+            @if (!string.IsNullOrWhiteSpace(Reptile.Species))
             {
                 <div class="detail-item">
                     <DisplayDetailText Title="Species"
-                                       Value="@Species" />
+                                       Value="@Reptile.Species" />
                 </div>
             }
 
-            @if (DateOfBirth.HasValue)
+            @if (Reptile.DateOfBirth.HasValue)
             {
                 <div class="detail-item">
                     <DisplayDetailText Title="Date of Birth"
-                                       Value="@DateOfBirth"
+                                       Value="@Reptile.DateOfBirth"
                                        Format="dd/MM/yyyy" />
                 </div>
             }
 
-            @if (DateObtained.HasValue)
+            @if (Reptile.DateObtained.HasValue)
             {
                 <div class="detail-item">
                     <DisplayDetailText Title="Date Obtained"
-                                       Value="@DateObtained"
+                                       Value="@Reptile.DateObtained"
                                        Format="dd/MM/yyyy" />
                 </div>
             }
@@ -61,17 +64,5 @@
     public EventCallback OnIconClick { get; set; }
 
     [Parameter]
-    public required string Name { get; set; }
-
-    [Parameter]
-    public string? Species { get; set; }
-
-    [Parameter]
-    public DateTime? DateOfBirth { get; set; }
-
-    [Parameter]
-    public DateTime? DateObtained { get; set; }
-
-    [Parameter]
-    public Sex? Sex { get; set; }
+    public required ReptileCardDto Reptile { get; set; }
 }

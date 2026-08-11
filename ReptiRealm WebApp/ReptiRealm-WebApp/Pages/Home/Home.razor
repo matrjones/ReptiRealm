@@ -3,6 +3,7 @@
 @using ReptiRealm_WebApp.Models.Enums
 @using ReptiRealm_WebApp.Pages.Home.Components
 @using ReptiRealm_WebApp.Pages.Home.Modals
+@using ReptiRealm_WebApp.Pages.Home.Models
 @using ReptiRealm_WebApp.Pages.Shared.Components
 @using ReptiRealm_WebApp.Pages.Shared.Modals
 @using ReptiRealm_WebApp.Services.Api.Interfaces
@@ -62,7 +63,7 @@
                         <ReptileCard Name="@reptile.Name"
                                      Species="@reptile.Species"
                                      Sex="@reptile.Sex"
-                                     OnClick="() => OpenDisplayReptileDetailsDialog()" />
+                                     OnClick="() => OpenDisplayReptileDetailsDialog(reptile)" />
                     }
                     <AddNewReptileCard OnClick="OpenAddNewReptileDialog" />
                 </div>
@@ -77,19 +78,19 @@
                 Activities="@_activities"
                 @bind-IsOpen="_showActivityDialog" />
 
-<DisplayReptileDetailsDialog Name="Ra"
-                             Sex="Sex.Male"
-                             Species="Corn Snake"
-                             DateOfBirth="@(new DateTime(2020, 1, 15))"
-                             DateObtained="@(new DateTime(2023, 7, 22))"
-                             OnIconClick="OpenAddNewReptileDialog"
-                             @bind-IsOpen="_showDisplayReptileDetailsDialog" />
+@if (_selectedReptile is not null)
+{
+    <DisplayReptileDetailsDialog Reptile="_selectedReptile"
+                                 OnIconClick="OpenAddNewReptileDialog"
+                                 @bind-IsOpen="_showDisplayReptileDetailsDialog" />
+}
 
 
 @code {
-    private List<ReptileCardModel> _reptiles = new();
-    private IEnumerable<ReptileCardModel> _filteredReptiles => _reptiles.Where(r => r.Name.Contains(_searchText, StringComparison.OrdinalIgnoreCase));
+    private List<ReptileCardDto> _reptiles = new();
+    private IEnumerable<ReptileCardDto> _filteredReptiles => _reptiles.Where(r => r.Name.Contains(_searchText, StringComparison.OrdinalIgnoreCase));
     private IEnumerable<Activity> _activities = new List<Activity>();
+    private ReptileCardDto? _selectedReptile;
     private bool _showActivityDialog;
     private bool _showAddNewReptileDialog;
     private bool _showDisplayReptileDetailsDialog;
@@ -98,7 +99,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _reptiles = await apiService.GetAllReptiles() ?? new List<ReptileCardModel>();
+        _reptiles = await apiService.GetAllReptiles() ?? new List<ReptileCardDto>();
     }
 
     private void OpenAddNewReptileDialog()
@@ -138,8 +139,9 @@
         _showActivityDialog = false;
     }
 
-    private void OpenDisplayReptileDetailsDialog()
+    private void OpenDisplayReptileDetailsDialog(ReptileCardDto reptile)
     {
+        _selectedReptile = reptile;
         _showDisplayReptileDetailsDialog = true;
     }
 
@@ -175,7 +177,7 @@
     {
         new WaterActivity
         {
-            Reptile = new Models.DTOs.Reptile
+            Reptile = new Reptile
             {
                 Id = new Guid(),
                 Name = "Ra",
@@ -188,7 +190,7 @@
     {
         new SubstrateActivity
         {
-            Reptile = new Models.DTOs.Reptile
+            Reptile = new Reptile
             {
                 Id = new Guid(),
                 Name = "Ra"
