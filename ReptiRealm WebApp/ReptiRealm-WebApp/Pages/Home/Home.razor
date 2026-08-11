@@ -79,16 +79,10 @@
 
 @if (_selectedReptile is not null)
 {
-<DisplayReptileDetailsDialog Name="@_selectedReptile.Name"
-                             Sex="@_selectedReptile.Sex"
-                             Species="@_selectedReptile.Species"
-                             DateOfBirth="@_selectedReptile.DateOfBirth"
-                             DateObtained="@_selectedReptile.DatObtained"
+<DisplayReptileDetailsDialog Reptile="_selectedReptile"
                              OnIconClick="OpenAddNewReptileDialog"
                              @bind-IsOpen="_showDisplayReptileDetailsDialog" />
 }
-
-
 
 
 @code {

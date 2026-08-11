@@ -8,5 +8,5 @@ public class ReptileCardModel
     public string? Species {  get; set; }
     public Sex Sex { get; set; } = Sex.Unknown;
     public DateTime? DateOfBirth { get; set; }
-    public DateTime? DatObtained {  get; set; }
+    public DateTime? DateObtained {  get; set; }
 }
