@@ -5,20 +5,20 @@
 
 
 <DisplayDialog IsOpen="IsOpen"
-IsOpenChanged="IsOpenChanged"
-Title="@Reptile.Name"
-HasTitleIcon="true"
-OnTitleIconClick="OnIconClick">
+               IsOpenChanged="IsOpenChanged"
+               Title="@Reptile.Name"
+               HasTitleIcon="true"
+               OnTitleIconClick="OnIconClick">
     <ChildContent>
         <div class="detail-items">
             <div class="detail-item">
                 <DisplayDetailText Title="Name"
-                Value="@Reptile.Name" />
+                                   Value="@Reptile.Name" />
             </div>
 
             <div class="detail-item">
                 <DisplaySexSelection Title="Sex"
-                Value="@Reptile.Sex" />
+                                     Value="@Reptile.Sex" />
             </div>
 
 
@@ -26,7 +26,7 @@ OnTitleIconClick="OnIconClick">
             {
                 <div class="detail-item">
                     <DisplayDetailText Title="Species"
-                    Value="@Reptile.Species" />
+                                       Value="@Reptile.Species" />
                 </div>
             }
 
@@ -34,8 +34,8 @@ OnTitleIconClick="OnIconClick">
             {
                 <div class="detail-item">
                     <DisplayDetailText Title="Date of Birth"
-                    Value="@Reptile.DateOfBirth"
-                    Format="dd/MM/yyyy" />
+                                       Value="@Reptile.DateOfBirth"
+                                       Format="dd/MM/yyyy" />
                 </div>
             }
 
@@ -43,8 +43,8 @@ OnTitleIconClick="OnIconClick">
             {
                 <div class="detail-item">
                     <DisplayDetailText Title="Date Obtained"
-                    Value="@Reptile.DateObtained"
-                    Format="dd/MM/yyyy" />
+                                       Value="@Reptile.DateObtained"
+                                       Format="dd/MM/yyyy" />
                 </div>
             }
         </div>
