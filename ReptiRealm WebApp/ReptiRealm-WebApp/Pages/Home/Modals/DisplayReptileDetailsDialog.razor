@@ -8,8 +8,10 @@
 <DisplayDialog IsOpen="IsOpen"
                IsOpenChanged="IsOpenChanged"
                Title="@Reptile.Name"
-               HasTitleIcon="true"
-               OnTitleIconClick="OnIconClick">
+               HasAddIcon="true"
+               HasEditIcon="true"
+               OnAddIconClick="OnAddIconClick"
+               OnEditIconClick="OnEditIconClick">
     <ChildContent>
         <div class="detail-items">
             <div class="detail-item">
@@ -61,7 +63,10 @@
     public EventCallback<bool> IsOpenChanged { get; set; }
 
     [Parameter]
-    public EventCallback OnIconClick { get; set; }
+    public EventCallback OnAddIconClick { get; set; }
+
+    [Parameter]
+    public EventCallback OnEditIconClick { get; set; }
 
     [Parameter]
     public required ReptileCardDto Reptile { get; set; }

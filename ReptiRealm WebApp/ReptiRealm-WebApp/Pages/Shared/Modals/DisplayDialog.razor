@@ -5,15 +5,25 @@
     <div class="dialog-overlay">
         <div class="display-dialog">
             <div class="title-section">
+                @if (HasAddIcon)
+                {
+                    <button type="button"
+                            class="icon-button add-icon-button"
+                            @onclick="HandleAddIconClick">
+                        <i class="@AddIcon"></i>
+                    </button>
+                }
+
                 <span class="title">
                     @Title
                 </span>
-                @if (HasTitleIcon)
+
+                @if (HasEditIcon)
                 {
                     <button type="button"
-                            class="title-icon-button"
-                            @onclick="HandleTitleIconClick">
-                        <i class="@TitleIcon"></i>
+                            class="icon-button edit-icon-button"
+                            @onclick="HandleEditIconClick">
+                        <i class="@EditIcon"></i>
                     </button>
                 }
             </div>
@@ -65,8 +75,11 @@
     public EventCallback<bool> IsOpenChanged { get; set; }
 
     [Parameter]
-    public EventCallback OnTitleIconClick { get; set; }
-
+    public EventCallback OnAddIconClick { get; set; }
+    
+    [Parameter]
+    public EventCallback OnEditIconClick { get; set; }
+    
     [Parameter]
     public bool IsOpen { get; set; }
 
@@ -74,10 +87,16 @@
     public required string Title { get; set; }
 
     [Parameter]
-    public string TitleIcon { get; set; } = "bi bi-pencil";
+    public string AddIcon { get; set; } = "bi bi-plus-lg";
 
     [Parameter]
-    public bool HasTitleIcon { get; set; } = true;
+    public string EditIcon { get; set; } = "bi bi-pencil";
+
+    [Parameter]
+    public bool HasAddIcon { get; set; } = true;
+
+    [Parameter]
+    public bool HasEditIcon { get; set; } = true;
 
     [Parameter]
     public string? WarningIcon { get; set; } = "bi bi-exclamation-circle";
@@ -97,9 +116,14 @@
     [Parameter]
     public string? ErrorMessage { get; set; }
 
-    private async Task HandleTitleIconClick()
+    private async Task HandleAddIconClick()
     {
-        await OnTitleIconClick.InvokeAsync();
+        await OnAddIconClick.InvokeAsync();
+    }
+
+    private async Task HandleEditIconClick()
+    {
+        await OnEditIconClick.InvokeAsync();
     }
 
     private async Task HandleCancel()
