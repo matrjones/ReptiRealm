@@ -5,5 +5,6 @@ namespace ReptiRealm_WebApp.Services.Api.Interfaces;
 public interface IReptileApiService
 {
     Task<List<ReptileCardDto>?> GetAllReptiles();
-    Task<Reptile> AddReptile(AddReptile reptile);
+    Task<Reptile?> AddReptile(AddReptile reptile);
+    Task DeleteReptile(Guid reptileId);
 }

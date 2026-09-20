@@ -17,31 +17,31 @@
         <PageSection Title=" Welcome, ReptiKeeper!">
             <Actions>
                 <QuickActionButton Icon="bi-plus-lg"
-                Text="New Reptile"
-                OnClick="OpenAddNewReptileDialog" />
+                                   Text="New Reptile"
+                                   OnClick="OpenAddNewReptileDialog" />
             </Actions>
         </PageSection>
     </div>
 
     <div class="agenda-section">
         <PageSection Title="Today's Agenda"
-        IsTitle="false">
+                     IsTitle="false">
             <ChildContent>
                 <div class="agenda-activities">
                     <AgendaCard Icon="bi-fork-knife"
-                    AgendaTotal="@_feedActivities.Count"
-                    AgendaDescription="Feeds"
-                    OnClick='() => OpenActivityDialog(ActivityType.Feed)' />
+                                AgendaTotal="@_feedActivities.Count"
+                                AgendaDescription="Feeds"
+                                OnClick='() => OpenActivityDialog(ActivityType.Feed)' />
 
                     <AgendaCard Icon="bi-droplet"
-                    AgendaTotal="@_waterActivities.Count"
-                    AgendaDescription="Waters"
-                    OnClick='() => OpenActivityDialog(ActivityType.Water)' />
+                                AgendaTotal="@_waterActivities.Count"
+                                AgendaDescription="Waters"
+                                OnClick='() => OpenActivityDialog(ActivityType.Water)' />
 
                     <AgendaCard Icon="bi-layers"
-                    AgendaTotal="@_substrateActivities.Count"
-                    AgendaDescription="Substrates"
-                    OnClick='() => OpenActivityDialog(ActivityType.Substrate)' />
+                                AgendaTotal="@_substrateActivities.Count"
+                                AgendaDescription="Substrates"
+                                OnClick='() => OpenActivityDialog(ActivityType.Substrate)' />
                 </div>
             </ChildContent>
         </PageSection>
@@ -49,19 +49,19 @@
 
     <div class="reptiles-section">
         <PageSection Title="My Reptiles"
-        IsTitle="false">
+                     IsTitle="false">
             <Actions>
                 <SearchBar Placeholder="Search reptiles..."
-                @bind-Value="_searchText" />
+                           @bind-Value="_searchText" />
             </Actions>
             <ChildContent>
                 <div class="reptile-grid">
                     @foreach (var reptile in _filteredReptiles)
                     {
                         <ReptileCard Name="@reptile.Name"
-                        Species="@reptile.Species"
-                        Sex="@reptile.Sex"
-                        OnClick="() => OpenDisplayReptileDetailsDialog(reptile)" />
+                                     Species="@reptile.Species"
+                                     Sex="@reptile.Sex"
+                                     OnClick="() => OpenDisplayReptileDetailsDialog(reptile)" />
                     }
                     <AddNewReptileCard OnClick="OpenAddNewReptileDialog" />
                 </div>
@@ -70,12 +70,12 @@
     </div>
 </div>
 
-<AddNewReptileDialog @bind-IsOpen="_showAddNewReptileDialog"
-                     OnAdded="HandleReptileAdded" />
+<AddNewReptileDialog OnAdded="HandleReptileAdded"
+                     @bind-IsOpen="_showAddNewReptileDialog" />
 
 <ActivityDialog Title="@_activityTitle"
-Activities="@_activities"
-@bind-IsOpen="_showActivityDialog" />
+                Activities="@_activities"
+                @bind-IsOpen="_showActivityDialog" />
 
 @if (_selectedReptile is not null)
 {
@@ -86,7 +86,7 @@ Activities="@_activities"
                                  OnDeleteIconClick="OpenDeleteReptileDialog"
                                  @bind-IsOpen="_showDisplayReptileDetailsDialog" />
 
-    <DeleteConfirmationDialog ReptileName="@_selectedReptile.Name"
+    <DeleteConfirmationDialog Reptile="@_selectedReptile"
                               @bind-IsOpen="_showDeleteReptileConfirmationDialog" />
     
 }

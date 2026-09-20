@@ -28,4 +28,9 @@ public class ReptileApiService : ApiService, IReptileApiService
     {
         return await PostAsync<Reptile>("reptile/create", reptile);
     }
+
+    public async Task DeleteReptile(Guid reptileId)
+    {
+        await DeleteAsync($"reptile/{reptileId.ToString()}");
+    }
 }

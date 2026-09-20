@@ -63,16 +63,11 @@ public abstract class ApiService
         return await response.Content.ReadFromJsonAsync<T>();
     }
 
-    protected async Task<T?> DeleteAsync<T>(string url)
+    protected async Task DeleteAsync(string url)
     {
         await AttachAuthHeader();
 
         var response = await _http.DeleteAsync(url);
         response.EnsureSuccessStatusCode();
-
-        if (response.Content.Headers.ContentLength == 0)
-            return default;
-
-        return await response.Content.ReadFromJsonAsync<T>();
     }
 }
