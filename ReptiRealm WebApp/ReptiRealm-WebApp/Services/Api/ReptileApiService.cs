@@ -18,7 +18,14 @@ public class ReptileApiService : ApiService, IReptileApiService
             Id = s.Id,
             Name = s.Name,
             Sex = s.Sex,
-            Species = s.Species?.Name
+            Species = s.Species?.Name,
+            DateOfBirth = s.DateOfBirth,
+            DateObtained = s.DateObtained
         }).ToList();
+    }
+
+    public async Task<Reptile?> AddReptile(AddReptile reptile)
+    {
+        return await PostAsync<Reptile>("reptile/create", reptile);
     }
 }

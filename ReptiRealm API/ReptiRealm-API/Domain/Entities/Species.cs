@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace ReptiRealm_API.Domain.Entities
 {
-    public class Species : BaseEntity
+    public class Species : BaseEntity, IOwnedEntity
     {
         #region Variables
         public required string Name { get; set; }

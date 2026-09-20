@@ -1,10 +1,15 @@
-﻿@using ReptiRealm_WebApp.Models.Enums
+﻿@using ReptiRealm_WebApp.Models.DTOs
+@using ReptiRealm_WebApp.Models.Enums
 @using ReptiRealm_WebApp.Pages.Shared.Components
 @using ReptiRealm_WebApp.Pages.Shared.Modals
+@using ReptiRealm_WebApp.Pages.Home.Models
+@using ReptiRealm_WebApp.Services.Api.Interfaces
+@inject IReptileApiService apiService
 
 <ConfirmationDialog IsOpen="IsOpen"
                     IsOpenChanged="IsOpenChanged"
-                    Title="Add New Reptile" >
+                    Title="Add New Reptile" 
+                    OnConfirm="CreateReptile">
     <ChildContent>
         <div class="questions-section">
             <div class="question">
@@ -31,7 +36,7 @@
             </div>
             <div class="question">
                 <DateSelection IsRequired="false"
-                               title="Date Obtained"
+                               Title="Date Obtained"
                                Message="(DD/MM/YYYY)"
                                @bind-Value="_dateObtained" />
             </div>
@@ -47,9 +52,42 @@
     [Parameter]
     public EventCallback<bool> IsOpenChanged { get; set; }
 
+    [Parameter]
+    public EventCallback<ReptileCardDto> OnAdded { get; set; }
+
     private string? _name;
     private Sex? _sex;
     private string? _species;
     private DateTime? _dateOfBirth;
     private DateTime? _dateObtained;
+
+    private async Task CreateReptile()
+    {
+        var reptile = new AddReptile
+        (
+            _name!,
+            _sex,
+            _species,
+            _dateOfBirth,
+            _dateObtained,
+            Array.Empty<Guid>()
+        );
+
+        var created = await apiService.AddReptile(reptile);
+
+        if (created is not null)
+        {
+            var card = new ReptileCardDto
+            {
+                Id = created.Id,
+                Name = created.Name,
+                Sex = created.Sex,
+                Species = created.Species?.Name,
+                DateOfBirth = created.DateOfBirth,
+                DateObtained = created.DateObtained
+            };
+
+            await OnAdded.InvokeAsync(card);
+        }
+    }
 }

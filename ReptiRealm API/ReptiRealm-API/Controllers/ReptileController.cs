@@ -41,11 +41,25 @@ namespace ReptiRealm_API.Controllers
                     .ToListAsync();
             }
 
+            var species = _entityService.For<Species>()
+                .GetAll()
+                .FirstOrDefault(x => x.Name.ToLower() == reptileDto.Species.ToLower());
+            
+            if(species is null)
+            {
+                species = new()
+                {
+                    Name = reptileDto.Species
+                };
+                await _entityService.For<Species>()
+                    .Add(species);
+            }
+            
             var reptile = new Reptile
             {
                 Name = reptileDto.Name,
                 Sex = reptileDto.Sex ?? Sex.Unknown,
-                SpeciesId = reptileDto.SpeciesId,
+                SpeciesId = species.Id,
                 DateOfBirth = reptileDto.DateOfBirth,
                 DateObtained = reptileDto.DateObtained,
                 Morphs = morphs,
