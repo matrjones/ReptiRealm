@@ -6,7 +6,7 @@
         (
             string Name,
             Sex? Sex,
-            Guid? SpeciesId,
+            string? Species,
             DateTime? DateOfBirth,
             DateTime? DateObtained,
             Guid[]? MorphIds
