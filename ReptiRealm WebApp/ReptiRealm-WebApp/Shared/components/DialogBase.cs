@@ -106,6 +106,6 @@ namespace ReptiRealm_WebApp.Shared.Components
     {
         public static DialogState<T> Open<T>(T model) => new(model);
 
-        public static DialogState<T> Closed<T>(T model) => new();
+        public static DialogState<T> Closed<T>() => new();
     }
 }

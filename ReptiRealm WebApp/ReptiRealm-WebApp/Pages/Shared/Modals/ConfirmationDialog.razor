@@ -34,9 +34,9 @@
                 </div>
             }
             <div class="buttons">
-                <CancelButton OnClick="HandleCancel" />
+                <CancelButton OnClick="@HandleCancel" />
                 <ConfirmButton Label="@ActionButtonLabel"
-                               OnClick="HandleSuccess" />
+                               OnClick="@HandleSuccess" />
             </div>
         </div>
     </div>
@@ -81,17 +81,20 @@
     public string? ActionButtonLabel { get; set; } = "Confirm";
 
 
-    private async Task HandleCancel()
-    {
-        await OnCancel.InvokeAsync();
-        await Close(false);
-    }
-
     private async Task HandleSuccess()
     {
         await OnConfirm.InvokeAsync();
         await Close(false);
     }
 
-    private async Task Close(bool value) => await IsOpenChanged.InvokeAsync(value);
+    private async Task HandleCancel()
+    {
+        await OnCancel.InvokeAsync();
+        await Close(false);
+    }
+
+    private Task Close(bool value)
+    {
+        return IsOpenChanged.InvokeAsync(value);
+    }
 }
