@@ -71,8 +71,8 @@
     </div>
 </div>
 
-<AddNewReptileDialog @bind-State="_addNewReptileDialogState"
-                     OnAdded="HandleReptileAdded" />
+<AddNewReptileDialog OnAdded="HandleReptileAdded"
+                     @bind-IsOpen="_addNewReptileDialogState" />
 
 <ActivityDialog Title="@_activityTitle"
                 Activities="@_activities"
@@ -81,8 +81,15 @@
 @if (_selectedReptile is not null)
 {
     <DisplayReptileDetailsDialog Reptile="_selectedReptile"
+                                 OnAddIconClick="OpenAddReptileActivityDialog"
+                                 OnViewHistoryIconClick="OpenViewReptileHistory_DIALOG_OR_PAGE"
                                  OnEditIconClick="OpenAddNewReptileDialog"
+                                 OnDeleteIconClick="OpenDeleteReptileDialog"
                                  @bind-IsOpen="_showDisplayReptileDetailsDialog" />
+
+    <DeleteConfirmationDialog Reptile="@_selectedReptile"
+                              @bind-IsOpen="_showDeleteReptileConfirmationDialog" />
+    
 }
 
 
@@ -94,6 +101,7 @@
     private bool _showActivityDialog;
     private DialogState<AddReptile> _addNewReptileDialogState;
     private bool _showDisplayReptileDetailsDialog;
+    private bool _showDeleteReptileConfirmationDialog;
     private string _searchText = string.Empty;
     private string _activityTitle = string.Empty;
 
@@ -148,6 +156,15 @@
     private void HandleReptileAdded(ReptileCardDto reptile)
     {
         _reptiles.Add(reptile);
+    }
+
+    private void OpenAddReptileActivityDialog() { }
+
+    private void OpenViewReptileHistory_DIALOG_OR_PAGE() { }
+
+    private void OpenDeleteReptileDialog()
+    {
+        _showDeleteReptileConfirmationDialog = true;
     }
 
     private List<FeedActivity> _feedActivities = new List<FeedActivity>

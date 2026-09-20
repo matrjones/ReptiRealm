@@ -1,0 +1,41 @@
+﻿@inject IReptileApiService apiService
+@using ReptiRealm_WebApp.Pages.Home.Models
+@using ReptiRealm_WebApp.Pages.Shared.Modals
+@using ReptiRealm_WebApp.Services.Api.Interfaces
+
+<ConfirmationDialog IsOpen="IsOpen"
+                    IsOpenChanged="OnDialogOpenChanged"
+                    Title="@DeleteTitle"
+                    WarningMessage="@WarningMessage"
+                    OnConfirm="HandleDeleteReptile"
+                    OnCancel="OnCancel" />
+
+
+@code {
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsOpenChanged { get; set; }
+
+    [Parameter]
+    public EventCallback OnCancel { get; set; }
+
+    [Parameter]
+    required public ReptileCardDto Reptile { get; set; }
+
+    private string DeleteTitle => $"Delete {Reptile.Name}";
+
+    private string WarningMessage => $"Are you sure you want to delete {Reptile.Name}? Once confirmed, this action cannot be undone.";
+
+    private async Task HandleDeleteReptile()
+    {
+        await apiService.DeleteReptile(Reptile.Id);
+    }
+
+    private async Task OnDialogOpenChanged(bool value)
+    {
+        IsOpen = value;
+        await IsOpenChanged.InvokeAsync(value);
+    }
+}

@@ -31,6 +31,7 @@
 }
 
 .warning-message {
+    color: #D0342C;
     background-color: #FFF6E7;
     font-size: 1.2rem;
     border-radius: 10px;
