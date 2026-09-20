@@ -7,6 +7,7 @@
 @using ReptiRealm_WebApp.Pages.Shared.Components
 @using ReptiRealm_WebApp.Pages.Shared.Modals
 @using ReptiRealm_WebApp.Services.Api.Interfaces
+@using ReptiRealm_WebApp.Shared.Components
 @inject IReptileApiService apiService
 
 
@@ -63,14 +64,14 @@
                                      Sex="@reptile.Sex"
                                      OnClick="() => OpenDisplayReptileDetailsDialog(reptile)" />
                     }
-                    <AddNewReptileCard OnClick="OpenAddNewReptileDialog" />
+                    <AddNewReptileCard OnClick="OpenAddNewReptileDialog"/>
                 </div>
             </ChildContent>
         </PageSection>
     </div>
 </div>
 
-<AddNewReptileDialog @bind-IsOpen="_showAddNewReptileDialog"
+<AddNewReptileDialog @bind-State="_addNewReptileDialogState"
                      OnAdded="HandleReptileAdded" />
 
 <ActivityDialog Title="@_activityTitle"
@@ -91,7 +92,7 @@
     private IEnumerable<Activity> _activities = new List<Activity>();
     private ReptileCardDto? _selectedReptile;
     private bool _showActivityDialog;
-    private bool _showAddNewReptileDialog;
+    private DialogState<AddReptile> _addNewReptileDialogState;
     private bool _showDisplayReptileDetailsDialog;
     private string _searchText = string.Empty;
     private string _activityTitle = string.Empty;
@@ -104,12 +105,7 @@
     private void OpenAddNewReptileDialog()
     {
         _showDisplayReptileDetailsDialog = false;
-        _showAddNewReptileDialog = true;
-    }
-
-    private void CloseAddReptileDialog()
-    {
-        _showAddNewReptileDialog = false;
+        _addNewReptileDialogState = DialogState.Open(new AddReptile());
     }
 
     private void OpenActivityDialog(ActivityType activityType)

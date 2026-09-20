@@ -3,29 +3,32 @@ using ReptiRealm_WebApp.Pages.Home.Models;
 using ReptiRealm_WebApp.Services.Api.Interfaces;
 using ReptiRealm_WebApp.Services.Auth.Interfaces;
 
-public class ReptileApiService : ApiService, IReptileApiService
+namespace ReptiRealm_WebApp.Services.Api
 {
-    public ReptileApiService(HttpClient http, ITokenService tokenService) : base(http, tokenService)
+    public class ReptileApiService : ApiService, IReptileApiService
     {
-    }
-
-    public async Task<List<ReptileCardDto>?> GetAllReptiles()
-    {
-        var result = await GetAsync<List<Reptile>>("reptile");
-
-        return result?.Select(s => new ReptileCardDto
+        public ReptileApiService(HttpClient http, ITokenService tokenService) : base(http, tokenService)
         {
-            Id = s.Id,
-            Name = s.Name,
-            Sex = s.Sex,
-            Species = s.Species?.Name,
-            DateOfBirth = s.DateOfBirth,
-            DateObtained = s.DateObtained
-        }).ToList();
-    }
+        }
 
-    public async Task<Reptile?> AddReptile(AddReptile reptile)
-    {
-        return await PostAsync<Reptile>("reptile/create", reptile);
+        public async Task<List<ReptileCardDto>?> GetAllReptiles()
+        {
+            var result = await GetAsync<List<Reptile>>("reptile");
+
+            return result?.Select(s => new ReptileCardDto
+            {
+                Id = s.Id,
+                Name = s.Name,
+                Sex = s.Sex,
+                Species = s.Species?.Name,
+                DateOfBirth = s.DateOfBirth,
+                DateObtained = s.DateObtained
+            }).ToList();
+        }
+
+        public async Task<Reptile?> AddReptile(AddReptile reptile)
+        {
+            return await PostAsync<Reptile>("reptile/create", reptile);
+        }
     }
 }

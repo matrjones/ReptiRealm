@@ -32,34 +32,68 @@ namespace ReptiRealm_API.Controllers
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] AddReptileDto reptileDto)
         {
-            var morphs = new List<Morph>();
-            if (reptileDto.MorphIds?.Any() == true)
+            var speciesName = reptileDto.Species?.Trim();
+            Species? species = null;
+
+            if (!string.IsNullOrEmpty(speciesName))
             {
-                morphs = await _entityService.For<Morph>()
+                var speciesNameLower = speciesName.ToLowerInvariant();
+                species = await _entityService.For<Species>()
                     .GetAll()
-                    .Where(m => reptileDto.MorphIds.Contains(m.Id))
-                    .ToListAsync();
+                    .FirstOrDefaultAsync(x => x.Name.ToLower() == speciesNameLower);
+
+                if (species is null)
+                {
+                    species = new()
+                    {
+                        Name = speciesName
+                    };
+                    await _entityService.For<Species>().Add(species);
+                }
             }
 
-            var species = _entityService.For<Species>()
-                .GetAll()
-                .FirstOrDefault(x => x.Name.ToLower() == reptileDto.Species.ToLower());
-            
-            if(species is null)
+            var morphs = new List<Morph>();
+            if (reptileDto.Morphs?.Any() == true)
             {
-                species = new()
+                if (species == null)
                 {
-                    Name = reptileDto.Species
-                };
-                await _entityService.For<Species>()
-                    .Add(species);
+                    return BadRequest("Species is required when providing morphs.");
+                }
+
+                var morphNames = reptileDto.Morphs
+                    .Where(n => !string.IsNullOrWhiteSpace(n))
+                    .Select(n => n.Trim().ToLowerInvariant())
+                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .ToList();
+
+                var existing = await _entityService.For<Morph>()
+                    .GetAll()
+                    .Where(m => m.SpeciesId == species.Id && morphNames.Contains(m.Name.ToLower()))
+                    .ToListAsync();
+
+                morphs.AddRange(existing);
+
+                var existingNames = existing.Select(m => m.Name).ToHashSet(StringComparer.OrdinalIgnoreCase);
+                var missingNames = morphNames.Where(n => !existingNames.Contains(n));
+
+                foreach (var name in missingNames)
+                {
+                    var newMorph = new Morph
+                    {
+                        Name = name,
+                        SpeciesId = species.Id
+                    };
+
+                    await _entityService.For<Morph>().Add(newMorph);
+                    morphs.Add(newMorph);
+                }
             }
             
             var reptile = new Reptile
             {
                 Name = reptileDto.Name,
                 Sex = reptileDto.Sex ?? Sex.Unknown,
-                SpeciesId = species.Id,
+                SpeciesId = species?.Id,
                 DateOfBirth = reptileDto.DateOfBirth,
                 DateObtained = reptileDto.DateObtained,
                 Morphs = morphs,

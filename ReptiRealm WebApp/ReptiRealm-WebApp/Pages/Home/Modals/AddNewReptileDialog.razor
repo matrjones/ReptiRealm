@@ -1,44 +1,45 @@
 ﻿@using ReptiRealm_WebApp.Models.DTOs
-@using ReptiRealm_WebApp.Models.Enums
 @using ReptiRealm_WebApp.Pages.Shared.Components
 @using ReptiRealm_WebApp.Pages.Shared.Modals
 @using ReptiRealm_WebApp.Pages.Home.Models
 @using ReptiRealm_WebApp.Services.Api.Interfaces
+@using ReptiRealm_WebApp.Shared.Components
+@inherits DialogBase<AddReptile>
 @inject IReptileApiService apiService
 
 <ConfirmationDialog IsOpen="IsOpen"
-                    IsOpenChanged="IsOpenChanged"
                     Title="Add New Reptile" 
-                    OnConfirm="CreateReptile">
+                    OnConfirm="CreateReptile"
+                    OnCancel="HandleCancel">
     <ChildContent>
         <div class="questions-section">
             <div class="question">
                 <TextInputQuestion IsRequired="true"
                                    Title="Name"
                                    Placeholder="Name"
-                                   @bind-Value="_name" />
+                                   @bind-Value="Model.Name" />
             </div>
             <div class="question">
                 <SelectSexQuestion IsRequired="false"
                                    Title="Sex"
-                                   @bind-Value="_sex" />
+                                   @bind-Value="Model.Sex" />
             </div>
             <div class="question">
                 <TextInputQuestion Title="Species"
                                    Placeholder="Species"
-                                   @bind-Value="_species" />
+                                   @bind-Value="Model.Species" />
             </div>
             <div class="question">
                 <DateSelection IsRequired="false"
                                Title="Date of Birth"
                                Message="(DD/MM/YYYY)"
-                               @bind-Value="_dateOfBirth" />
+                               @bind-Value="Model.DateOfBirth" />
             </div>
             <div class="question">
                 <DateSelection IsRequired="false"
                                Title="Date Obtained"
                                Message="(DD/MM/YYYY)"
-                               @bind-Value="_dateObtained" />
+                               @bind-Value="Model.DateObtained" />
             </div>
         </div>
     </ChildContent>
@@ -47,33 +48,11 @@
 
 @code {
     [Parameter]
-    public bool IsOpen { get; set; }
-
-    [Parameter]
-    public EventCallback<bool> IsOpenChanged { get; set; }
-
-    [Parameter]
     public EventCallback<ReptileCardDto> OnAdded { get; set; }
-
-    private string? _name;
-    private Sex? _sex;
-    private string? _species;
-    private DateTime? _dateOfBirth;
-    private DateTime? _dateObtained;
 
     private async Task CreateReptile()
     {
-        var reptile = new AddReptile
-        (
-            _name!,
-            _sex,
-            _species,
-            _dateOfBirth,
-            _dateObtained,
-            Array.Empty<Guid>()
-        );
-
-        var created = await apiService.AddReptile(reptile);
+        var created = await apiService.AddReptile(Model);
 
         if (created is not null)
         {
@@ -88,6 +67,12 @@
             };
 
             await OnAdded.InvokeAsync(card);
+
+            IsOpen = false;
         }
+    }
+    private void HandleCancel()
+    {
+        IsOpen = false;
     }
 }
