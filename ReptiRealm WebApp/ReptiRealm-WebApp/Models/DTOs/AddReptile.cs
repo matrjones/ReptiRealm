@@ -4,7 +4,6 @@
     {
         public class AddReptile
         {
-        
             public string Name {  get; set; }
             public Sex? Sex { get; set; }
             public string? Species { get; set; }
