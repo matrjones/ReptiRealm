@@ -4,7 +4,9 @@
     <ChildContent>
         <div class="date-input">
             <InputDate TValue="DateTime?"
-                       @bind-Value="Value" />
+                       Value="@Value"
+                       ValueChanged="OnValueChanged"
+                       ValueExpression="@(() => Value)" />
         </div>
     </ChildContent>
 </FormSection>
@@ -25,4 +27,10 @@
     
     [Parameter]
     public EventCallback<DateTime?> ValueChanged { get; set; }
+
+    private async Task OnValueChanged(DateTime? value)
+    {
+        Value = value;
+        await ValueChanged.InvokeAsync(value);
+    }
 }

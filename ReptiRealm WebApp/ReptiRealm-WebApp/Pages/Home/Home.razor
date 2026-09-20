@@ -7,9 +7,7 @@
 @using ReptiRealm_WebApp.Pages.Shared.Components
 @using ReptiRealm_WebApp.Pages.Shared.Modals
 @using ReptiRealm_WebApp.Services.Api.Interfaces
-@using ReptiRealm_WebApp.Services.Auth
 @inject IReptileApiService apiService
-@inject AuthApiService authApiService
 
 
 <PageTitle>Home</PageTitle>
@@ -72,7 +70,8 @@
     </div>
 </div>
 
-<AddNewReptileDialog @bind-IsOpen="_showAddNewReptileDialog" />
+<AddNewReptileDialog @bind-IsOpen="_showAddNewReptileDialog"
+                     OnAdded="HandleReptileAdded" />
 
 <ActivityDialog Title="@_activityTitle"
                 Activities="@_activities"
@@ -148,6 +147,11 @@
     private void CloseDisplayReptileDetailsDialog()
     {
         _showDisplayReptileDetailsDialog = false;
+    }
+
+    private void HandleReptileAdded(ReptileCardDto reptile)
+    {
+        _reptiles.Add(reptile);
     }
 
     private List<FeedActivity> _feedActivities = new List<FeedActivity>
