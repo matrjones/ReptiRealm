@@ -1,0 +1,38 @@
+﻿@using ReptiRealm_WebApp.Pages.Shared.Modals
+
+<ConfirmationDialog IsOpen="IsOpen"
+                    IsOpenChanged="OnDialogOpenChanged"
+                    Title="@DeleteTitle"
+                    WarningMessage="@WarningMessage"
+                    OnConfirm="HandleDeleteReptile"
+                    OnCancel="OnCancel" />
+
+
+@code {
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsOpenChanged { get; set; }
+
+    [Parameter]
+    public EventCallback OnCancel { get; set; }
+
+    [Parameter]
+    required public string ReptileName { get; set; }
+
+    private string DeleteTitle => $"Delete {ReptileName}";
+
+    private string WarningMessage => $"Are you sure you want to delete {ReptileName}? Once confirmed, this action cannot be undone.";
+
+    private async Task HandleDeleteReptile()
+    {
+        await Task.CompletedTask;
+    }
+
+    private async Task OnDialogOpenChanged(bool value)
+    {
+        IsOpen = value;
+        await IsOpenChanged.InvokeAsync(value);
+    }
+}

@@ -81,11 +81,15 @@ Activities="@_activities"
 @if (_selectedReptile is not null)
 {
     <DisplayReptileDetailsDialog Reptile="_selectedReptile"
-    OnAddIconClick="OpenAddReptileActivityDialog"
-    OnViewHistoryIconClick="OpenViewReptileHistory_DIALOG_OR_PAGE"
-    OnEditIconClick="OpenAddNewReptileDialog"
-    OnDeleteIconClick="OpenDeleteReptileDialog"
-    @bind-IsOpen="_showDisplayReptileDetailsDialog" />
+                                 OnAddIconClick="OpenAddReptileActivityDialog"
+                                 OnViewHistoryIconClick="OpenViewReptileHistory_DIALOG_OR_PAGE"
+                                 OnEditIconClick="OpenAddNewReptileDialog"
+                                 OnDeleteIconClick="OpenDeleteReptileDialog"
+                                 @bind-IsOpen="_showDisplayReptileDetailsDialog" />
+
+    <DeleteConfirmationDialog ReptileName="@_selectedReptile.Name"
+                              @bind-IsOpen="_showDeleteReptileConfirmationDialog" />
+    
 }
 
 
@@ -97,6 +101,7 @@ Activities="@_activities"
     private bool _showActivityDialog;
     private bool _showAddNewReptileDialog;
     private bool _showDisplayReptileDetailsDialog;
+    private bool _showDeleteReptileConfirmationDialog;
     private string _searchText = string.Empty;
     private string _activityTitle = string.Empty;
 
@@ -157,7 +162,10 @@ Activities="@_activities"
 
     private void OpenViewReptileHistory_DIALOG_OR_PAGE() { }
 
-    private void OpenDeleteReptileDialog() { }
+    private void OpenDeleteReptileDialog()
+    {
+        _showDeleteReptileConfirmationDialog = true;
+    }
 
     private List<FeedActivity> _feedActivities = new List<FeedActivity>
     {
