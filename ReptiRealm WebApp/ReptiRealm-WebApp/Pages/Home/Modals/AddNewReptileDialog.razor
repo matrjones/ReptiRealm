@@ -71,9 +71,8 @@
             IsOpen = false;
         }
     }
-    private Task HandleCancel()
+    private void HandleCancel()
     {
         IsOpen = false;
-        return Task.CompletedTask;
     }
 }
