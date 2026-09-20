@@ -1,6 +1,8 @@
 ﻿using System.Net.Http.Headers;
 using ReptiRealm_WebApp.Services.Auth.Interfaces;
 
+namespace ReptiRealm_WebApp.Services.Auth;
+
 public class AuthHeaderHandler : DelegatingHandler
 {
     private readonly ITokenService _tokenService;

@@ -2,13 +2,13 @@
 
     namespace ReptiRealm_WebApp.Models.DTOs
     {
-        public record AddReptile
-        (
-            string Name,
-            Sex? Sex,
-            string? Species,
-            DateTime? DateOfBirth,
-            DateTime? DateObtained,
-            Guid[]? MorphIds
-        );
+        public class AddReptile
+        {
+            public string Name {  get; set; }
+            public Sex? Sex { get; set; }
+            public string? Species { get; set; }
+            public DateTime? DateOfBirth { get; set; }
+            public DateTime? DateObtained { get; set; }
+            public string[]? MorphIds { get; set; }
+        }
     }
