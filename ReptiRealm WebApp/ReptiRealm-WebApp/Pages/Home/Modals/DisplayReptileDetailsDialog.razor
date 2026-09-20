@@ -9,9 +9,13 @@
                IsOpenChanged="IsOpenChanged"
                Title="@Reptile.Name"
                HasAddIcon="true"
+               HasViewHistoryIcon="true"
                HasEditIcon="true"
+               HasDeleteIcon="true"
                OnAddIconClick="OnAddIconClick"
-               OnEditIconClick="OnEditIconClick">
+               OnViewHistoryIconClick="OnViewHistoryIconClick"
+               OnEditIconClick="OnEditIconClick"
+               OnDeleteIconClick="OnDeleteIconClick" >
     <ChildContent>
         <div class="detail-items">
             <div class="detail-item">
@@ -66,7 +70,13 @@
     public EventCallback OnAddIconClick { get; set; }
 
     [Parameter]
+    public EventCallback OnViewHistoryIconClick { get; set; }
+
+    [Parameter]
     public EventCallback OnEditIconClick { get; set; }
+
+    [Parameter]
+    public EventCallback OnDeleteIconClick { get; set; }
 
     [Parameter]
     public required ReptileCardDto Reptile { get; set; }
