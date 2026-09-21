@@ -13,7 +13,7 @@ namespace ReptiRealm_API.Domain.Entities
 
         #region Foreign Keys
         public Guid SpeciesId { get; set; }
-        public required string UserId { get; set; }
+        public string UserId { get; set; } = null!;
         #endregion
 
 

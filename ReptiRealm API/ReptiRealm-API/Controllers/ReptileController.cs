@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ReptiRealm_API.Application.Interfaces.Entity;
 using ReptiRealm_API.Domain.DTOs;
 using ReptiRealm_API.Domain.Entities;
+using ReptiRealm_API.Domain.Entities.Common;
 using ReptiRealm_API.Domain.Enums;
 
 namespace ReptiRealm_API.Controllers

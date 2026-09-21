@@ -64,6 +64,7 @@ namespace ReptiRealm_API.Controllers
             var species = await _context.Species.FirstOrDefaultAsync(s => s.Id == speciesId && s.UserId == user!.Id);
             var morph = new Morph
             {
+                UserId = user!.Id,
                 SpeciesId = speciesId,
                 Name = morphDto.Name,
                 Notes = morphDto.Notes
