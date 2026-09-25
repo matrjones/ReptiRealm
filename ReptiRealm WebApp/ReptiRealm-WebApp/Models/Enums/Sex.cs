@@ -2,9 +2,9 @@
 {
     public enum Sex
     {
+        Unknown,
         Male,
-        Female,
-        Unknown
+        Female
     }
 
     public static class SexExtensions

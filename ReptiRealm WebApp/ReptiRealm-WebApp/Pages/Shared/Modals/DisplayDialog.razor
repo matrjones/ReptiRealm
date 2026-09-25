@@ -5,47 +5,21 @@
     <div class="dialog-overlay">
         <div class="display-dialog">
             <div class="title-section">
-                <div class="left-icons">
-                    @if (HasAddIcon)
+                <div class="left-title-section">
+                    @if (LeftTitleSection is not null)
                     {
-                        <button type="button"
-                                class="icon-button add-icon-button"
-                                @onclick="HandleAddIconClick">
-                            <i class="@AddIcon"></i>
-                        </button>
-                    }
-
-                    @if (HasViewHistoryIcon)
-                    {
-                        <button type="button"
-                                class="icon-button view-history-icon-button"
-                                @onclick="HandleViewHistoryIconClick">
-                            <i class="@ViewHistoryIcon"></i>
-                        </button>
+                        @LeftTitleSection
                     }
                 </div>
-                
+
                 <span class="title">
                     @Title
                 </span>
 
-                <div class="right-icons">
-                    @if (HasEditIcon)
+                <div class="right-title-section">
+                    @if (RightTitleSection is not null)
                     {
-                        <button type="button"
-                                class="icon-button edit-icon-button"
-                                @onclick="HandleEditIconClick">
-                            <i class="@EditIcon"></i>
-                        </button>
-                    }
-
-                    @if (HasDeleteIcon)
-                    {
-                        <button type="button"
-                                class="icon-button delete-icon-button"
-                                @onclick="HandleDeleteIconClick">
-                            <i class="@DeleteIcon"></i>
-                        </button>
+                        @RightTitleSection
                     }
                 </div>
             </div>
@@ -79,7 +53,7 @@
 
             <div class="buttons">
                 <CancelButton Label="Close"
-                              OnClick="HandleCancel" />
+                OnClick="HandleCancel" />
             </div>
         </div>
     </div>
@@ -98,7 +72,7 @@
 
     [Parameter]
     public EventCallback OnAddIconClick { get; set; }
-    
+
     [Parameter]
     public EventCallback OnViewHistoryIconClick { get; set; }
 
@@ -107,36 +81,18 @@
 
     [Parameter]
     public EventCallback OnDeleteIconClick { get; set; }
-    
+
+    [Parameter]
+    public RenderFragment? LeftTitleSection { get; set; }
+
+    [Parameter]
+    public RenderFragment? RightTitleSection { get; set; }
+
     [Parameter]
     public bool IsOpen { get; set; }
 
     [Parameter]
     public required string Title { get; set; }
-
-    [Parameter]
-    public string AddIcon { get; set; } = "bi bi-plus-lg";
-
-    [Parameter]
-    public string ViewHistoryIcon { get; set; } = "bi bi-card-list";
-
-    [Parameter]
-    public string EditIcon { get; set; } = "bi bi-pencil";
-
-    [Parameter]
-    public string DeleteIcon { get; set; } = "bi bi-trash";
-
-    [Parameter]
-    public bool HasAddIcon { get; set; } = true;
-
-    [Parameter]
-    public bool HasEditIcon { get; set; } = true;
-
-    [Parameter]
-    public bool HasViewHistoryIcon { get; set; } = true;
-
-    [Parameter]
-    public bool HasDeleteIcon { get; set; } = true;
 
     [Parameter]
     public string? WarningIcon { get; set; } = "bi bi-exclamation-circle";
@@ -155,26 +111,6 @@
 
     [Parameter]
     public string? ErrorMessage { get; set; }
-
-    private async Task HandleAddIconClick()
-    {
-        await OnAddIconClick.InvokeAsync();
-    }
-
-    private async Task HandleViewHistoryIconClick()
-    {
-        await OnViewHistoryIconClick.InvokeAsync();
-    }
-
-    private async Task HandleEditIconClick()
-    {
-        await OnEditIconClick.InvokeAsync();
-    }
-
-    private async Task HandleDeleteIconClick()
-    {
-        await OnDeleteIconClick.InvokeAsync();
-    }
 
     private async Task HandleCancel()
     {

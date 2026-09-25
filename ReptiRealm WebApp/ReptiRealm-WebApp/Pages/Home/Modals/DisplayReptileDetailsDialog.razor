@@ -7,15 +7,35 @@
 
 <DisplayDialog IsOpen="IsOpen"
                IsOpenChanged="IsOpenChanged"
-               Title="@Reptile.Name"
-               HasAddIcon="true"
-               HasViewHistoryIcon="true"
-               HasEditIcon="true"
-               HasDeleteIcon="true"
-               OnAddIconClick="OnAddIconClick"
-               OnViewHistoryIconClick="OnViewHistoryIconClick"
-               OnEditIconClick="OnEditIconClick"
-               OnDeleteIconClick="OnDeleteIconClick" >
+               Title="@Reptile.Name">
+    <LeftTitleSection>
+        <button type="button"
+                class="icon-button add-icon-button"
+                @onclick="HandleAddIconClick">
+            <i class="bi bi-plus-lg"></i>
+        </button>
+        
+        <button type="button"
+                class="icon-button view-history-icon-button"
+                @onclick="HandleViewHistoryIconClick">
+            <i class="bi bi-card-list"></i>
+        </button>
+    </LeftTitleSection>
+
+    <RightTitleSection>
+        <button type="button"
+                class="icon-button edit-icon-button"
+                @onclick="HandleEditIconClick">
+            <i class="bi bi-pencil"></i>
+        </button>
+        
+        <button type="button"
+                class="icon-button delete-icon-button"
+                @onclick="HandleDeleteIconClick">
+            <i class="bi bi-trash"></i>
+        </button>
+    </RightTitleSection>
+
     <ChildContent>
         <div class="detail-items">
             <div class="detail-item">
@@ -27,7 +47,6 @@
                 <DisplaySexSelection Title="Sex"
                                      Value="@Reptile.Sex" />
             </div>
-
 
             @if (!string.IsNullOrWhiteSpace(Reptile.Species))
             {
@@ -80,4 +99,24 @@
 
     [Parameter]
     public required ReptileCardDto Reptile { get; set; }
+
+    private async Task HandleAddIconClick()
+    {
+        await OnAddIconClick.InvokeAsync();
+    }
+
+    private async Task HandleViewHistoryIconClick()
+    {
+        await OnViewHistoryIconClick.InvokeAsync();
+    }
+
+    private async Task HandleEditIconClick()
+    {
+        await OnEditIconClick.InvokeAsync();
+    }
+
+    private async Task HandleDeleteIconClick()
+    {
+        await OnDeleteIconClick.InvokeAsync();
+    }
 }
