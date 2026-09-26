@@ -42,7 +42,7 @@
     position: absolute;
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 4rem;
 }
 
 .left-title-section {
