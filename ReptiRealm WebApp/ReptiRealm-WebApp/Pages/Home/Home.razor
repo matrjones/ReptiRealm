@@ -86,10 +86,17 @@
                                  OnEditIconClick="OpenAddNewReptileDialog"
                                  OnDeleteIconClick="OpenDeleteReptileDialog"
                                  @bind-IsOpen="_showDisplayReptileDetailsDialog" />
-
+    
+    <AddNewActivityDialog Reptile="_selectedReptile"
+                          OnAddFeedClick="OpenAddFeedDialog"
+                          OnAddShedClick="OpenAddShedDialog"
+                          OnAddPoopClick="OpenAddPoopDialog"
+                          OnAddWeightClick="OpenAddWeightDialog"
+                          OnAddRegurgitationClick="OpenAddRegurgitationDialog"
+                          @bind-IsOpen="_showAddNewActivityDialog" />
+    
     <DeleteConfirmationDialog Reptile="@_selectedReptile"
                               @bind-IsOpen="_showDeleteReptileConfirmationDialog" />
-    
 }
 
 
@@ -101,6 +108,7 @@
     private bool _showActivityDialog;
     private DialogState<AddReptile> _addNewReptileDialogState;
     private bool _showDisplayReptileDetailsDialog;
+    private bool _showAddNewActivityDialog;
     private bool _showDeleteReptileConfirmationDialog;
     private string _searchText = string.Empty;
     private string _activityTitle = string.Empty;
@@ -158,7 +166,10 @@
         _reptiles.Add(reptile);
     }
 
-    private void OpenAddReptileActivityDialog() { }
+    private void OpenAddReptileActivityDialog()
+    {
+        _showAddNewActivityDialog = true;
+    }
 
     private void OpenViewReptileHistory_DIALOG_OR_PAGE() { }
 
@@ -166,6 +177,16 @@
     {
         _showDeleteReptileConfirmationDialog = true;
     }
+
+    private void OpenAddFeedDialog() { }
+
+    private void OpenAddShedDialog() { }
+
+    private void OpenAddPoopDialog() { }
+
+    private void OpenAddWeightDialog() { }
+
+    private void OpenAddRegurgitationDialog() { }
 
     private List<FeedActivity> _feedActivities = new List<FeedActivity>
     {

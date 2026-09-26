@@ -1,0 +1,65 @@
+﻿@using ReptiRealm_WebApp.Pages.Home.Models
+@using ReptiRealm_WebApp.Pages.Shared.Modals
+
+<DisplayDialog IsOpen="IsOpen"
+IsOpenChanged="IsOpenChanged"
+Title="Add Activity">
+    <ChildContent>
+        <div class="feed-shed-buttons">
+            <button type="button"
+                    class="add-feed-button"
+                    @onclick="OnAddFeedClick">
+                Add Feed
+            </button>
+            <button type="button"
+                    class="add-shed-button"
+                    @onclick="OnAddShedClick">
+                Add Shed
+            </button>
+        </div>
+        <div class="defacation-weight-buttons">
+            <button type="button"
+                    class="add-poop-button"
+                    @onclick="OnAddPoopClick">
+                Add Poop
+            </button>
+            <button type="button"
+                    class="add-weight-button"
+                    @onclick="OnAddWeightClick">
+                Add Weight
+            </button>
+        </div>
+        <button type="button"
+                class="add-regurgitation-button"
+                @onclick="OnAddRegurgitationClick">
+            Add Regurge
+        </button>
+    </ChildContent>
+</DisplayDialog>
+
+
+@code {
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsOpenChanged { get; set; }
+
+    [Parameter]
+    public required ReptileCardDto Reptile { get; set; }
+
+    [Parameter]
+    public EventCallback OnAddFeedClick { get; set; }
+
+    [Parameter]
+    public EventCallback OnAddShedClick { get; set; }
+
+    [Parameter]
+    public EventCallback OnAddPoopClick { get; set; }
+
+    [Parameter]
+    public EventCallback OnAddWeightClick { get; set; }
+
+    [Parameter]
+    public EventCallback OnAddRegurgitationClick { get; set; }
+}
