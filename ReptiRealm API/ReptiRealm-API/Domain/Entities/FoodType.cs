@@ -6,7 +6,8 @@ namespace ReptiRealm_API.Domain.Entities
     public class FoodType : BaseEntity
     {
         #region Variables
-        public required string Name { get; set; }
+        public required string AnimalType { get; set; }
+        public required string Size { get; set; }
         public string? Notes { get; set; }
         #endregion
 

@@ -6,6 +6,7 @@ using ReptiRealm_API.Domain.DTOs;
 using ReptiRealm_API.Domain.Entities.Common;
 using ReptiRealm_API.Domain.Entities;
 using ReptiRealm_API.Infrastructure.Data;
+using ReptiRealm_API.Application.Interfaces.Entity;
 
 namespace ReptiRealm_API.Controllers
 {
@@ -16,22 +17,37 @@ namespace ReptiRealm_API.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
+        private readonly IEntityService _entityService;
 
-        public FoodTypeController(ApplicationDbContext context, UserManager<User> userManager)
+        public FoodTypeController(ApplicationDbContext context, UserManager<User> userManager, IEntityService entityService)
         {
             _context = context;
             _userManager = userManager;
+            _entityService = entityService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetDistinctAnimalTypes()
         {
-            var user = await _userManager.FindByNameAsync(User!.Identity!.Name!);
-            var foodTypes = await _context.FoodTypes
-                .Where(f => f.UserId == user!.Id)
+            var animalTypes = await _entityService.For<FoodType>()
+                .GetAll()
+                .Select(x => x.AnimalType)
+                .Distinct()
+                .ToListAsync();
+            
+            return Ok(animalTypes);
+        }
+
+        [HttpGet("size/{animalType}")]
+        public async Task<IActionResult> GetSizesByAnimalType(string animalType)
+        {
+            var sizesByAnimalType = await _entityService.For<FoodType>()
+                .GetAll()
+                .Where(x => x.AnimalType == animalType)
+                .Select(x => new { x.Id, x.Size })
                 .ToListAsync();
 
-            return Ok(foodTypes);
+            return Ok(sizesByAnimalType);
         }
 
         [HttpGet("{foodTypeId}")]
@@ -50,7 +66,8 @@ namespace ReptiRealm_API.Controllers
             var foodType = new FoodType
             {
                 UserId = user!.Id,
-                Name = foodTypeDto.Name,
+                AnimalType = foodTypeDto.AnimalType,
+                Size = foodTypeDto.Size,
                 Notes = foodTypeDto.Notes
             };
 

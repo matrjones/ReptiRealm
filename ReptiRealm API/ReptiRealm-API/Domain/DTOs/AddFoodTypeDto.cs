@@ -2,7 +2,8 @@
 {
     public record AddFoodTypeDto
     (
-        string Name,
+        string AnimalType,
+        string Size,
         string? Notes
     );
 }
