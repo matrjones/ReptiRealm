@@ -26,7 +26,7 @@
 
     <div class="agenda-section">
         <PageSection Title="Today's Agenda"
-                     IsTitle="false">
+        IsTitle="false">
             <ChildContent>
                 <div class="agenda-activities">
                     <AgendaCard Icon="bi-fork-knife"
@@ -50,7 +50,7 @@
 
     <div class="reptiles-section">
         <PageSection Title="My Reptiles"
-                     IsTitle="false">
+        IsTitle="false">
             <Actions>
                 <SearchBar Placeholder="Search reptiles..."
                            @bind-Value="_searchText" />
@@ -86,7 +86,7 @@
                                  OnEditIconClick="OpenAddNewReptileDialog"
                                  OnDeleteIconClick="OpenDeleteReptileDialog"
                                  @bind-IsOpen="_showDisplayReptileDetailsDialog" />
-    
+
     <AddNewActivityDialog Reptile="_selectedReptile"
                           OnAddFeedClick="OpenAddFeedDialog"
                           OnAddShedClick="OpenAddShedDialog"
@@ -94,9 +94,11 @@
                           OnAddWeightClick="OpenAddWeightDialog"
                           OnAddRegurgitationClick="OpenAddRegurgitationDialog"
                           @bind-IsOpen="_showAddNewActivityDialog" />
-    
+
     <DeleteConfirmationDialog Reptile="@_selectedReptile"
                               @bind-IsOpen="_showDeleteReptileConfirmationDialog" />
+
+    <AddFeedDialog @bind-IsOpen="_showAddFeedDialog" />
 }
 
 
@@ -109,6 +111,11 @@
     private DialogState<AddReptile> _addNewReptileDialogState;
     private bool _showDisplayReptileDetailsDialog;
     private bool _showAddNewActivityDialog;
+    private bool _showAddFeedDialog;
+    private bool _showAddShedDialog;
+    private bool _showAddPoopDialog;
+    private bool _showAddWeightDialog;
+    private bool _showAddRegurgitationDialog;
     private bool _showDeleteReptileConfirmationDialog;
     private string _searchText = string.Empty;
     private string _activityTitle = string.Empty;
@@ -178,7 +185,10 @@
         _showDeleteReptileConfirmationDialog = true;
     }
 
-    private void OpenAddFeedDialog() { }
+    private void OpenAddFeedDialog()
+    {
+        _showAddFeedDialog = true;
+    }
 
     private void OpenAddShedDialog() { }
 

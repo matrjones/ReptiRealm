@@ -1,0 +1,85 @@
+﻿@using ReptiRealm_WebApp.Models.DTOs
+@using ReptiRealm_WebApp.Models.Enums
+@using ReptiRealm_WebApp.Pages.Calendar.Properties
+@using ReptiRealm_WebApp.Pages.Shared.Components
+@using ReptiRealm_WebApp.Pages.Shared.Modals
+@using ReptiRealm_WebApp.Pages.Shared.Models
+@using ReptiRealm_WebApp.Services.Api.Interfaces
+@inject IFeedApiService apiService
+
+<ConfirmationDialog IsOpen="IsOpen"
+                    IsOpenChanged="OnDialogOpenChanged"
+                    Title="Add Feed"
+                    OnConfirm="HandleOnConfirm"
+                    OnOpen="HandleOnOpen"
+                    OnCancel="OnCancel">
+    <ChildContent>
+        <DropdownSelection IsRequired="true"
+                           Title="Food Type"
+                           Items="animalTypes"
+                           Value="selectedAnimalType"
+                           ValueChanged="OnAnimalTypeChanged">
+
+        </DropdownSelection>
+        <DropdownSelection IsRequired="true"
+                           Title="Size"
+                           Items="foodSizes"
+                           @bind-Value="selectedFoodSize">
+        </DropdownSelection>
+    </ChildContent>
+</ConfirmationDialog>
+
+
+@code {
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsOpenChanged { get; set; }
+
+    [Parameter]
+    public EventCallback OnCancel { get; set; }
+
+    private string? selectedAnimalType { get; set; }
+
+    private string? selectedFoodSize { get; set; }
+
+    private DropdownItem[]? animalTypes { get; set; } = [];
+
+    private DropdownItem[]? foodSizes { get; set; } = [];
+
+    private async Task HandleOnConfirm()
+    {
+        await Task.CompletedTask;
+    }
+
+    private async Task OnAnimalTypeChanged(string? value)
+    {
+        if (!string.IsNullOrWhiteSpace(value))
+        {
+            var result = await apiService.GetAllAnimalTypeSizes(value);
+            
+            foodSizes = result?.Select(x => new DropdownItem
+            {
+                Name = x.Size,
+                Value = x.Id.ToString()
+            }).ToArray();
+        }
+    }
+
+    private async Task OnDialogOpenChanged(bool value)
+    {
+        IsOpen = value;
+        await IsOpenChanged.InvokeAsync(value);
+    }
+
+    private async Task HandleOnOpen()
+    {
+        var result = await apiService.GetAllAnimalTypes();
+
+        animalTypes = result?.Select(x => new DropdownItem
+        {
+            Name = x
+        }).ToArray();
+    }
+}

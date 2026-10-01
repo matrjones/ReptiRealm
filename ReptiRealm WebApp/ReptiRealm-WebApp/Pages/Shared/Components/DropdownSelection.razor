@@ -1,0 +1,43 @@
+﻿@using ReptiRealm_WebApp.Models.DTOs
+@using ReptiRealm_WebApp.Pages.Shared.Models
+
+<FormSection IsRequired="@IsRequired"
+             Title="@Title"
+             Message="@Message">
+    <ChildContent>
+        <select class="dropdown-list"
+                value="@Value"
+                @onchange="OnValueChanged">
+            @foreach (var item in Items)
+            {
+                <option value="@(item.Value ?? item.Name)">@item.Name</option>
+            }
+        </select>
+    </ChildContent>
+</FormSection>
+
+
+@code {
+    [Parameter]
+    public bool IsRequired { get; set; }
+
+    [Parameter]
+    public required string Title { get; set; }
+
+    [Parameter]
+    public string? Message { get; set; }
+
+    [Parameter]
+    public required DropdownItem[] Items { get; set; }
+
+    [Parameter]
+    public string? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<string?> ValueChanged { get; set; }
+
+    private async Task OnValueChanged(ChangeEventArgs e)
+    {
+        await ValueChanged.InvokeAsync(e.Value?.ToString());
+    }
+}

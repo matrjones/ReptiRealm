@@ -51,6 +51,13 @@ builder.Services.AddHttpClient<IReptileApiService, ReptileApiService>((sp, clien
 })
 .AddHttpMessageHandler<AuthHeaderHandler>();
 
+builder.Services.AddHttpClient<IFeedApiService, FeedApiService>((sp, client) =>
+{
+    var settings = sp.GetRequiredService<IOptions<ApiSettings>>().Value;
+    client.BaseAddress = new Uri(settings.BaseUrl);
+})
+.AddHttpMessageHandler<AuthHeaderHandler>();
+
 builder.Services.AddHttpClient<AuthApiService>((sp, client) =>
 {
     var settings = sp.GetRequiredService<IOptions<ApiSettings>>().Value;
