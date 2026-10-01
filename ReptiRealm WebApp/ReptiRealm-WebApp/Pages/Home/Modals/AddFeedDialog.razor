@@ -1,7 +1,4 @@
-﻿@using ReptiRealm_WebApp.Models.DTOs
-@using ReptiRealm_WebApp.Models.Enums
-@using ReptiRealm_WebApp.Pages.Calendar.Properties
-@using ReptiRealm_WebApp.Pages.Shared.Components
+﻿@using ReptiRealm_WebApp.Pages.Shared.Components
 @using ReptiRealm_WebApp.Pages.Shared.Modals
 @using ReptiRealm_WebApp.Pages.Shared.Models
 @using ReptiRealm_WebApp.Services.Api.Interfaces
@@ -11,7 +8,6 @@
                     IsOpenChanged="OnDialogOpenChanged"
                     Title="Add Feed"
                     OnConfirm="HandleOnConfirm"
-                    OnOpen="HandleOnOpen"
                     OnCancel="OnCancel">
     <ChildContent>
         <DropdownSelection IsRequired="true"
@@ -73,7 +69,7 @@
         await IsOpenChanged.InvokeAsync(value);
     }
 
-    private async Task HandleOnOpen()
+    protected override async Task OnParametersSetAsync()
     {
         var result = await apiService.GetAllAnimalTypes();
 
