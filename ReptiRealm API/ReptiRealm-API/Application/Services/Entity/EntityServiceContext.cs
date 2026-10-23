@@ -116,6 +116,11 @@ namespace ReptiRealm_API.Application.Services.Entity
 
         private void SetEntityUpdated(TEntity entity)
         {
+            // If the entity is owned by a user, set ownership automatically
+            if (entity is IOwnedEntity owned)
+            {
+                owned.UserId = _user.Id;
+            }
             entity.LastModifiedBy = _user.Id;
             entity.LastModifiedOn = DateTime.UtcNow;
             var entry = _context.Entry(entity);

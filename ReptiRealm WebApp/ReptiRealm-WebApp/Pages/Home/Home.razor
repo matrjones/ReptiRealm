@@ -83,7 +83,7 @@
     <DisplayReptileDetailsDialog Reptile="_selectedReptile"
                                  OnAddIconClick="OpenAddReptileActivityDialog"
                                  OnViewHistoryIconClick="OpenViewReptileHistory_DIALOG_OR_PAGE"
-                                 OnEditIconClick="OpenAddNewReptileDialog"
+                                 OnEditIconClick="OpenEditReptileDialog"
                                  OnDeleteIconClick="OpenDeleteReptileDialog"
                                  @bind-IsOpen="_showDisplayReptileDetailsDialog" />
     
@@ -122,6 +122,20 @@
     {
         _showDisplayReptileDetailsDialog = false;
         _addNewReptileDialogState = DialogState.Open(new AddReptile());
+    }
+
+    private void OpenEditReptileDialog()
+    {
+        _showDisplayReptileDetailsDialog = false;
+        _addNewReptileDialogState = DialogState.Open(new AddReptile
+        {
+            Id = _selectedReptile!.Id,
+            Name = _selectedReptile.Name,
+            Sex = _selectedReptile.Sex,
+            Species = _selectedReptile.Species,
+            DateOfBirth = _selectedReptile.DateOfBirth,
+            DateObtained = _selectedReptile.DateObtained
+        });
     }
 
     private void OpenActivityDialog(ActivityType activityType)

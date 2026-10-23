@@ -31,6 +31,11 @@ namespace ReptiRealm_WebApp.Services.Api
             return await PostAsync<Reptile>("reptile/create", reptile);
         }
 
+        public async Task<Reptile?> EditReptile(AddReptile reptile)
+        {
+            return await PutAsync<Reptile>($"reptile/{reptile.Id.ToString()}", reptile);
+        }
+
         public async Task DeleteReptile(Guid reptileId)
         {
             await DeleteAsync($"reptile/{reptileId.ToString()}");
