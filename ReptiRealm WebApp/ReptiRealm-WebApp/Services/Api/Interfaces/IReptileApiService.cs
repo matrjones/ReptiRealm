@@ -6,5 +6,6 @@ public interface IReptileApiService
 {
     Task<List<ReptileCardDto>?> GetAllReptiles();
     Task<Reptile?> AddReptile(AddReptile reptile);
+    Task<Reptile?> EditReptile(AddReptile reptile);
     Task DeleteReptile(Guid reptileId);
 }

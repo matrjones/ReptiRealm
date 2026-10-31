@@ -8,8 +8,8 @@
 @inject IReptileApiService apiService
 
 <ConfirmationDialog IsOpen="IsOpen"
-                    Title="Add New Reptile" 
-                    OnConfirm="CreateReptile"
+                    Title="@_title"
+                    OnConfirm="HandleConfirm"
                     OnCancel="HandleCancel">
     <ChildContent>
         <div class="questions-section">
@@ -50,6 +50,23 @@
     [Parameter]
     public EventCallback<ReptileCardDto> OnAdded { get; set; }
 
+    private bool _isEdit;
+
+    private string _title => _isEdit ? $"Edit {Model.Name}" : "Add New Reptile";
+
+    private async Task HandleConfirm()
+    {
+        if(_isEdit)
+        {
+            await EditReptile();
+        }
+
+        else
+        {
+            await CreateReptile();
+        }
+    }
+
     private async Task CreateReptile()
     {
         var created = await apiService.AddReptile(Model);
@@ -71,8 +88,23 @@
             IsOpen = false;
         }
     }
+
+    private async Task EditReptile()
+    {
+        var updated = await apiService.EditReptile(Model);
+    }
+
     private void HandleCancel()
     {
         IsOpen = false;
+    }
+
+    protected override async Task OnModelSetAsync()
+    {
+        if (Model.Id.HasValue)
+        {
+            _isEdit = true;
+        }
+        await base.OnModelSetAsync();
     }
 }

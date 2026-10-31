@@ -4,6 +4,7 @@ namespace ReptiRealm_API.Domain.DTOs
 {
     public record AddReptileDto
     (
+        Guid? Id,
         string Name,
         Sex? Sex,
         string? Species,
